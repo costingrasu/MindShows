@@ -4,6 +4,13 @@
 while ( have_posts() ) : the_post(); 
     $hero_logo = function_exists('get_field') ? get_field('hero_logo') : null;
     $font_choice = function_exists('get_field') ? get_field('hero_title_font') : "'Brother 1816', 'Outfit', sans-serif";
+    if ( function_exists('get_field') ) {
+        if ( get_field('custom_color_1') ) { $c1 = get_field('custom_color_1'); }
+        if ( get_field('custom_color_2') ) { $c2 = get_field('custom_color_2'); }
+        if ( get_field('custom_color_3') ) { $c3 = get_field('custom_color_3'); }
+        if ( get_field('custom_color_4') ) { $c4 = get_field('custom_color_4'); }
+        if ( get_field('custom_color_5') ) { $c5 = get_field('custom_color_5'); }
+    }
     $hero_image = function_exists('get_field') ? get_field('hero_background_image') : null;
     $hero_image_url = $hero_image ? $hero_image['url'] : '';
     $hero_subtitle = function_exists('get_field') ? get_field('hero_subtitle') : '';
@@ -259,6 +266,11 @@ while ( have_posts() ) : the_post();
     <style>
         :root {
             --title-font: <?php echo $font_choice; ?>;
+            --c1: <?php echo esc_attr($c1); ?>;
+            --c2: <?php echo esc_attr($c2); ?>;
+            --c3: <?php echo esc_attr($c3); ?>;
+            --c4: <?php echo esc_attr($c4); ?>;
+            --c5: <?php echo esc_attr($c5); ?>;
         }
     </style>
 
