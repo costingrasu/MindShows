@@ -261,6 +261,15 @@ while ( have_posts() ) : the_post();
             ];
         }
     }
+
+    $show_gallery = function_exists('get_field') ? get_field('show_gallery_section') : false;
+    $gal_title = function_exists('get_field') ? get_field('gallery_title') : '';
+    $gal_desc = function_exists('get_field') ? get_field('gallery_description') : '';
+    $gal_images = function_exists('get_field') ? get_field('gallery_images') : null;
+
+    $show_program = function_exists('get_field') ? get_field('show_program_section') : false;
+    $prog_title = function_exists('get_field') ? get_field('program_title') : '';
+    $prog_images = function_exists('get_field') ? get_field('program_images') : null;
 ?>
 
     <style>
@@ -380,6 +389,52 @@ while ( have_posts() ) : the_post();
         </div>
     </div>
 
+    <?php if ($show_gallery): ?>
+    <div class="gallery-section">
+        <?php if($gal_title): ?>
+            <h2 class="gallery-title"><?php echo esc_html($gal_title); ?></h2>
+        <?php endif; ?>
+        
+        <?php if($gal_desc): ?>
+            <p class="gallery-desc"><?php echo wp_kses_post($gal_desc); ?></p>
+        <?php endif; ?>
+
+        <?php if($gal_images && is_array($gal_images)): ?>
+        <div class="gallery-carousel-wrapper">
+            <div class="gallery-track">
+                <?php foreach( $gal_images as $index => $image ): ?>
+                    <div class="gallery-slide" data-index="<?php echo $index; ?>">
+                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            
+            <div class="gallery-controls">
+                <button class="gallery-nav-btn prev-btn" aria-label="Previous image">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="Arrow Left">
+                        <path id="Vector 10" d="M16.5 3L7.5 12L16.5 21" stroke="#BDBDBD" stroke-width="2"/>
+                        </g>
+                    </svg>
+                </button>
+                <div class="gallery-dots">
+                    <?php foreach( $gal_images as $index => $image ): ?>
+                        <div class="gallery-dot" data-index="<?php echo $index; ?>"></div>
+                    <?php endforeach; ?>
+                </div>
+                <button class="gallery-nav-btn next-btn" aria-label="Next image">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="Arrow Right">
+                        <path id="Vector 10" d="M7.5 21L16.5 12L7.5 3" stroke="#BDBDBD" stroke-width="2"/>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
+
     <div class="info-section">
         <?php if(!empty($info_title)): ?>
             <h2 class="info-section-title"><?php echo esc_html($info_title); ?></h2>
@@ -469,6 +524,48 @@ while ( have_posts() ) : the_post();
             </div>
         </div>
     </div>
+
+    <?php if ($show_program): ?>
+    <div class="program-section">
+        <?php if($prog_title): ?>
+            <h2 class="program-title"><?php echo esc_html($prog_title); ?></h2>
+        <?php endif; ?>
+
+        <?php if($prog_images && is_array($prog_images)): ?>
+        <div class="program-carousel-wrapper">
+            <div class="program-track">
+                <?php foreach( $prog_images as $index => $image ): ?>
+                    <div class="program-slide" data-index="<?php echo $index; ?>">
+                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            
+            <div class="program-controls">
+                <button class="program-nav-btn prev-btn" aria-label="Previous image">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="Arrow Left">
+                        <path id="Vector 10" d="M16.5 3L7.5 12L16.5 21" stroke="#BDBDBD" stroke-width="2"/>
+                        </g>
+                    </svg>
+                </button>
+                <div class="program-dots">
+                    <?php foreach( $prog_images as $index => $image ): ?>
+                        <div class="program-dot" data-index="<?php echo $index; ?>"></div>
+                    <?php endforeach; ?>
+                </div>
+                <button class="program-nav-btn next-btn" aria-label="Next image">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="Arrow Right">
+                        <path id="Vector 10" d="M7.5 21L16.5 12L7.5 3" stroke="#BDBDBD" stroke-width="2"/>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
 
     <div class="dispo-section">
         <?php if(!empty($dispo_title)): ?>

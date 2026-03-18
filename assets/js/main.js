@@ -24,9 +24,195 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const initGalleryCarousel = () => {
+    const track = document.querySelector(".gallery-track");
+    if (!track) return;
+
+    const slides = Array.from(document.querySelectorAll(".gallery-slide"));
+    const dots = Array.from(document.querySelectorAll(".gallery-dot"));
+    const prevBtn = document.querySelector(".gallery-controls .prev-btn");
+    const nextBtn = document.querySelector(".gallery-controls .next-btn");
+
+    if (slides.length === 0) return;
+
+    let currentIndex = 0;
+    let autoPlayInterval;
+
+    const updateGallery = () => {
+      slides.forEach((slide, index) => {
+        slide.className = "gallery-slide";
+        if (dots[index]) dots[index].classList.remove("active");
+      });
+
+      slides[currentIndex].classList.add("active");
+      if (dots[currentIndex]) dots[currentIndex].classList.add("active");
+
+      const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+      const nextIndex = (currentIndex + 1) % slides.length;
+      const prev2Index = (currentIndex - 2 + slides.length) % slides.length;
+      const next2Index = (currentIndex + 2) % slides.length;
+
+      if (slides.length > 1) {
+        slides[prevIndex].classList.add("prev");
+        slides[nextIndex].classList.add("next");
+      }
+      if (slides.length > 3) {
+        slides[prev2Index].classList.add("prev-2");
+        slides[next2Index].classList.add("next-2");
+      }
+    };
+
+    const nextSlide = () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateGallery();
+    };
+
+    const prevSlide = () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateGallery();
+    };
+
+    const startAutoPlay = () => {
+      autoPlayInterval = setInterval(nextSlide, 3000);
+    };
+
+    const resetAutoPlay = () => {
+      clearInterval(autoPlayInterval);
+      startAutoPlay();
+    };
+
+    if (nextBtn)
+      nextBtn.addEventListener("click", () => {
+        nextSlide();
+        resetAutoPlay();
+      });
+    if (prevBtn)
+      prevBtn.addEventListener("click", () => {
+        prevSlide();
+        resetAutoPlay();
+      });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        currentIndex = index;
+        updateGallery();
+        resetAutoPlay();
+      });
+    });
+
+    slides.forEach((slide, index) => {
+      slide.addEventListener("click", () => {
+        if (
+          slide.classList.contains("prev") ||
+          slide.classList.contains("next")
+        ) {
+          currentIndex = index;
+          updateGallery();
+          resetAutoPlay();
+        }
+      });
+    });
+
+    updateGallery();
+    startAutoPlay();
+  };
+
+  const initProgramCarousel = () => {
+    const track = document.querySelector(".program-track");
+    if (!track) return;
+
+    const slides = Array.from(document.querySelectorAll(".program-slide"));
+    const dots = Array.from(document.querySelectorAll(".program-dot"));
+    const prevBtn = document.querySelector(".program-controls .prev-btn");
+    const nextBtn = document.querySelector(".program-controls .next-btn");
+
+    if (slides.length === 0) return;
+
+    let currentIndex = 0;
+    let autoPlayInterval;
+
+    const updateGallery = () => {
+      slides.forEach((slide, index) => {
+        slide.className = "program-slide";
+        if (dots[index]) dots[index].classList.remove("active");
+      });
+
+      slides[currentIndex].classList.add("active");
+      if (dots[currentIndex]) dots[currentIndex].classList.add("active");
+
+      const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+      const nextIndex = (currentIndex + 1) % slides.length;
+      const prev2Index = (currentIndex - 2 + slides.length) % slides.length;
+      const next2Index = (currentIndex + 2) % slides.length;
+
+      if (slides.length > 1) {
+        slides[prevIndex].classList.add("prev");
+        slides[nextIndex].classList.add("next");
+      }
+      if (slides.length > 3) {
+        slides[prev2Index].classList.add("prev-2");
+        slides[next2Index].classList.add("next-2");
+      }
+    };
+
+    const nextSlide = () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateGallery();
+    };
+
+    const prevSlide = () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      updateGallery();
+    };
+
+    const startAutoPlay = () => {
+      autoPlayInterval = setInterval(nextSlide, 3000);
+    };
+
+    const resetAutoPlay = () => {
+      clearInterval(autoPlayInterval);
+      startAutoPlay();
+    };
+
+    if (nextBtn)
+      nextBtn.addEventListener("click", () => {
+        nextSlide();
+        resetAutoPlay();
+      });
+    if (prevBtn)
+      prevBtn.addEventListener("click", () => {
+        prevSlide();
+        resetAutoPlay();
+      });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        currentIndex = index;
+        updateGallery();
+        resetAutoPlay();
+      });
+    });
+
+    slides.forEach((slide, index) => {
+      slide.addEventListener("click", () => {
+        if (
+          slide.classList.contains("prev") ||
+          slide.classList.contains("next")
+        ) {
+          currentIndex = index;
+          updateGallery();
+          resetAutoPlay();
+        }
+      });
+    });
+
+    updateGallery();
+    startAutoPlay();
+  };
+
   const initScrollAnimations = () => {
     const animatedElements = document.querySelectorAll(
-      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .info-section, .oferta-section, .dispo-section",
+      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section",
     );
 
     if (animatedElements.length === 0) return;
@@ -161,4 +347,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initHoverAccordions(".oferta-card");
   initTabs();
   initFormAndPackages();
+  initGalleryCarousel();
+  initProgramCarousel();
 });
