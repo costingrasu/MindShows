@@ -270,6 +270,33 @@ while ( have_posts() ) : the_post();
     $show_program = function_exists('get_field') ? get_field('show_program_section') : false;
     $prog_title = function_exists('get_field') ? get_field('program_title') : '';
     $prog_images = function_exists('get_field') ? get_field('program_images') : null;
+
+    $show_excursii = function_exists('get_field') ? get_field('show_excursii_section') : false;
+    $excursii_title = function_exists('get_field') ? get_field('excursii_title') : '';
+    $excursii_main_image = function_exists('get_field') ? get_field('excursii_main_image') : null;
+    $excursii_mobile_image = function_exists('get_field') ? get_field('excursii_mobile_image') : null;
+
+    $excursii_cards = [];
+    for ($i = 1; $i <= 3; $i++) {
+        $card_data = function_exists('get_field') ? get_field('excursii_card_' . $i) : null;
+        $img_url = '';
+        
+        if ($card_data && !empty($card_data['image'])) {
+            if (is_array($card_data['image']) && isset($card_data['image']['url'])) {
+                $img_url = $card_data['image']['url'];
+            } elseif (is_string($card_data['image'])) {
+                $img_url = $card_data['image'];
+            } elseif (is_numeric($card_data['image'])) {
+                $img_url = wp_get_attachment_image_url($card_data['image'], 'full');
+            }
+        }
+        
+        $excursii_cards[] = [
+            'image' => $img_url,
+            'title' => ($card_data && !empty($card_data['title'])) ? $card_data['title'] : '',
+            'desc'  => ($card_data && !empty($card_data['description'])) ? $card_data['description'] : '',
+        ];
+    }
 ?>
 
     <style>
@@ -524,6 +551,55 @@ while ( have_posts() ) : the_post();
             </div>
         </div>
     </div>
+
+    <?php if ($show_excursii): ?>
+    <div class="excursii-section">
+        <?php if($excursii_title): ?>
+            <h2 class="excursii-title"><?php echo esc_html($excursii_title); ?></h2>
+        <?php endif; ?>
+        
+        <div class="excursii-content-wrapper">
+            <?php if($excursii_main_image || $excursii_mobile_image): ?>
+                <div class="excursii-main-img-wrapper">
+                    
+                    <?php if($excursii_main_image): 
+                        $main_img_url = is_array($excursii_main_image) ? $excursii_main_image['url'] : (is_string($excursii_main_image) ? $excursii_main_image : wp_get_attachment_image_url($excursii_main_image, 'full'));
+                    ?>
+                        <img src="<?php echo esc_url($main_img_url); ?>" alt="Excursii Decor Desktop" class="excursii-main-img excursii-img-desktop" />
+                    <?php endif; ?>
+                    
+                    <?php if($excursii_mobile_image): 
+                        $mob_img_url = is_array($excursii_mobile_image) ? $excursii_mobile_image['url'] : (is_string($excursii_mobile_image) ? $excursii_mobile_image : wp_get_attachment_image_url($excursii_mobile_image, 'full'));
+                    ?>
+                        <img src="<?php echo esc_url($mob_img_url); ?>" alt="Excursii Decor Mobile" class="excursii-main-img excursii-img-mobile" />
+                    <?php endif; ?>
+
+                </div>
+            <?php endif; ?>
+            
+            <div class="excursii-cards-container">
+                <?php foreach($excursii_cards as $card): ?>
+                    <div class="excursii-card">
+                        <?php if($card['image']): ?>
+                            <div class="excursii-card-img-wrapper">
+                                <img src="<?php echo esc_url($card['image']); ?>" alt="<?php echo esc_attr($card['title']); ?>">
+                            </div>
+                        <?php endif; ?>
+                        
+                        <div class="excursii-card-text">
+                            <?php if($card['title']): ?>
+                                <h3 class="excursii-card-title"><?php echo esc_html($card['title']); ?></h3>
+                            <?php endif; ?>
+                            <?php if($card['desc']): ?>
+                                <p class="excursii-card-desc"><?php echo wp_kses_post($card['desc']); ?></p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <?php if ($show_program): ?>
     <div class="program-section">

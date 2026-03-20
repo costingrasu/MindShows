@@ -1265,6 +1265,141 @@ html, body {
     width: 100%;
 }
 
+.excursii-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 20px;
+    background-color: var(--c3);
+    width: 100%;
+    
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.excursii-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.excursii-title {
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 145%;
+    text-align: center;
+    letter-spacing: -0.04em;
+    color: var(--c2);
+    margin: 0 0 60px 0;
+    text-transform: uppercase;
+}
+
+.excursii-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    gap: 40px;
+}
+
+.excursii-main-img-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.excursii-main-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.excursii-img-mobile {
+    display: none !important;
+}
+
+.excursii-img-desktop {
+    display: block;
+}
+
+.excursii-cards-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: stretch;
+    width: 100%;
+    max-width: 1280px;
+    gap: 30px;
+}
+
+.excursii-card {
+    position: relative;
+    flex: 1;
+    max-width: 370px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: transparent;
+    gap: 20px;
+    
+    transform-origin: center center;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.excursii-card:hover {
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+.excursii-card-img-wrapper {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.excursii-card-img-wrapper img {
+    width: 100%;
+    height: 580px;
+    object-fit: cover;
+    display: block;
+}
+
+.excursii-card-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.excursii-card-title {
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--c2);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.excursii-card-desc {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 145%;
+    letter-spacing: -0.005em;
+    color: var(--c2);
+    margin: 0;
+}
+
 .program-section {
     display: flex;
     flex-direction: column;
@@ -2580,4 +2715,95 @@ span.wpcf7-not-valid-tip {
     .program-slide { width: 85%; }
     .program-slide.prev { transform: translateX(-25%) scale(0.85); opacity: 0.4; }
     .program-slide.next { transform: translateX(25%) scale(0.85); opacity: 0.4; }
+
+    .excursii-section {
+        padding: 50px 15px;
+    }
+    
+    .excursii-title {
+        font-size: 36px;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+
+    .excursii-content-wrapper {
+        display: flex;
+        flex-direction: row; 
+        align-items: stretch;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .excursii-main-img-wrapper {
+        flex: 0 0 30%;
+        max-width: 130px;
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+    }
+
+    .excursii-img-desktop {
+        display: none !important;
+    }
+
+    .excursii-img-mobile {
+        display: block !important;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .excursii-cards-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 30px;
+        min-width: 0; 
+    }
+
+    .excursii-card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+        min-height: 0;
+    }
+
+    .excursii-card-img-wrapper {
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .excursii-card-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .excursii-card-text {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .excursii-card-title {
+        font-size: 24px;
+        line-height: 1.1;
+    }
+    
+    .excursii-card-desc {
+        font-size: 16px;
+        line-height: 1.3;
+    }
 }
