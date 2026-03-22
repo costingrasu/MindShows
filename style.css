@@ -2807,3 +2807,136 @@ span.wpcf7-not-valid-tip {
         line-height: 1.3;
     }
 }
+
+.page-journeys {
+    width: 100%;
+    background-color: #000000;
+    position: relative;
+}
+
+.journeys-hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 147.5px 20px 80px; 
+}
+
+.journeys-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.journeys-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.journeys-hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 555px;
+}
+
+.journeys-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 67px;
+    line-height: 1.1;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.journeys-desc {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: #ffffff8c;
+    margin: 0;
+    max-width: 950px;
+    text-align: center;
+}
+
+.journeys-hero-btn {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px; 
+    padding: 0 15px;
+    font-size: 25px;
+    width: 160px;
+    height: 42.5px;
+    border: 1px solid #FFFFFF;
+    background-color: transparent;
+    border-radius: 51px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.journeys-hero-btn:hover {
+    background-color: #FFFFFF;
+    color: #201F1F;
+}
+
+.hero-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUpAnimation 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeUpAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 799px) {
+    .journeys-hero {
+        min-height: 80vh; 
+        padding: 100px 20px 60px;
+    }
+
+    .journeys-title {
+        font-size: 65px;
+    }
+
+    .journeys-desc {
+        font-size: 16px;
+    }
+
+    .journeys-hero-btn {
+        padding: 0 15px;
+        font-size: 25px;
+    }
+}
