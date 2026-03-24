@@ -18,6 +18,26 @@ get_header(); ?>
         
     </section>
 
+    <section class="journeys-about">
+        <div class="journeys-about-container">
+            
+            <div class="journeys-about-image-wrapper">
+                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bg-journeys.png'); ?>" alt="Tabere Next Level" class="journeys-about-img" />
+                <h2 class="journeys-about-title title-mobile">TABERE NEXT LEVEL</h2>
+            </div>
+
+            <div class="journeys-about-content">
+                <h2 class="journeys-about-title title-desktop">TABERE NEXT LEVEL</h2>
+                
+                <div class="journeys-about-desc">
+                    <p>În spatele fiecărei tabere reușite se află o idee puternică. Noi suntem cei care o construiesc.</p>
+                    <p>Mind Shows transformă taberele organizate de agențiile de turism în experiențe educaționale memorabile, prin concepte originale, scenarii imersive și design atent gândit. Creăm tematici care captivează, activități care dezvoltă și povești care leagă emoțional participanții de tot ceea ce trăiesc.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <section id="lista-excursii" class="journeys-list-placeholder">
         </section>
 

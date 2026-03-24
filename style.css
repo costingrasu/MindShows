@@ -2910,6 +2910,101 @@ span.wpcf7-not-valid-tip {
     animation-delay: 0.2s;
 }
 
+.journeys-about {
+    width: 100%;
+    background-color: #1D1D1D;
+    padding: 27px 55px; 
+    display: flex;
+    justify-content: center;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.journeys-about.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.journeys-about-container {
+    width: 100%;
+    max-width: 1168px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 58px;
+}
+
+.journeys-about-image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 555px;
+    height: 507px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex: none;
+}
+
+.journeys-about-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.journeys-about-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    max-width: 555px;
+    flex: none;
+}
+
+.journeys-about-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 72px;
+    line-height: 0.86;
+    letter-spacing: -0.09em;
+    color: #FFFFFF;
+    margin: 0;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.journeys-about-desc {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: #C2C2C2;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.journeys-about-desc p {
+    margin: 0;
+}
+
+.title-mobile {
+    display: none; 
+}
+
+.title-desktop {
+    display: flex; 
+}
+
+
+
 @keyframes fadeUpAnimation {
     0% {
         opacity: 0;
@@ -2938,5 +3033,60 @@ span.wpcf7-not-valid-tip {
     .journeys-hero-btn {
         padding: 0 15px;
         font-size: 25px;
+    }
+
+    .journeys-about {
+        padding: 27px 10px;
+    }
+
+    .journeys-about-container {
+        flex-direction: column;
+        gap: 40px;
+        max-width: 370px;
+    }
+
+    .journeys-about-image-wrapper {
+        max-width: 100%;
+        height: 492px;
+    }
+
+    .journeys-about-image-wrapper::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+        pointer-events: none;
+    }
+
+    .journeys-about-content {
+        align-items: center;
+        gap: 0;
+    }
+
+    .title-desktop {
+        display: none;
+    }
+
+    .title-mobile {
+        display: flex; 
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        z-index: 2;
+        
+        font-size: 72px;
+        line-height: 0.88;
+        letter-spacing: -0.06em;
+    }
+
+    .journeys-about-desc {
+        font-size: 14px;
+        text-align: center;
     }
 }
