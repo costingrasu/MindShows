@@ -38,8 +38,14 @@ get_header(); ?>
         </div>
     </section>
 
-    <section id="lista-excursii" class="journeys-list-placeholder">
-        </section>
+    <section id="lista-excursii" class="journeys-list">
+        <div class="journeys-list-header">
+            <h2 class="journeys-list-title">TABERE VALABILE</h2>
+            <p class="journeys-list-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+        </div>
+        
+        <div class="journeys-cards-container"></div>
+    </section>
 
 </main>
 
