@@ -3425,8 +3425,8 @@ span.wpcf7-not-valid-tip {
         max-height: 45px;
         opacity: 1;
         border: 1px solid #FFFFFF; 
-        padding: 10px 15px;
-        gap: 16px;
+        padding: 10px 10px;
+        gap: 12px;
         font-size: 18px;
     }
 
