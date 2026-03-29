@@ -210,6 +210,33 @@ document.addEventListener("DOMContentLoaded", () => {
     startAutoPlay();
   };
 
+  const initMobileJourneyCards = () => {
+    const cards = document.querySelectorAll(".journey-card");
+    if (cards.length === 0) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-5% 0px",
+      threshold: 0.6,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (window.innerWidth <= 799) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-active");
+          } else {
+            entry.target.classList.remove("is-active");
+          }
+        } else {
+          entry.target.classList.remove("is-active");
+        }
+      });
+    }, observerOptions);
+
+    cards.forEach((card) => observer.observe(card));
+  };
+
   const initScrollAnimations = () => {
     const animatedElements = document.querySelectorAll(
       ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list",
@@ -342,6 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   initMobileMenu();
+  initMobileJourneyCards();
   initScrollAnimations();
   initHoverAccordions(".obiectiv-card");
   initHoverAccordions(".oferta-card");

@@ -3399,29 +3399,29 @@ span.wpcf7-not-valid-tip {
         width: auto;
     }
 
-    .journey-card:hover {
+    .journey-card.is-active {
         transform: none;
         box-shadow: 0px 4px 25.5px 2px var(--card-color);
     }
 
-    .journey-card:hover .journey-card-bg::before {
+    .journey-card.is-active .journey-card-bg::before {
         opacity: 1; 
     }
 
-    .journey-card:hover .journey-card-location {
+    .journey-card.is-active .journey-card-location {
         max-height: 55px; 
         opacity: 1;
         margin-top: 20px;
     }
 
-    .journey-card:hover .journey-card-desc {
+    .journey-card.is-active .journey-card-desc {
         max-height: 200px;
         opacity: 1;
         margin-top: 20px;
         font-size: 16px;
     }
 
-    .journey-card:hover .journey-card-info {
+    .journey-card.is-active .journey-card-info {
         max-height: 45px;
         opacity: 1;
         border: 1px solid #FFFFFF; 
@@ -3430,11 +3430,11 @@ span.wpcf7-not-valid-tip {
         font-size: 18px;
     }
 
-    .journey-card:hover .journey-card-footer {
+    .journey-card.is-active .journey-card-footer {
         justify-content: space-between;
     }
 
-    .journey-card:hover .location-text {
+    .journey-card.is-active .location-text {
         font-size: 18px;
     }
 }
