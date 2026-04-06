@@ -13,6 +13,31 @@ Version: 1.0 - Final Challengers
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Firlest';
+    src: url('assets/fonts/Firlest-Regular.otf') format('opentype'); 
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Carnevalee Freakshow';
+    /* Asigură-te că numele fișierului pus pe server coincide EXACT (inclusiv spațiile) */
+    src: url('assets/fonts/Carnevalee Freakshow.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Park Lane NF';
+    src: url('assets/fonts/ParkLaneNF.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&display=swap');
 

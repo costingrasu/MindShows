@@ -10,8 +10,8 @@ get_header(); ?>
         </div>
 
         <div class="journeys-hero-content">
-            <h1 class="journeys-title">JOURNEYS</h1>
-            <p class="journeys-desc">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation </p>
+            <h1 class="journeys-title">JOURNEYS: Redefinim felul in care calatorim</h1>
+            <p class="journeys-desc">Tabere, excursii, retreaturi sau o escapadă la munte pentru copii și adolescenți pe care le construim ca experiențe în care participanții se descoperă cu adevărat. Dăm upgrade la vacanțe prin concepte gamificate, menite să provoace, să dezvolte și să rămână cu ei mult timp, nu doar ca amintiri și noi locuri explorate, ci contexte de creștere dedicate celor care vor, cu adevarat, o călătorie unică.</p>
             
             <a href="#lista-excursii" class="journeys-hero-btn">Start Now</a>
         </div>
@@ -23,11 +23,11 @@ get_header(); ?>
             
             <div class="journeys-about-image-wrapper">
                 <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bg-journeys.png'); ?>" alt="Tabere Next Level" class="journeys-about-img" />
-                <h2 class="journeys-about-title title-mobile">TABERE NEXT LEVEL</h2>
+                <h2 class="journeys-about-title title-mobile">TABERE DE VARA</h2>
             </div>
 
             <div class="journeys-about-content">
-                <h2 class="journeys-about-title title-desktop">TABERE NEXT LEVEL</h2>
+                <h2 class="journeys-about-title title-desktop">TABERE DE VARA</h2>
                 
                 <div class="journeys-about-desc">
                     <p>În spatele fiecărei tabere reușite se află o idee puternică. Noi suntem cei care o construiesc.</p>
@@ -40,8 +40,8 @@ get_header(); ?>
 
     <section id="lista-excursii" class="journeys-list">
         <div class="journeys-list-header">
-            <h2 class="journeys-list-title">TABERE VALABILE</h2>
-            <p class="journeys-list-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+            <h2 class="journeys-list-title">TABERE DE VARA 2026</h2>
+            <p class="journeys-list-desc">Povești unice create cu atenție de o echipă cu peste 10 ani de experiență în conceptualizarea și facilitarea de programe educaționale pentru tineri</p>
         </div>
         
         <div class="journeys-cards-container">
