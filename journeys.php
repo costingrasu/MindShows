@@ -10,8 +10,9 @@ get_header(); ?>
         </div>
 
         <div class="journeys-hero-content">
-            <h1 class="journeys-title">JOURNEYS: Redefinim felul in care calatorim</h1>
-            <p class="journeys-desc">Tabere, excursii, retreaturi sau o escapadă la munte pentru copii și adolescenți pe care le construim ca experiențe în care participanții se descoperă cu adevărat. Dăm upgrade la vacanțe prin concepte gamificate, menite să provoace, să dezvolte și să rămână cu ei mult timp, nu doar ca amintiri și noi locuri explorate, ci contexte de creștere dedicate celor care vor, cu adevarat, o călătorie unică.</p>
+            <h1 class="journeys-title">JOURNEYS</h1>
+            <p class="journeys-subtitle">Redefinim felul in care calatorim</p>
+            <p class="journeys-desc">Prin excursii, taberele, retreaturi sau o escapadă la munte dedicate tinerilor. Construim experiențe gamificate, atent gândite și antrenante care care facilitează atât explorarea, cât și descoperirea de sine și dezvoltarea personală. Nu doar ne plimbăm, ci trăim povești care ne cresc.</p>
             
             <a href="#lista-excursii" class="journeys-hero-btn">Start Now</a>
         </div>
