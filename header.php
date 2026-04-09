@@ -11,7 +11,7 @@
 <header class="site-header">
     <div class="header-inner">
         <div class="logo-container">
-            <a href="<?php echo home_url(); ?>" aria-label="Acasa">
+            <a href="<?php echo home_url(); ?>" aria-label="Home">
                 <svg width="62" height="40" viewBox="0 0 62 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19.8297 0V19.771H13.6246V11.4028H13.4783L9.54552 19.771H8.96211L5.02958 11.374H4.87009V19.771H0.31674V0H7.83383L10.5115 6.04842H10.6561L13.3335 0H19.8297Z" fill="white"/>
                     <path d="M61.436 0.981117C61.0588 0.327039 60.5696 0.00166432 59.9761 0.00166432H46.2359V19.7677H59.9761C60.5693 19.7677 61.0588 19.439 61.436 18.7755C61.8068 18.1117 62 17.2959 62 16.3164V3.45319C62 2.45598 61.8065 1.63519 61.436 0.981117ZM55.663 12.4802C55.5915 13.144 55.4891 13.6458 55.3524 13.9839C55.2208 14.327 55.0646 14.5545 54.8905 14.6749C54.7116 14.795 54.5248 14.856 54.3167 14.856H52.4781V4.91502H54.299C54.5755 4.91502 54.8306 5.03041 55.0565 5.26286C55.2776 5.48893 55.4565 5.94911 55.5833 6.63981C55.7102 7.33078 55.7704 8.39372 55.7704 9.8317C55.7704 10.9363 55.7378 11.8167 55.663 12.4802Z" fill="white"/>
@@ -41,7 +41,7 @@
                 'menu_class' => 'nav-links'
             ) ); 
             ?>
-            <a href="#signup" class="btn-signup">Sign Up</a>
+            <a href="/journey/challengers/#signup" class="btn-signup">Sign Up</a>
         </div>
 
         <button class="mobile-toggle" aria-label="Open Menu">

@@ -1,4 +1,10 @@
 <?php
+/*
+Template Name: Journeys Page
+*/
+?>
+
+<?php
 get_header(); ?>
 
 <main class="page-journeys">
