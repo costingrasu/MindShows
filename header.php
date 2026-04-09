@@ -59,6 +59,6 @@
                 'menu_class' => 'mobile-nav-links'
             ) ); 
         ?>
-        <a href="#signup" class="btn-signup mobile-signup-btn">Sign Up</a>
+        <a href="/journey/challengers/#signup" class="btn-signup mobile-signup-btn">Sign Up</a>
     </div>
 </header>
