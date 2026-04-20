@@ -276,6 +276,16 @@ while ( have_posts() ) : the_post();
     $excursii_main_image = function_exists('get_field') ? get_field('excursii_main_image') : null;
     $excursii_mobile_image = function_exists('get_field') ? get_field('excursii_mobile_image') : null;
 
+    $show_keypoints = get_field('show_keypoints', $post_id);
+    $show_banner = get_field('show_banner', $post_id);
+    $show_obiective = get_field('show_obiective', $post_id);
+    $show_unic = get_field('show_unic', $post_id);
+    $show_info = get_field('show_info', $post_id);
+    $show_bucuram = get_field('show_bucuram', $post_id);
+    $show_oferta = get_field('show_oferta', $post_id);
+    $show_disponibilitate = get_field('show_disponibilitate', $post_id);
+    $show_contact = get_field('show_contact', $post_id);
+
     $excursii_cards = [];
     for ($i = 1; $i <= 3; $i++) {
         $card_data = function_exists('get_field') ? get_field('excursii_card_' . $i) : null;
@@ -333,88 +343,96 @@ while ( have_posts() ) : the_post();
         </div>
     </div>
 
-    <div class="keypoints-section">
-        <div class="keypoints-container">
-            <?php $delay = 0; foreach($final_keypoints as $kp): $delay += 0.2; ?>
-                <div class="keypoint-card" style="--anim-delay: <?php echo $delay; ?>s">
-                    <div class="kp-icon">
-                        <?php if($kp_icon): ?><img src="<?php echo esc_url($kp_icon['url']); ?>" alt="Icon"><?php else: ?>
-                            <svg width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M44 0L56 32L88 44L56 56L44 88L32 56L0 44L32 32L44 0Z" fill="white"/><circle cx="44" cy="44" r="30" stroke="white" stroke-width="1"/></svg>
-                        <?php endif; ?>
+    <?php if ($show_keypoints) : ?>
+        <div class="keypoints-section">
+            <div class="keypoints-container">
+                <?php $delay = 0; foreach($final_keypoints as $kp): $delay += 0.2; ?>
+                    <div class="keypoint-card" style="--anim-delay: <?php echo $delay; ?>s">
+                        <div class="kp-icon">
+                            <?php if($kp_icon): ?><img src="<?php echo esc_url($kp_icon['url']); ?>" alt="Icon"><?php else: ?>
+                                <svg width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M44 0L56 32L88 44L56 56L44 88L32 56L0 44L32 32L44 0Z" fill="white"/><circle cx="44" cy="44" r="30" stroke="white" stroke-width="1"/></svg>
+                            <?php endif; ?>
+                        </div>
+                        <h3 class="kp-title"><?php echo esc_html($kp['title']); ?></h3>
+                        <p class="kp-desc"><?php echo wp_kses_post($kp['description']); ?></p>
                     </div>
-                    <h3 class="kp-title"><?php echo esc_html($kp['title']); ?></h3>
-                    <p class="kp-desc"><?php echo wp_kses_post($kp['description']); ?></p>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
         </div>
-    </div>
-
-    <?php if($bg_desktop_url): ?>
-    <div class="journey-banner-wrapper">
-        <img src="<?php echo esc_url($bg_desktop_url); ?>" alt="Journey Banner Desktop" class="banner-img-desktop" />
-        
-        <?php if($bg_mobile_url): ?>
-            <img src="<?php echo esc_url($bg_mobile_url); ?>" alt="Journey Banner Mobile" class="banner-img-mobile" />
-        <?php endif; ?>
-    </div>
     <?php endif; ?>
 
-    <div class="obiective-section">
-        <h2 class="obiective-title"><?php echo esc_html($display_obiective_title); ?></h2>
-        
-        <div class="obiective-cards-container">
-            <?php foreach ($obiective_items as $index => $obj): ?>
-            <div class="obiectiv-card">
-                <div class="obiectiv-header-visible">
-                    <div class="obiectiv-icon">
-                        <?php if ($obiective_icon_url): ?>
-                            <img src="<?php echo esc_url($obiective_icon_url); ?>" alt="Obiectiv Icon">
-                        <?php else: ?>
-                            <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M21 4V38M8 12L34 30M8 30L34 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        <?php endif; ?>
-                    </div>
-                    
-                    <div class="obiectiv-title-wrapper">
-                        <h3 class="obiectiv-card-title"><?php echo esc_html($obj['title']); ?></h3>
-                    </div>
-
-                    <div class="obiectiv-expand-icon">
-                        <svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.707092 0.707032L8.70709 8.70703L16.7071 0.707031" stroke="#BDBDBD" stroke-width="2"/>
-                        </svg>
-                    </div>
-                </div>
-                
-                <div class="obiectiv-body-hidden">
-                    <p class="obiectiv-desc"><?php echo wp_kses_post($obj['desc']); ?></p>
-                </div>
-            </div>
-            <?php endforeach; ?>
+    <?php if ($show_banner) : ?>
+        <?php if($bg_desktop_url): ?>
+        <div class="journey-banner-wrapper">
+            <img src="<?php echo esc_url($bg_desktop_url); ?>" alt="Journey Banner Desktop" class="banner-img-desktop" />
+            
+            <?php if($bg_mobile_url): ?>
+                <img src="<?php echo esc_url($bg_mobile_url); ?>" alt="Journey Banner Mobile" class="banner-img-mobile" />
+            <?php endif; ?>
         </div>
-        
-        <?php if($obiective_text_bottom): ?>
-            <p class="obiective-bottom-text"><?php echo wp_kses_post($obiective_text_bottom); ?></p>
         <?php endif; ?>
-    </div>
+    <?php endif; ?>
 
-    <div class="unic-section">
-        <h2 class="unic-title"><?php echo esc_html($display_unic_title); ?></h2>
-        
-        <div class="unic-cards-container">
-            <?php foreach($unic_cards as $card): ?>
-                <div class="unic-card">
-                    <div class="unic-card-bg" style="background-image: linear-gradient(180deg, rgba(21, 20, 23, 0) 40%, #151417 96.69%), url('<?php echo esc_url($card['image']); ?>');"></div>
+    <?php if ($show_obiective) : ?>
+        <div class="obiective-section">
+            <h2 class="obiective-title"><?php echo esc_html($display_obiective_title); ?></h2>
+            
+            <div class="obiective-cards-container">
+                <?php foreach ($obiective_items as $index => $obj): ?>
+                <div class="obiectiv-card">
+                    <div class="obiectiv-header-visible">
+                        <div class="obiectiv-icon">
+                            <?php if ($obiective_icon_url): ?>
+                                <img src="<?php echo esc_url($obiective_icon_url); ?>" alt="Obiectiv Icon">
+                            <?php else: ?>
+                                <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 4V38M8 12L34 30M8 30L34 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <div class="obiectiv-title-wrapper">
+                            <h3 class="obiectiv-card-title"><?php echo esc_html($obj['title']); ?></h3>
+                        </div>
+
+                        <div class="obiectiv-expand-icon">
+                            <svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.707092 0.707032L8.70709 8.70703L16.7071 0.707031" stroke="#BDBDBD" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
                     
-                    <div class="unic-card-content">
-                        <h3 class="unic-card-title"><?php echo esc_html($card['title']); ?></h3>
-                        <p class="unic-card-desc"><?php echo wp_kses_post($card['desc']); ?></p>
+                    <div class="obiectiv-body-hidden">
+                        <p class="obiectiv-desc"><?php echo wp_kses_post($obj['desc']); ?></p>
                     </div>
                 </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
+            
+            <?php if($obiective_text_bottom): ?>
+                <p class="obiective-bottom-text"><?php echo wp_kses_post($obiective_text_bottom); ?></p>
+            <?php endif; ?>
         </div>
-    </div>
+    <?php endif; ?>
+
+    <?php if ($show_unic) : ?>
+        <div class="unic-section">
+            <h2 class="unic-title"><?php echo esc_html($display_unic_title); ?></h2>
+            
+            <div class="unic-cards-container">
+                <?php foreach($unic_cards as $card): ?>
+                    <div class="unic-card">
+                        <div class="unic-card-bg" style="background-image: linear-gradient(180deg, rgba(21, 20, 23, 0) 40%, #151417 96.69%), url('<?php echo esc_url($card['image']); ?>');"></div>
+                        
+                        <div class="unic-card-content">
+                            <h3 class="unic-card-title"><?php echo esc_html($card['title']); ?></h3>
+                            <p class="unic-card-desc"><?php echo wp_kses_post($card['desc']); ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
 
     <?php if ($show_gallery): ?>
     <div class="gallery-section">
@@ -462,95 +480,101 @@ while ( have_posts() ) : the_post();
     </div>
     <?php endif; ?>
 
-    <div class="info-section">
-        <?php if(!empty($info_title)): ?>
-            <h2 class="info-section-title"><?php echo esc_html($info_title); ?></h2>
-        <?php endif; ?>
-        
-        <div class="info-rows-container">
-            <?php foreach($info_rows as $index => $row): 
-                $row_layout_class = ($index === 0) ? 'info-row-reverse' : 'info-row-normal';
-            ?>
-                <div class="info-row <?php echo $row_layout_class; ?>">
-                    
-                    <div class="info-image">
-                        <img src="<?php echo esc_url($row['image']); ?>" alt="Info Layout Image">
+    <?php if ($show_info) : ?>
+        <div class="info-section">
+            <?php if(!empty($info_title)): ?>
+                <h2 class="info-section-title"><?php echo esc_html($info_title); ?></h2>
+            <?php endif; ?>
+            
+            <div class="info-rows-container">
+                <?php foreach($info_rows as $index => $row): 
+                    $row_layout_class = ($index === 0) ? 'info-row-reverse' : 'info-row-normal';
+                ?>
+                    <div class="info-row <?php echo $row_layout_class; ?>">
+                        
+                        <div class="info-image">
+                            <img src="<?php echo esc_url($row['image']); ?>" alt="Info Layout Image">
+                        </div>
+                        
+                        <div class="info-text-content">
+                            <p class="info-row-desc"><?php echo wp_kses_post($row['desc']); ?></p>
+                        </div>
+                        
                     </div>
-                    
-                    <div class="info-text-content">
-                        <p class="info-row-desc"><?php echo wp_kses_post($row['desc']); ?></p>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($show_bucuram) : ?>
+        <div class="bucuram-section">
+            <?php if(!empty($bucuram_title)): ?>
+                <h2 class="bucuram-title"><?php echo esc_html($bucuram_title); ?></h2>
+            <?php endif; ?>
+
+            <div class="bucuram-pills-wrapper">
+                <?php foreach($bucuram_tabs as $index => $tab): ?>
+                    <div class="tab-pill <?php echo ($index === 0) ? 'active' : ''; ?>" data-target="<?php echo esc_attr($tab['id']); ?>">
+                        <span class="pill-text"><?php echo esc_html($tab['name']); ?></span>
                     </div>
-                    
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
+                <?php endforeach; ?>
+            </div>
 
-    <div class="bucuram-section">
-        <?php if(!empty($bucuram_title)): ?>
-            <h2 class="bucuram-title"><?php echo esc_html($bucuram_title); ?></h2>
-        <?php endif; ?>
-
-        <div class="bucuram-pills-wrapper">
-            <?php foreach($bucuram_tabs as $index => $tab): ?>
-                <div class="tab-pill <?php echo ($index === 0) ? 'active' : ''; ?>" data-target="<?php echo esc_attr($tab['id']); ?>">
-                    <span class="pill-text"><?php echo esc_html($tab['name']); ?></span>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-        <div class="bucuram-content-container">
-            <?php foreach($bucuram_tabs as $index => $tab): ?>
-                <div class="bucuram-content-state <?php echo ($index === 0) ? 'active' : ''; ?>" id="<?php echo esc_attr($tab['id']); ?>">
-                    <div class="bucuram-image">
-                        <img src="<?php echo esc_url($tab['image']); ?>" alt="<?php echo esc_attr($tab['name']); ?>">
+            <div class="bucuram-content-container">
+                <?php foreach($bucuram_tabs as $index => $tab): ?>
+                    <div class="bucuram-content-state <?php echo ($index === 0) ? 'active' : ''; ?>" id="<?php echo esc_attr($tab['id']); ?>">
+                        <div class="bucuram-image">
+                            <img src="<?php echo esc_url($tab['image']); ?>" alt="<?php echo esc_attr($tab['name']); ?>">
+                        </div>
+                        <p class="bucuram-desc"><?php echo wp_kses_post($tab['desc']); ?></p>
                     </div>
-                    <p class="bucuram-desc"><?php echo wp_kses_post($tab['desc']); ?></p>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 
-    <div class="oferta-section">
-        <?php if(!empty($oferta_title)): ?>
-            <h2 class="oferta-title"><?php echo esc_html($oferta_title); ?></h2>
-        <?php endif; ?>
+    <?php if ($show_oferta) : ?>
+        <div class="oferta-section">
+            <?php if(!empty($oferta_title)): ?>
+                <h2 class="oferta-title"><?php echo esc_html($oferta_title); ?></h2>
+            <?php endif; ?>
 
-        <div class="oferta-container">
-            <div class="oferta-grid">
-                <?php for($i = 0; $i < 6; $i++): $item = $oferta_items[$i]; ?>
-                    <div class="oferta-card">
-                        <div class="oferta-header-visible">
-                            <h3 class="oferta-card-title"><?php echo esc_html($item['title']); ?></h3>
-                            <div class="oferta-expand-icon">
-                                <svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0.707092 0.707032L8.70709 8.70703L16.7071 0.707031" stroke="#BDBDBD" stroke-width="2"/>
-                                </svg>
+            <div class="oferta-container">
+                <div class="oferta-grid">
+                    <?php for($i = 0; $i < 6; $i++): $item = $oferta_items[$i]; ?>
+                        <div class="oferta-card">
+                            <div class="oferta-header-visible">
+                                <h3 class="oferta-card-title"><?php echo esc_html($item['title']); ?></h3>
+                                <div class="oferta-expand-icon">
+                                    <svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0.707092 0.707032L8.70709 8.70703L16.7071 0.707031" stroke="#BDBDBD" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="oferta-body-hidden">
+                                <p class="oferta-desc"><?php echo wp_kses_post($item['desc']); ?></p>
                             </div>
                         </div>
-                        <div class="oferta-body-hidden">
-                            <p class="oferta-desc"><?php echo wp_kses_post($item['desc']); ?></p>
+                    <?php endfor; ?>
+                </div>
+
+                <?php $last_item = $oferta_items[6]; ?>
+                <div class="oferta-card oferta-card-large">
+                    <div class="oferta-header-visible">
+                        <h3 class="oferta-card-title"><?php echo esc_html($last_item['title']); ?></h3>
+                        <div class="oferta-expand-icon">
+                            <svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.707092 0.707032L8.70709 8.70703L16.7071 0.707031" stroke="#BDBDBD" stroke-width="2"/>
+                            </svg>
                         </div>
                     </div>
-                <?php endfor; ?>
-            </div>
-
-            <?php $last_item = $oferta_items[6]; ?>
-            <div class="oferta-card oferta-card-large">
-                <div class="oferta-header-visible">
-                    <h3 class="oferta-card-title"><?php echo esc_html($last_item['title']); ?></h3>
-                    <div class="oferta-expand-icon">
-                        <svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.707092 0.707032L8.70709 8.70703L16.7071 0.707031" stroke="#BDBDBD" stroke-width="2"/>
-                        </svg>
+                    <div class="oferta-body-hidden">
+                        <p class="oferta-desc"><?php echo wp_kses_post($last_item['desc']); ?></p>
                     </div>
-                </div>
-                <div class="oferta-body-hidden">
-                    <p class="oferta-desc"><?php echo wp_kses_post($last_item['desc']); ?></p>
                 </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
 
     <?php if ($show_excursii): ?>
     <div class="excursii-section">
@@ -643,159 +667,163 @@ while ( have_posts() ) : the_post();
     </div>
     <?php endif; ?>
 
-    <div class="dispo-section">
-        <?php if(!empty($dispo_title)): ?>
-            <h2 class="dispo-title"><?php echo esc_html($dispo_title); ?></h2>
-        <?php endif; ?>
+    <?php if ($show_disponibilitate) : ?>
+        <div class="dispo-section">
+            <?php if(!empty($dispo_title)): ?>
+                <h2 class="dispo-title"><?php echo esc_html($dispo_title); ?></h2>
+            <?php endif; ?>
 
-        <div class="dispo-container">
-            <div class="dispo-image-wrapper">
-                <img src="<?php echo esc_url($dispo_img_url); ?>" alt="Disponibilitate Image">
-            </div>
+            <div class="dispo-container">
+                <div class="dispo-image-wrapper">
+                    <img src="<?php echo esc_url($dispo_img_url); ?>" alt="Disponibilitate Image">
+                </div>
 
-            <div class="dispo-list-wrapper">
-                <?php if(!empty($parsed_series)): ?>
-                    <div class="dispo-items-list">
-                        <?php foreach($parsed_series as $serie): ?>
-                            <div class="dispo-item">
-                                <div class="dispo-item-name"><?php echo esc_html($serie['name']); ?></div>
-                                <div class="dispo-bar-track">
-                                    <div class="dispo-bar-fill" style="width: <?php echo esc_attr($serie['percent']); ?>%; background-color: <?php echo esc_attr($serie['color']); ?>;"></div>
+                <div class="dispo-list-wrapper">
+                    <?php if(!empty($parsed_series)): ?>
+                        <div class="dispo-items-list">
+                            <?php foreach($parsed_series as $serie): ?>
+                                <div class="dispo-item">
+                                    <div class="dispo-item-name"><?php echo esc_html($serie['name']); ?></div>
+                                    <div class="dispo-bar-track">
+                                        <div class="dispo-bar-fill" style="width: <?php echo esc_attr($serie['percent']); ?>%; background-color: <?php echo esc_attr($serie['color']); ?>;"></div>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php else: ?>
-                    <p style="color: #fff; text-align:center;">Nu sunt serii adăugate momentan.</p>
-                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <p style="color: #fff; text-align:center;">Nu sunt serii adăugate momentan.</p>
+                    <?php endif; ?>
 
-                <div class="dispo-last-updated">
-                    Lista Actualizata Ultima Oara pe <?php echo get_the_modified_date('d.m.Y, H:i'); ?>
+                    <div class="dispo-last-updated">
+                        Lista Actualizata Ultima Oara pe <?php echo get_the_modified_date('d.m.Y, H:i'); ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
 
-    <div class="contact-section-wrapper" id="signup">
-        <div class="contact-inner">
-            
-            <h2 class="contact-title"><?php echo esc_html($contact_title); ?></h2>
-
-            <div class="package-selector-pills">
-                <?php foreach($packages as $index => $pkg): 
-                    $count = intval($pkg['persons']);
-                    $label = ($count === 1) ? 'PERSOANA' : 'PERSOANE'; 
-                    $full_text = $count . ' ' . $label;
-                    $active_class = ($index === 0) ? 'active' : '';
-                ?>
-                <div class="pkg-pill <?php echo $active_class; ?>" 
-                     data-target="package-<?php echo $pkg['id']; ?>"
-                     data-value="<?php echo esc_attr($full_text . ' - ' . $pkg['price'] . ' RON'); ?>">
-                    <span class="pill-text"><?php echo $full_text; ?></span>
-                </div>
-                <?php endforeach; ?>
-            </div>
-
-            <div class="contact-content-row">
+    <?php if ($show_contact) : ?>
+        <div class="contact-section-wrapper" id="signup">
+            <div class="contact-inner">
                 
-                <div class="cards-wrapper-left">
+                <h2 class="contact-title"><?php echo esc_html($contact_title); ?></h2>
+
+                <div class="package-selector-pills">
                     <?php foreach($packages as $index => $pkg): 
-                        $active_class = ($index === 0) ? 'active' : '';
                         $count = intval($pkg['persons']);
-                        $label = ($count === 1) ? 'PERSOANA' : 'PERSOANE';
-                        $display_title = $count . ' ' . $label; 
+                        $label = ($count === 1) ? 'PERSOANA' : 'PERSOANE'; 
+                        $full_text = $count . ' ' . $label;
+                        $active_class = ($index === 0) ? 'active' : '';
                     ?>
-                    
-                    <div class="package-info-card <?php echo $active_class; ?>" id="package-<?php echo $pkg['id']; ?>">
-                        
-                        <div class="card-bg-image" style="--card-bg: url('<?php echo esc_url($pkg['bg_image']); ?>');"></div>
-                        
-                        <div class="card-content-inner">
-                            <h3 class="card-title"><?php echo esc_html($display_title); ?></h3>
-                            
-                            <div class="card-icons-row">
-                                <?php for($p=0; $p < $count; $p++): ?>
-                                    <svg width="25" height="29" viewBox="0 0 25 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <ellipse cx="12.5" cy="7.22222" rx="6.94444" ry="7.22222" fill="white"/>
-                                        <path d="M1.65345 20.276C2.65534 17.6154 5.31907 16.1113 8.1621 16.1113H16.8379C19.6809 16.1113 22.3447 17.6154 23.3466 20.276C24.096 22.2663 24.8142 24.7707 24.9693 27.3341C25.0026 27.8853 24.5523 28.3336 24 28.3336H1C0.447716 28.3336 -0.00259643 27.8853 0.0307474 27.3341C0.185794 24.7707 0.903999 22.2663 1.65345 20.276Z" fill="white"/>
-                                    </svg>
-                                <?php endfor; ?>
-                            </div>
-
-                            <div class="card-divider"></div>
-
-                            <div class="card-benefits-list">
-                                <?php 
-                                if($pkg['benefits']):
-                                    $lines = explode("\n", $pkg['benefits']);
-                                    foreach($lines as $line):
-                                        $line = trim($line);
-                                        if(empty($line)) continue;
-                                        
-                                        $status = substr($line, 0, 1); 
-                                        $text = substr($line, 1); 
-                                ?>
-                                    <div class="card-benefit-row">
-                                        <div class="benefit-mark">
-                                            <?php if($status == '1'): ?>
-                                                <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M0.599995 13.9666L7.26666 18.9666L22.2667 0.633301" stroke="#C5C5C5" stroke-width="2"/>
-                                                </svg>
-                                            <?php else: ?>
-                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M18.7071 0.707031L0.707106 18.707" stroke="#494949" stroke-width="2"/>
-                                                    <path d="M18.7071 18.707L0.707106 0.70703" stroke="#494949" stroke-width="2"/>
-                                                </svg>
-                                            <?php endif; ?>
-                                        </div>
-                                        <span class="card-benefit-text"><?php echo wp_kses_post($text); ?></span>
-                                    </div>
-                                <?php endforeach; endif; ?>
-                            </div>
-
-                            <div class="card-divider"></div>
-
-                            <div class="card-price">
-                                <?php echo $pkg['price']; ?> RON/participant
-                            </div>
-                        </div>
+                    <div class="pkg-pill <?php echo $active_class; ?>" 
+                        data-target="package-<?php echo $pkg['id']; ?>"
+                        data-value="<?php echo esc_attr($full_text . ' - ' . $pkg['price'] . ' RON'); ?>">
+                        <span class="pill-text"><?php echo $full_text; ?></span>
                     </div>
                     <?php endforeach; ?>
                 </div>
 
-                <div class="contact-form-container">
-                    <h3 class="form-section-title">INSCRIE-TE ACUM</h3>
+                <div class="contact-content-row">
                     
-                    <?php 
-                    $series_text = get_field('camp_series_list');
-                    $series_array = array();
-                    if($series_text) {
-                        $lines = explode("\n", $series_text);
-                        foreach($lines as $line) {
-                            $line = trim($line);
-                            if(!empty($line)) {
-                                $series_array[] = $line;
+                    <div class="cards-wrapper-left">
+                        <?php foreach($packages as $index => $pkg): 
+                            $active_class = ($index === 0) ? 'active' : '';
+                            $count = intval($pkg['persons']);
+                            $label = ($count === 1) ? 'PERSOANA' : 'PERSOANE';
+                            $display_title = $count . ' ' . $label; 
+                        ?>
+                        
+                        <div class="package-info-card <?php echo $active_class; ?>" id="package-<?php echo $pkg['id']; ?>">
+                            
+                            <div class="card-bg-image" style="--card-bg: url('<?php echo esc_url($pkg['bg_image']); ?>');"></div>
+                            
+                            <div class="card-content-inner">
+                                <h3 class="card-title"><?php echo esc_html($display_title); ?></h3>
+                                
+                                <div class="card-icons-row">
+                                    <?php for($p=0; $p < $count; $p++): ?>
+                                        <svg width="25" height="29" viewBox="0 0 25 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <ellipse cx="12.5" cy="7.22222" rx="6.94444" ry="7.22222" fill="white"/>
+                                            <path d="M1.65345 20.276C2.65534 17.6154 5.31907 16.1113 8.1621 16.1113H16.8379C19.6809 16.1113 22.3447 17.6154 23.3466 20.276C24.096 22.2663 24.8142 24.7707 24.9693 27.3341C25.0026 27.8853 24.5523 28.3336 24 28.3336H1C0.447716 28.3336 -0.00259643 27.8853 0.0307474 27.3341C0.185794 24.7707 0.903999 22.2663 1.65345 20.276Z" fill="white"/>
+                                        </svg>
+                                    <?php endfor; ?>
+                                </div>
+
+                                <div class="card-divider"></div>
+
+                                <div class="card-benefits-list">
+                                    <?php 
+                                    if($pkg['benefits']):
+                                        $lines = explode("\n", $pkg['benefits']);
+                                        foreach($lines as $line):
+                                            $line = trim($line);
+                                            if(empty($line)) continue;
+                                            
+                                            $status = substr($line, 0, 1); 
+                                            $text = substr($line, 1); 
+                                    ?>
+                                        <div class="card-benefit-row">
+                                            <div class="benefit-mark">
+                                                <?php if($status == '1'): ?>
+                                                    <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M0.599995 13.9666L7.26666 18.9666L22.2667 0.633301" stroke="#C5C5C5" stroke-width="2"/>
+                                                    </svg>
+                                                <?php else: ?>
+                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M18.7071 0.707031L0.707106 18.707" stroke="#494949" stroke-width="2"/>
+                                                        <path d="M18.7071 18.707L0.707106 0.70703" stroke="#494949" stroke-width="2"/>
+                                                    </svg>
+                                                <?php endif; ?>
+                                            </div>
+                                            <span class="card-benefit-text"><?php echo wp_kses_post($text); ?></span>
+                                        </div>
+                                    <?php endforeach; endif; ?>
+                                </div>
+
+                                <div class="card-divider"></div>
+
+                                <div class="card-price">
+                                    <?php echo $pkg['price']; ?> RON/participant
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <h3 class="form-section-title">INSCRIE-TE ACUM</h3>
+                        
+                        <?php 
+                        $series_text = get_field('camp_series_list');
+                        $series_array = array();
+                        if($series_text) {
+                            $lines = explode("\n", $series_text);
+                            foreach($lines as $line) {
+                                $line = trim($line);
+                                if(!empty($line)) {
+                                    $series_array[] = $line;
+                                }
                             }
                         }
-                    }
 
-                    $dropdown_packages = [];
-                    foreach ($packages as $pkg) {
-                        $count = intval($pkg['persons']);
-                        $label = ($count === 1) ? 'PERSOANA' : 'PERSOANE';
-                        $dropdown_packages[] = $count . ' ' . $label;
-                    }
-                    ?>
-                    <div id="acf-package-data" data-packages='<?php echo esc_attr(json_encode($dropdown_packages)); ?>' style="display:none;"></div>
-                    
-                    <div id="acf-camp-series-data" data-series='<?php echo esc_attr(json_encode($series_array)); ?>' style="display:none;"></div>
+                        $dropdown_packages = [];
+                        foreach ($packages as $pkg) {
+                            $count = intval($pkg['persons']);
+                            $label = ($count === 1) ? 'PERSOANA' : 'PERSOANE';
+                            $dropdown_packages[] = $count . ' ' . $label;
+                        }
+                        ?>
+                        <div id="acf-package-data" data-packages='<?php echo esc_attr(json_encode($dropdown_packages)); ?>' style="display:none;"></div>
+                        
+                        <div id="acf-camp-series-data" data-series='<?php echo esc_attr(json_encode($series_array)); ?>' style="display:none;"></div>
 
-                    <?php echo do_shortcode($cf7_shortcode); ?>
+                        <?php echo do_shortcode($cf7_shortcode); ?>
+                    </div>
+
                 </div>
-
             </div>
         </div>
-    </div>
+    <?php endif; ?>
 
     <div class="container"><div class="content"><?php the_content(); ?></div></div>
 
