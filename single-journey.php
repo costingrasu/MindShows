@@ -285,6 +285,7 @@ while ( have_posts() ) : the_post();
     $show_oferta = get_field('show_oferta', $post_id);
     $show_disponibilitate = get_field('show_disponibilitate', $post_id);
     $show_contact = get_field('show_contact', $post_id);
+    $show_contact2 = get_field('show_contact2', $post_id);
 
     $excursii_cards = [];
     for ($i = 1; $i <= 3; $i++) {
@@ -821,6 +822,32 @@ while ( have_posts() ) : the_post();
                     </div>
 
                 </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($show_contact2) : ?>
+        <div class="contact2-section" id="signup">
+            <div class="contact-form-container">
+                <h3 class="form-section-title">INSCRIE-TE ACUM</h3>
+                
+                <?php 
+                $series_text = get_field('camp_series_list');
+                $series_array = array();
+                if($series_text) {
+                    $lines = explode("\n", $series_text);
+                    foreach($lines as $line) {
+                        $line = trim($line);
+                        if(!empty($line)) {
+                            $series_array[] = $line;
+                        }
+                    }
+                }
+                ?>
+                
+                <div id="acf-camp-series-data" data-series='<?php echo esc_attr(json_encode($series_array)); ?>' style="display:none;"></div>
+
+                <?php echo do_shortcode('[contact-form-7 id="1507df2" title="Journey Contact 2"]'); ?>
             </div>
         </div>
     <?php endif; ?>
