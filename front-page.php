@@ -100,6 +100,13 @@
 
         </div>
     </section>
+    <section class="home-team-section fade-up-element">
+        <div class="team-container">
+            <h2 class="team-title">Meet the <br class="team-title-br">Team</h2>
+            <p class="team-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+            <a href="/team" class="btn-team">Afla Mai Multe</a>
+        </div>
+    </section>
 </main>
 
 <?php get_footer(); ?>
