@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const initScrollAnimations = () => {
     const animatedElements = document.querySelectorAll(
-      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list",
+      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list, .home-carousel-section",
     );
 
     if (animatedElements.length === 0) return;
@@ -368,7 +368,56 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   };
 
+  const initHomeCarousel = () => {
+    const slides = Array.from(document.querySelectorAll(".home-carousel-slide"));
+    if (slides.length === 0) return;
+
+    const nextBtn = document.querySelector(".home-carousel-nav-next");
+    let currentIndex = 0;
+    let autoPlayInterval;
+
+    const updateHomeCarousel = () => {
+      slides.forEach((slide) => {
+        slide.classList.remove("active", "prev", "next");
+      });
+
+      slides[currentIndex].classList.add("active");
+
+      if (slides.length > 1) {
+        const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+        const nextIndex = (currentIndex + 1) % slides.length;
+        slides[prevIndex].classList.add("prev");
+        slides[nextIndex].classList.add("next");
+      }
+    };
+
+    const nextSlide = () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateHomeCarousel();
+    };
+
+    const startAutoPlay = () => {
+      autoPlayInterval = setInterval(nextSlide, 3500);
+    };
+
+    const resetAutoPlay = () => {
+      clearInterval(autoPlayInterval);
+      startAutoPlay();
+    };
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        nextSlide();
+        resetAutoPlay();
+      });
+    }
+
+    updateHomeCarousel();
+    startAutoPlay();
+  };
+
   initMobileMenu();
+  initHomeCarousel();
   initMobileJourneyCards();
   initScrollAnimations();
   initHoverAccordions(".obiectiv-card");
