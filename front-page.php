@@ -54,6 +54,52 @@
             </svg>
         </button>
     </section>
+    <section class="home-services-section fade-up-element">
+        <div class="services-container">
+            <article class="service-card">
+                <button class="service-close-btn" aria-label="Close" type="button">X</button>
+                <div class="service-card-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/symbol-development.png');"></div>
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                    <h2 class="service-title">Development</h2>
+                    <h3 class="service-subtitle">Changing the Way We Learn</h3>
+                    <div class="service-hidden-content">
+                        <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin felis ac aliquam rhoncus. Ut in purus in orci faucibus porta. Cras sollicitudin, eros ac tincidunt laoreet, felis eros egestas ante, at mattis lorem nulla sed enim. Praesent ut euismod nunc. Fusce mollis scelerisque mi nec sollicitudin.</p>
+                        <a href="/development" class="service-btn">View More</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="service-card">
+                <button class="service-close-btn" aria-label="Close" type="button">X</button>
+                <div class="service-card-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/symbol-irlGaming.png');"></div>
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                    <h2 class="service-title">IRL Gaming</h2>
+                    <h3 class="service-subtitle">Changing the Way We Play</h3>
+                    <div class="service-hidden-content">
+                        <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin felis ac aliquam rhoncus. Ut in purus in orci faucibus porta. Cras sollicitudin, eros ac tincidunt laoreet, felis eros egestas ante, at mattis lorem nulla sed enim. Praesent ut euismod nunc. Fusce mollis scelerisque mi nec sollicitudin.</p>
+                        <a href="/irl-gaming" class="service-btn">View More</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="service-card">
+                <button class="service-close-btn" aria-label="Close" type="button">X</button>
+                <div class="service-card-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/symbol-journeys.png');"></div>
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                    <h2 class="service-title">Journeys</h2>
+                    <h3 class="service-subtitle">Changing the Way We Travel</h3>
+                    <div class="service-hidden-content">
+                        <p class="service-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin felis ac aliquam rhoncus. Ut in purus in orci faucibus porta. Cras sollicitudin, eros ac tincidunt laoreet, felis eros egestas ante, at mattis lorem nulla sed enim. Praesent ut euismod nunc. Fusce mollis scelerisque mi nec sollicitudin.</p>
+                        <a href="/journeys" class="service-btn">View More</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
 </main>
 
 <?php get_footer(); ?>

@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const initScrollAnimations = () => {
     const animatedElements = document.querySelectorAll(
-      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list, .home-carousel-section",
+      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list, .home-carousel-section, .home-services-section",
     );
 
     if (animatedElements.length === 0) return;
@@ -416,6 +416,35 @@ document.addEventListener("DOMContentLoaded", () => {
     startAutoPlay();
   };
 
+  const initMobileServices = () => {
+    const serviceCards = document.querySelectorAll('.service-card');
+    if (serviceCards.length === 0) return;
+
+    serviceCards.forEach(card => {
+      const viewMoreBtn = card.querySelector('.service-btn');
+      const closeBtn = card.querySelector('.service-close-btn');
+
+      if (viewMoreBtn) {
+        viewMoreBtn.addEventListener('click', (e) => {
+          if (window.innerWidth <= 799) {
+            e.preventDefault();
+            card.classList.add('is-expanded');
+          }
+        });
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+          if (window.innerWidth <= 799) {
+            e.preventDefault();
+            e.stopPropagation();
+            card.classList.remove('is-expanded');
+          }
+        });
+      }
+    });
+  };
+
   initMobileMenu();
   initHomeCarousel();
   initMobileJourneyCards();
@@ -426,4 +455,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initFormAndPackages();
   initGalleryCarousel();
   initProgramCarousel();
+  initMobileServices();
 });
