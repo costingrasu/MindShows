@@ -61,7 +61,7 @@ body {
     color: #fff;
     -webkit-tap-highlight-color: transparent;
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 h1,
@@ -4422,6 +4422,488 @@ span.wpcf7-not-valid-tip {
     line-height: 1;
 }
 
+.home-development-section {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #000;
+    padding: 0 50px;
+    box-sizing: border-box;
+    gap: 40px;
+    align-items: flex-start;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-development-section.in-view {
+    opacity: 1;
+}
+
+.development-left {
+    position: sticky;
+    top: 80px;
+    width: 50%;
+    max-width: 856px;
+    flex: 1;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.development-bg-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.development-bg-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.development-left-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.development-title {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(50px, 6vw, 109px);
+    color: #FFFFFF;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.development-subtitle {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: clamp(18px, 2vw, 40px);
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+}
+
+.slide-right-element {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease-out;
+    transition-delay: 0.2s;
+}
+
+.home-development-section.in-view .slide-right-element {
+    opacity: 1;
+    transform: none;
+}
+
+.development-right {
+    width: 50%;
+    max-width: 856px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dev-right-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: calc(100vh - 75px);
+    padding-bottom: 100px;
+    gap: 99px;
+    width: 100%;
+    max-width: 510px;
+    margin: 0 auto;
+}
+
+.dev-right-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.dev-right-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.dev-right-description {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+}
+
+.dev-cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 34px;
+    width: 100%;
+}
+
+.dev-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 30px;
+    gap: 30px;
+    width: 100%;
+    background: #1C1B1E;
+    border-radius: 14px;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), box-shadow 0.4s ease;
+}
+
+.dev-card:hover {
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+.dev-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.desktop-icon {
+    display: block;
+}
+
+.mobile-icon {
+    display: none;
+}
+
+.dev-card-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    flex: 1;
+}
+
+.dev-card-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.dev-card-desc {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+}
+
+.dev-btn {
+    align-self: flex-start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 29px;
+    width: 210px;
+    height: 37px;
+    box-sizing: border-box;
+    border: 1px solid #FFFFFF;
+    border-radius: 51px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    color: #FFFFFF;
+    text-decoration: none;
+    background: transparent;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dev-btn:hover {
+    background: #FFFFFF;
+    color: #000000;
+}
+
+.dev-tree-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    gap: 99px;
+    width: 100%;
+    max-width: 510px;
+    margin: 0 auto;
+}
+
+.dev-tree-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.dev-tree-lines {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.dev-tree-root {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 217px;
+    height: 105px;
+    background: #1C1B1E;
+    border-radius: 64px;
+    box-shadow: 0px 5px 8.4px #00FFBB;
+    cursor: pointer;
+    z-index: 2;
+    margin-bottom: 70px;
+    transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), height 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), border-radius 0.3s ease;
+}
+
+.root-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 500;
+    font-size: 40px;
+    color: #FFFFFF;
+    transition: opacity 0.3s ease;
+}
+
+.root-hidden-content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.root-hidden-subtitle {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 700;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+.root-hidden-desc {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.dev-tree-root:hover {
+    width: 291px;
+    height: 103px;
+    border-radius: 14px;
+}
+
+.dev-tree-root:hover .root-title {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.dev-tree-root:hover .root-hidden-content {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dev-tree-branches {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.dev-tree-branch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 148px;
+    opacity: 0.36;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3);
+    cursor: pointer;
+}
+
+.dev-tree-branch:hover {
+    opacity: 1;
+    transform: translateY(-10px);
+}
+
+.branch-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 148px;
+    height: 62px;
+    background: #1C1B1E;
+    border-radius: 14px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 0.86;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px 0;
+    box-sizing: content-box;
+    z-index: 2;
+}
+
+.branch-nodes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    width: 100%;
+}
+
+.branch-nodes::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 3px dashed #3A3A3A;
+    z-index: -1;
+}
+
+.branch-node-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 65px;
+}
+
+.branch-node {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: #1C1B1E;
+    box-shadow: 0px 5px 8.4px #00FFBB;
+    transition: width 0.4s cubic-bezier(0.68, -0.55, 0.27, 3), height 0.4s cubic-bezier(0.68, -0.55, 0.27, 3), border-radius 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.node-number {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 500;
+    font-size: 20px;
+    color: #FFFFFF;
+    transition: opacity 0.3s ease;
+}
+
+.node-hidden-content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    width: 100%;
+    height: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.node-hidden-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 500;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-bottom: 2px;
+}
+
+.node-hidden-desc {
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.45;
+}
+
+.branch-node-container:hover .branch-node {
+    width: 148px;
+    height: 80px;
+    border-radius: 14px;
+    z-index: 10;
+}
+
+.branch-node-container:hover .node-number {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.branch-node-container:hover .node-hidden-content {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dev-tree-content .dev-btn {
+    align-self: center;
+}
+
+
+
 .home-team-section {
     position: relative;
     width: 100%;
@@ -4523,7 +5005,7 @@ span.wpcf7-not-valid-tip {
     }
 }
 
-@media (max-width: 799px) {
+@media (max-width: 1024px) {
     .home-carousel-section {
         padding: 0 15px;
     }
@@ -4663,6 +5145,359 @@ span.wpcf7-not-valid-tip {
         pointer-events: auto;
     }
 
+    .home-development-section {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px 50px 20px;
+    }
+
+    .development-left {
+        position: static !important;
+        top: auto !important;
+        width: 100%;
+        height: auto !important;
+        min-height: auto;
+        margin-bottom: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 33px;
+    }
+
+    .development-bg-wrapper {
+        width: 100%;
+        max-width: 335px;
+        aspect-ratio: 335 / 383;
+        border-radius: 15px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .development-bg-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .development-left-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .development-right {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dev-right-content {
+        --bg-symbol-width: 1000px;
+        --bg-symbol-top: -150px;
+        --bg-symbol-left: 40%;
+        --bg-symbol-margin-left: calc(var(--bg-symbol-width) / -2);
+        --bg-symbol-opacity: 0.75;
+
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        gap: 70px !important;
+        z-index: 1;
+    }
+
+    .dev-right-content::before {
+        content: '';
+        position: absolute;
+        top: var(--bg-symbol-top);
+        left: var(--bg-symbol-left);
+        margin-left: var(--bg-symbol-margin-left);
+        width: var(--bg-symbol-width);
+        aspect-ratio: 699 / 619;
+        background: url('assets/images/symbol-development.png') no-repeat center center;
+        background-size: 100% 100%;
+        opacity: var(--bg-symbol-opacity);
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .dev-right-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px !important;
+        margin-bottom: 0 !important;
+    }
+
+    .dev-right-title {
+        font-family: 'FONTSPRING DEMO - Brother 1816', 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 1.16;
+        letter-spacing: -0.005em;
+        color: #FFFFFF;
+        margin: 0;
+    }
+
+    .dev-right-description {
+        font-family: 'FONTSPRING DEMO - Brother 1816', 'Outfit', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.45;
+        letter-spacing: -0.005em;
+        color: rgba(255, 255, 255, 0.55);
+        margin: 0;
+        max-width: 335px;
+    }
+
+    .dev-cards-container {
+        gap: 34px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .dev-card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+            "icon title"
+            "desc desc";
+        align-items: center;
+        padding: 30px;
+        gap: 14px 23px;
+        width: 100%;
+        max-width: 335px;
+        background: #1C1B1E;
+        box-shadow: none;
+        border-radius: 14px;
+    }
+
+    .dev-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .dev-card-icon {
+        grid-area: icon;
+    }
+
+    .desktop-icon {
+        display: none !important;
+    }
+
+    .mobile-icon {
+        display: block !important;
+    }
+
+    .dev-card-text {
+        display: contents;
+    }
+
+    .dev-card-title {
+        grid-area: title;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.45;
+        letter-spacing: -0.005em;
+        color: #FFFFFF;
+    }
+
+    .dev-card-desc {
+        grid-area: desc;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.45;
+        letter-spacing: -0.005em;
+        color: rgba(255, 255, 255, 0.55);
+        text-align: left;
+    }
+
+    .dev-btn {
+        align-self: center;
+        width: 186px;
+        height: 34px;
+        margin-top: 0 !important;
+        background: transparent !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 51px;
+        color: #FFFFFF !important;
+        font-size: 19px;
+        font-weight: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .dev-tree-content {
+        padding-top: 50px;
+        gap: 70px !important;
+    }
+
+    .dev-tree-container {
+        width: 335px !important;
+        margin: 0 auto;
+    }
+
+    .dev-tree-root {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 20px !important;
+        width: 291px !important;
+        height: 126px !important;
+        border-radius: 14px !important;
+        background: #1C1B1E !important;
+        box-shadow: 0px 5px 8.4px #00FFBB !important;
+        margin-bottom: 50px !important;
+    }
+
+    .dev-tree-root .root-title {
+        display: none !important;
+    }
+
+    .dev-tree-root .root-hidden-content {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 11px !important;
+    }
+
+    .dev-tree-root .root-hidden-subtitle {
+        font-family: 'FONTSPRING DEMO - Brother 1816', 'Outfit', sans-serif !important;
+        font-weight: 800 !important;
+        font-size: 37px !important;
+        line-height: 1 !important;
+        letter-spacing: -0.06em !important;
+        margin: 0 !important;
+    }
+
+    .dev-tree-root .root-hidden-desc {
+        font-family: 'FONTSPRING DEMO - Brother 1816', 'Outfit', sans-serif !important;
+        font-weight: 400 !important;
+        font-size: 13px !important;
+        line-height: 1.45 !important;
+        letter-spacing: -0.005em !important;
+        color: rgba(255, 255, 255, 0.78) !important;
+    }
+
+    .dev-tree-branches {
+        gap: 18px;
+        justify-content: center;
+    }
+
+    .dev-tree-branch {
+        width: 99.67px !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .branch-header {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 99.67px !important;
+        height: 54px !important;
+        padding: 0 5px !important;
+        background: #1C1B1E !important;
+        box-shadow: 0px 4px 4px #00FFBB !important;
+        border-radius: 14px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        box-sizing: border-box !important;
+        line-height: 1.45 !important;
+        letter-spacing: -0.005em !important;
+    }
+
+    .branch-node-container {
+        height: 76px !important;
+    }
+
+    .branch-node {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 90px !important;
+        height: 76px !important;
+        padding: 10px 7px !important;
+        background: #1C1B1E !important;
+        box-shadow: 0px 6px 8.1px rgba(0, 255, 187, 0.09) !important;
+        border-radius: 14px !important;
+        box-sizing: border-box !important;
+    }
+
+    .branch-node .node-number {
+        display: none !important;
+    }
+
+    .branch-node .node-hidden-content {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 8px !important;
+        padding: 0 !important;
+    }
+
+    .node-hidden-title {
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        text-align: center !important;
+        margin: 0 !important;
+    }
+
+    .node-hidden-desc {
+        font-size: 13px !important;
+        font-weight: 400 !important;
+        text-align: center !important;
+        color: rgba(255, 255, 255, 0.78) !important;
+        margin: 0 !important;
+    }
+
+    .branch-nodes::before {
+        bottom: 39px !important;
+    }
+
+    .development-title {
+        font-size: clamp(35px, 11vw, 55px);
+        color: #FFFFFF;
+        line-height: 1;
+        letter-spacing: -0.06em;
+        text-align: center;
+        margin: 0;
+    }
+
+    .development-subtitle {
+        font-family: 'Brother 1816', 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: clamp(18px, 6.4vw, 32px);
+        color: rgba(181, 181, 181, 0.95);
+        line-height: 1.16;
+        letter-spacing: -0.005em;
+        text-align: center;
+        margin: 0;
+    }
+
+    .development-test-visual {
+        height: 80vh;
+    }
+
     .home-team-section {
         min-height: 799px;
         background-position: top center;
@@ -4689,5 +5524,35 @@ span.wpcf7-not-valid-tip {
 
     .team-description {
         font-size: 14px;
+    }
+}
+
+@media (max-width: 360px) {
+    .dev-tree-container {
+        width: 275px !important;
+        margin: 0 auto;
+    }
+
+    .dev-tree-branches {
+        gap: 10px !important;
+    }
+
+    .dev-tree-branch {
+        width: 85px !important;
+    }
+
+    .branch-header {
+        width: 85px !important;
+        padding: 0 5px !important;
+        font-size: 13px !important;
+    }
+
+    .branch-node {
+        width: 80px !important;
+        padding: 10px 5px !important;
+    }
+
+    .branch-nodes::before {
+        top: -30px;
     }
 }
