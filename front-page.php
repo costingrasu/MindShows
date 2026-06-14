@@ -199,6 +199,88 @@
         </div>
     </section>
 
+    <section class="home-journeys-section fade-up-element">
+        <div class="journeys-home-container">
+            <h2 class="journeys-home-title">JOURNEYS</h2>
+            <h3 class="journeys-home-subtitle">Reshaping the Way You Travel</h3>
+            <p class="journeys-home-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+
+            <?php
+            $home_journeys_args = array(
+                'post_type'      => 'journey',
+                'posts_per_page' => -1,
+                'post_status'    => 'publish'
+            );
+            $home_journeys_query = new WP_Query($home_journeys_args);
+
+            if ( $home_journeys_query->have_posts() ) :
+                $home_journey_cards = array();
+                while ( $home_journeys_query->have_posts() ) : $home_journeys_query->the_post();
+                    $hj_post_id    = get_the_ID();
+                    $hj_card_img   = function_exists('get_field') ? get_field('card_image', $hj_post_id) : null;
+                    if (!$hj_card_img && function_exists('get_field')) {
+                        $hj_card_img = get_field('hero_background_image', $hj_post_id);
+                    }
+                    $hj_card_img_url = $hj_card_img ? $hj_card_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.png';
+                    $hj_subtitle     = function_exists('get_field') ? get_field('hero_top_subtitle', $hj_post_id) : '';
+                    $hj_description  = function_exists('get_field') ? get_field('hero_description', $hj_post_id) : '';
+                    $hj_clean_desc   = $hj_description ? strip_tags($hj_description) : '';
+
+                    $home_journey_cards[] = array(
+                        'title'       => get_the_title(),
+                        'permalink'   => get_permalink(),
+                        'image_url'   => $hj_card_img_url,
+                        'subtitle'    => $hj_subtitle,
+                        'description' => $hj_clean_desc,
+                    );
+                endwhile;
+                wp_reset_postdata();
+            ?>
+
+            <div class="journeys-home-slideshow">
+                <div class="journeys-home-track">
+                    <?php foreach ($home_journey_cards as $index => $card) : ?>
+                    <article class="journeys-home-card <?php echo $index === 0 ? 'is-active' : ''; ?>" data-index="<?php echo $index; ?>">
+                        <div class="jhc-bg" style="background-image: url('<?php echo esc_url($card['image_url']); ?>');"></div>
+                        <div class="jhc-overlay"></div>
+                        <div class="jhc-content">
+                            <h3 class="jhc-title"><?php echo esc_html($card['title']); ?></h3>
+                            <?php if ($card['subtitle']) : ?>
+                            <span class="jhc-subtitle"><?php echo esc_html($card['subtitle']); ?></span>
+                            <?php endif; ?>
+                            <div class="jhc-hidden-content">
+                                <p class="jhc-description"><?php echo esc_html($card['description']); ?></p>
+                                <a href="<?php echo esc_url($card['permalink']); ?>" class="jhc-btn">View More</a>
+                            </div>
+                        </div>
+                    </article>
+                    <?php endforeach; ?>
+                </div>
+
+                <div class="journeys-home-pagination">
+                    <button class="jhp-arrow jhp-arrow-left" aria-label="Previous journey" style="visibility: hidden;">
+                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M16.25 6.5L9.75 13L16.25 19.5" stroke="#BDBDBD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="jhp-dots">
+                        <?php foreach ($home_journey_cards as $index => $card) : ?>
+                        <span class="jhp-dot <?php echo $index === 0 ? 'active' : ''; ?>" data-index="<?php echo $index; ?>"></span>
+                        <?php endforeach; ?>
+                    </div>
+                    <button class="jhp-arrow jhp-arrow-right" aria-label="Next journey">
+                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M9.75 6.5L16.25 13L9.75 19.5" stroke="#BDBDBD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <a href="<?php echo home_url('/journeys'); ?>" class="journeys-home-btn">Afla Mai Multe</a>
+
+            <?php else : ?>
+            <div class="journeys-home-placeholder"><span>Coming Soon</span></div>
+            <?php endif; ?>
+
+        </div>
+    </section>
+
     <section class="home-team-section fade-up-element">
         <div class="team-container">
             <h2 class="team-title">Meet the <br class="team-title-br">Team</h2>
