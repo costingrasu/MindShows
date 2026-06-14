@@ -4904,9 +4904,11 @@ span.wpcf7-not-valid-tip {
 
 .home-irlgaming-section {
     width: 100%;
+    height: calc(100vh - 80px);
     background-color: #000;
     position: relative;
-    padding: 100px 20px;
+    padding: 40px 20px;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -4938,8 +4940,10 @@ span.wpcf7-not-valid-tip {
 .irlgaming-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     width: 100%;
+    height: 100%;
     z-index: 1;
 }
 
@@ -4977,7 +4981,9 @@ span.wpcf7-not-valid-tip {
 .irlgaming-placeholder {
     width: 100%;
     max-width: 1418px;
-    height: 602px;
+    flex: 1;
+    max-height: 602px;
+    min-height: 150px;
     background: #1C1B1E;
     border-radius: 14px;
     padding: 30px;
