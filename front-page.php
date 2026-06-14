@@ -190,6 +190,15 @@
         </div>
     </section>
 
+    <section class="home-irlgaming-section fade-up-element">
+        <div class="irlgaming-container">
+            <h2 class="irlgaming-title">IRL GAMING</h2>
+            <h3 class="irlgaming-subtitle">Changing the Way You Play</h3>
+            <p class="irlgaming-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+            <div class="irlgaming-placeholder"><span>Coming Soon</span></div>
+        </div>
+    </section>
+
     <section class="home-team-section fade-up-element">
         <div class="team-container">
             <h2 class="team-title">Meet the <br class="team-title-br">Team</h2>

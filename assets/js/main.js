@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const initScrollAnimations = () => {
     const animatedElements = document.querySelectorAll(
-      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list, .home-carousel-section, .home-services-section, .home-development-section, .home-team-section",
+      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list, .home-carousel-section, .home-services-section, .home-development-section, .home-irlgaming-section, .home-team-section",
     );
 
     if (animatedElements.length === 0) return;

@@ -4902,7 +4902,98 @@ span.wpcf7-not-valid-tip {
     align-self: center;
 }
 
+.home-irlgaming-section {
+    width: 100%;
+    background-color: #000;
+    position: relative;
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
 
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-irlgaming-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.home-irlgaming-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url('assets/images/symbol-irlGaming.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.75;
+}
+
+.irlgaming-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.irlgaming-title {
+    font-family: 'Brother 1816 Bold', sans-serif;
+    font-weight: 900;
+    font-size: 109px;
+    line-height: 100%;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0 0 11px 0;
+}
+
+.irlgaming-subtitle {
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: 66px;
+    line-height: 86%;
+    letter-spacing: -0.06em;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 46px 0;
+}
+
+.irlgaming-description {
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 145%;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 959px;
+    margin: 0 auto 51px;
+}
+
+.irlgaming-placeholder {
+    width: 100%;
+    max-width: 1418px;
+    height: 602px;
+    background: #1C1B1E;
+    border-radius: 14px;
+    padding: 30px;
+    border: 2px solid #EC226E;
+    box-shadow: 0 0 40px -10px #EC226E, inset 0 0 20px -5px #EC226E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.irlgaming-placeholder span {
+    font-size: 64px;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-transform: none;
+}
 
 .home-team-section {
     position: relative;
@@ -5496,6 +5587,36 @@ span.wpcf7-not-valid-tip {
 
     .development-test-visual {
         height: 80vh;
+    }
+
+    .home-irlgaming-section {
+        padding: 60px 20px;
+    }
+
+    .irlgaming-subtitle {
+        display: none;
+    }
+
+    .irlgaming-title {
+        font-size: 48px;
+        line-height: 100%;
+    }
+
+    .irlgaming-description {
+        font-size: 14px;
+        line-height: 145%;
+        letter-spacing: -0.005em;
+        width: 100%;
+        max-width: 355px;
+        margin: 0 auto 30px;
+    }
+
+    .irlgaming-placeholder {
+        height: 250px;
+    }
+
+    .irlgaming-placeholder span {
+        font-size: 32px;
     }
 
     .home-team-section {
