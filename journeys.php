@@ -82,7 +82,6 @@ get_header(); ?>
                     $kp2_desc  = ($kp_2 && !empty($kp_2['description'])) ? $kp_2['description'] : '';
                     $location_text = trim($kp2_title . ($kp2_title && $kp2_desc ? ', ' : '') . $kp2_desc);
                     
-                   // --- Extragere Info (Keypoint 3 + Capacitate) ---
                     $kp_3 = function_exists('get_field') ? get_field('kp_3', $post_id) : null;
                     $age_text = ($kp_3 && !empty($kp_3['title'])) ? $kp_3['title'] : '';
                     

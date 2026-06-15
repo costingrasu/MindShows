@@ -426,7 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (viewMoreBtn) {
         viewMoreBtn.addEventListener('click', (e) => {
-          if (window.innerWidth <= 799) {
+          if (window.innerWidth <= 1024) {
             e.preventDefault();
             card.classList.add('is-expanded');
           }
@@ -435,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (closeBtn) {
         closeBtn.addEventListener('click', (e) => {
-          if (window.innerWidth <= 799) {
+          if (window.innerWidth <= 1024) {
             e.preventDefault();
             e.stopPropagation();
             card.classList.remove('is-expanded');
