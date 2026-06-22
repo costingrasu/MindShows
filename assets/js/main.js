@@ -445,78 +445,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  const initHomeJourneysSlider = () => {
-    const track = document.querySelector('.journeys-home-track');
-    const cards = Array.from(document.querySelectorAll('.journeys-home-card'));
-    const leftArrow = document.querySelector('.jhp-arrow-left');
-    const rightArrow = document.querySelector('.jhp-arrow-right');
-    const dots = Array.from(document.querySelectorAll('.jhp-dot'));
-
-    if (!track || cards.length === 0 || window.innerWidth <= 1024) return;
-
-    let currentIndex = 0;
-    const gap = 47;
-    const activeWidth = 630;
-    const inactiveWidth = 560;
-
-    const updateSlider = () => {
-      cards.forEach(c => c.classList.remove('is-active'));
-      cards[currentIndex].classList.add('is-active');
-
-      const trackWrapper = track.parentElement;
-      const containerWidth = trackWrapper.offsetWidth;
-
-      let offsetToCardLeft = 0;
-      for (let i = 0; i < currentIndex; i++) {
-        offsetToCardLeft += inactiveWidth + gap;
-      }
-
-      const cardCenterPosition = offsetToCardLeft + (activeWidth / 2);
-      const containerCenter = containerWidth / 2;
-
-      const translateValue = containerCenter - cardCenterPosition;
-
-      track.style.transform = `translateX(${translateValue}px)`;
-
-      dots.forEach(d => d.classList.remove('active'));
-      if (dots[currentIndex]) dots[currentIndex].classList.add('active');
-
-      if (leftArrow) {
-        leftArrow.style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
-      }
-      if (rightArrow) {
-        rightArrow.style.visibility = currentIndex === cards.length - 1 ? 'hidden' : 'visible';
-      }
-    };
-
-    if (leftArrow) {
-      leftArrow.addEventListener('click', () => {
-        if (currentIndex > 0) {
-          currentIndex--;
-          updateSlider();
-        }
-      });
-    }
-
-    if (rightArrow) {
-      rightArrow.addEventListener('click', () => {
-        if (currentIndex < cards.length - 1) {
-          currentIndex++;
-          updateSlider();
-        }
-      });
-    }
-
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        currentIndex = parseInt(dot.getAttribute('data-index'), 10);
-        updateSlider();
-      });
-    });
-
-    updateSlider();
-  };
-
   initMobileMenu();
   initHomeCarousel();
   initMobileJourneyCards();
@@ -528,5 +456,4 @@ document.addEventListener("DOMContentLoaded", () => {
   initGalleryCarousel();
   initProgramCarousel();
   initMobileServices();
-  initHomeJourneysSlider();
 });
