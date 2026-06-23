@@ -54,6 +54,15 @@
             </svg>
         </button>
     </section>
+
+    <section class="home-value-section">
+        <div class="value-card-wrapper">
+            <div class="value-card">
+                <p class="value-text">Organizăm <span class="value-highlight">experiențe educaționale</span>, <span class="value-highlight">traininguri interactive</span>, <span class="value-highlight">jocuri imersive</span> și <span class="value-highlight">concepte gamificate</span> pentru adolescenți, tineri, școli, tabere, branduri și organizații.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="home-services-section fade-up-element">
         <div class="services-container">
             <article class="service-card">
@@ -397,7 +406,7 @@
         </div>
     </section>
 
-    <section class="home-team-section fade-up-element">
+    <section class="home-team-section fade-up-element" style="display: none;">
         <div class="team-container">
             <h2 class="team-title">Meet the <br class="team-title-br">Team</h2>
             <p class="team-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
