@@ -37,22 +37,26 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
                 <h3 class="lt-keynote-title">Location</h3>
                 <p class="lt-keynote-value">Costinești</p>
             </div>
+            <span class="lt-keynote-div"></span>
             <div class="lt-keynote">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="#ed1b68" stroke-width="1.4"/><circle cx="20" cy="20" r="6" fill="#ed1b68"/></svg>
                 <h3 class="lt-keynote-title">Outdoor</h3>
                 <p class="lt-keynote-value">Open-air arena</p>
             </div>
+            <span class="lt-keynote-div"></span>
             <div class="lt-keynote">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="28" height="28" rx="3" stroke="#ed1b68" stroke-width="1.4"/><rect x="15" y="15" width="10" height="10" fill="#ed1b68"/></svg>
                 <h3 class="lt-keynote-title">Arena size</h3>
                 <p class="lt-keynote-value">1,000 sqm</p>
             </div>
+            <span class="lt-keynote-div"></span>
             <div class="lt-keynote">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="14" cy="15" r="6" stroke="#ed1b68" stroke-width="1.4"/><circle cx="26" cy="15" r="6" stroke="#ed1b68" stroke-width="1.4"/><path d="M6 33c0-5 4-8 8-8s8 3 8 8M18 33c0-5 4-8 8-8s8 3 8 8" stroke="#ed1b68" stroke-width="1.4"/></svg>
                 <h3 class="lt-keynote-title">Players</h3>
                 <p class="lt-keynote-value">Up to 14 players</p>
             </div>
-            <div class="lt-keynote lt-keynote-last">
+            <span class="lt-keynote-div"></span>
+            <div class="lt-keynote">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 4 L24 16 L37 16 L26 24 L30 36 L20 28 L10 36 L14 24 L3 16 L16 16 Z" stroke="#ed1b68" stroke-width="1.4"/></svg>
                 <h3 class="lt-keynote-title">Scenarios</h3>
                 <p class="lt-keynote-value">Multiple game modes</p>
@@ -303,6 +307,17 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
                                         <option value="VIP Escort">VIP Escort</option>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div class="lt-form-field lt-terms-field">
+                            <div class="lt-terms-wrapper">
+                                <label class="lt-terms-label">
+                                    <input type="checkbox" id="lt-terms" class="lt-checkbox" />
+                                    <span class="lt-terms-text">
+                                        Am citit <a href="/termeni-si-conditii" target="_blank">termenii si conditiile</a> si sunt de acord cu prelucrarea datelor.
+                                    </span>
+                                </label>
                             </div>
                         </div>
                         

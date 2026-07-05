@@ -5698,11 +5698,15 @@ span.wpcf7-not-valid-tip {
     text-align: center;
     gap: 8px;
     padding: 8px 18px;
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.lt-keynote-last {
-    border-right: none;
+.lt-keynote-div {
+    align-self: center;
+    width: 2px;
+    height: 84px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, transparent 0%, rgba(237, 27, 104, 0.15) 12%, #ed1b68 50%, rgba(237, 27, 104, 0.15) 88%, transparent 100%);
+    box-shadow: 0 0 10px rgba(237, 27, 104, 0.5);
 }
 
 .lt-keynote svg {
@@ -6679,6 +6683,101 @@ span.wpcf7-not-valid-tip {
     margin: 0 0 30px;
 }
 
+.lt-hero,
+.lt-keynotes,
+.lt-about,
+.lt-mission,
+.lt-packages,
+.lt-booking {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.lt-hero.in-view,
+.lt-keynotes.in-view,
+.lt-about.in-view,
+.lt-mission.in-view,
+.lt-packages.in-view,
+.lt-booking.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.lt-terms-field {
+    margin-top: 18px;
+    margin-bottom: 12px;
+    width: 100% !important;
+}
+
+.lt-terms-wrapper {
+    width: 100%;
+}
+
+.lt-terms-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.lt-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    background-color: #141620;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    margin: 2px 0 0 0;
+    transition: all 0.3s ease;
+}
+
+.lt-checkbox:hover {
+    border-color: #ed1b68;
+    box-shadow: 0 0 8px rgba(237, 27, 104, 0.35);
+}
+
+.lt-checkbox:checked {
+    background-color: #ed1b68;
+    border-color: #ed1b68;
+}
+
+.lt-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 7px;
+    width: 5px;
+    height: 10px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.lt-terms-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #b4bbcc;
+}
+
+.lt-terms-text a {
+    color: #b4bbcc;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.lt-terms-text a:hover {
+    color: #ed1b68;
+}
+
 @keyframes lt-fade {
     from {
         opacity: 0;
@@ -6709,6 +6808,10 @@ span.wpcf7-not-valid-tip {
         max-width: none;
         flex: 0 0 33.33%;
         border-right: none;
+    }
+
+    .lt-keynote-div {
+        display: none !important;
     }
 
     .lt-about-grid {
@@ -6775,12 +6878,13 @@ span.wpcf7-not-valid-tip {
         min-height: 240px;
         margin-top: 0;
     }
+
+    .lt-keynote {
+        flex: 0 0 50% !important;
+    }
 }
 
 @media (max-width: 480px) {
-    .lt-keynote {
-        flex: 0 0 50%;
-    }
 
     .lt-mission-grid {
         grid-template-columns: 1fr;
@@ -6816,6 +6920,37 @@ span.wpcf7-not-valid-tip {
         gap: 10px;
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+
+@media (max-width: 425px) {
+    .lt-keynotes-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0 !important;
+    }
+
+    .lt-keynote {
+        position: relative;
+        flex: 1 1 auto !important;
+        width: 100% !important;
+        padding: 20px 18px !important;
+    }
+
+    .lt-keynote~.lt-keynote {
+        border-top: none !important;
+    }
+
+    .lt-keynote~.lt-keynote::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, transparent 0%, rgba(237, 27, 104, 0.15) 12%, #ed1b68 50%, rgba(237, 27, 104, 0.15) 88%, transparent 100%);
+        box-shadow: 0 0 10px rgba(237, 27, 104, 0.5);
     }
 }
 

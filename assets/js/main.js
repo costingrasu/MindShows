@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const initScrollAnimations = () => {
     const animatedElements = document.querySelectorAll(
-      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list, .home-carousel-section, .home-value-section, .home-services-section, .home-development-section, .home-irlgaming-section, .home-journeys-section, .home-team-section",
+      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list, .home-carousel-section, .home-value-section, .home-services-section, .home-development-section, .home-irlgaming-section, .home-journeys-section, .home-team-section, .lt-hero, .lt-keynotes, .lt-about, .lt-mission, .lt-packages, .lt-booking",
     );
 
     if (animatedElements.length === 0) return;
@@ -461,6 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
       city: "",
       players: 2,
       gameMode: "Battle Royale",
+      termsChecked: false,
       step: "build",
       mobileStep: 1,
       slots: [],
@@ -733,7 +734,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const reviewBtn = document.getElementById("lt-review-btn");
       const formStatus = document.getElementById("lt-form-status");
-      const canReview = !!(ltState.name && ltState.email && ltState.phone && ltState.selectedRounds && ltState.selectedDate && ltState.selectedSlot);
+      const canReview = !!(ltState.name && ltState.email && ltState.phone && ltState.selectedRounds && ltState.selectedDate && ltState.selectedSlot && ltState.termsChecked);
 
       if (reviewBtn) {
         reviewBtn.disabled = !canReview;
@@ -1028,6 +1029,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cityInput) cityInput.addEventListener("input", (e) => { ltState.city = e.target.value; updateUI(); });
     if (gamemodeSelect) gamemodeSelect.addEventListener("change", (e) => { ltState.gameMode = e.target.value; updateUI(); });
 
+    const termsCheckbox = document.getElementById("lt-terms");
+    if (termsCheckbox) {
+      termsCheckbox.addEventListener("change", (e) => {
+        ltState.termsChecked = e.target.checked;
+        updateUI();
+      });
+    }
+
     const decPlayersBtn = document.getElementById("lt-dec-players");
     const incPlayersBtn = document.getElementById("lt-inc-players");
     const playersInput = document.getElementById("lt-players");
@@ -1095,6 +1104,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ltState.city = "";
       ltState.players = 2;
       ltState.gameMode = "Battle Royale";
+      ltState.termsChecked = false;
       ltState.slots = [];
 
       if (nameInput) nameInput.value = "";
@@ -1103,6 +1113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cityInput) cityInput.value = "";
       if (playersInput) playersInput.value = 2;
       if (gamemodeSelect) gamemodeSelect.value = "Battle Royale";
+      if (termsCheckbox) termsCheckbox.checked = false;
 
       updateUI();
     });
