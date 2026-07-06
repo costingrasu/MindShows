@@ -185,6 +185,36 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
         </div>
     </section>
 
+    <section id="lt-discounts" class="lt-discounts lt-section-pad">
+        <div class="lt-discount-inner">
+            <div class="lt-section-center">
+                <span class="lt-eyebrow">Discounts</span>
+                <h2 class="lt-section-heading">Stack your savings</h2>
+                <p class="lt-section-sub">Two ways to pay less — and they combine for up to 26% off.</p>
+                <p style="font-family:'Aerospace','Brother 1816 Bold',sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:clamp(16px,1.8vw,20px);color:#ed1b68;margin:14px 0 0;">Yep, the discounts stack!</p>
+            </div>
+
+            <div class="lt-discount-box">
+                <div class="lt-discount-divider"></div>
+                <div class="lt-stack-badge">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M4 12h16" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+                </div>
+
+                <div class="lt-discount-panel">
+                    <span class="lt-discount-num">13%<span style="font-size:0.42em;letter-spacing:1px;margin-left:6px;">OFF</span></span>
+                    <h3 class="lt-discount-sub">For LUN.R Campers</h3>
+                    <p class="lt-discount-note">Camping access bracelet required.</p>
+                </div>
+
+                <div class="lt-discount-panel">
+                    <span class="lt-discount-num">13%<span style="font-size:0.42em;letter-spacing:1px;margin-left:6px;">OFF</span></span>
+                    <h3 class="lt-discount-sub">Monday to Friday, 12-6 PM</h3>
+                    <p class="lt-discount-note">Every Monday to Friday afternoon.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="lt-booking" class="lt-booking lt-section-pad">
         <div class="lt-booking-inner">
             <div class="lt-section-center">
