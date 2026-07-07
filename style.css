@@ -5573,7 +5573,7 @@ span.wpcf7-not-valid-tip {
 
 .lt-hero {
     position: relative;
-    min-height: 86vh;
+    min-height: min(86vh, 900px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5596,25 +5596,21 @@ span.wpcf7-not-valid-tip {
 .lt-hero-gradient {
     position: absolute;
     inset: 0;
-    background: radial-gradient(120% 95% at 50% -10%, rgba(92, 20, 50, 0.80) 0%, rgba(40, 10, 24, 0.86) 38%, rgba(4, 6, 14, 0.92) 68%, #000 100%);
+    background: linear-gradient(180deg, rgba(4, 6, 14, 0.72) 0%, transparent 22%, transparent 60%, rgba(4, 6, 14, 0.85) 88%, #000 100%);
     pointer-events: none;
     z-index: 2;
 }
 
-.lt-hero-pattern {
+.lt-hero-radial {
     position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.028) 0 2px, transparent 2px 26px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(760px, 80%);
+    height: 66%;
+    background: radial-gradient(60% 60% at 50% 50%, rgba(6, 4, 10, 0.62) 0%, rgba(6, 4, 10, 0.28) 55%, transparent 80%);
     pointer-events: none;
     z-index: 3;
-}
-
-.lt-hero-vignette {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, transparent 30%, transparent 66%, #000 100%);
-    pointer-events: none;
-    z-index: 4;
 }
 
 .lt-hero-content {
@@ -5937,23 +5933,6 @@ span.wpcf7-not-valid-tip {
     z-index: 2;
     background: linear-gradient(180deg, transparent 0%, #ed1b68 50%, transparent 100%);
     box-shadow: 0 0 10px rgba(237, 27, 104, 0.5);
-}
-
-.lt-stack-badge {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: #ed1b68;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 0 6px #0b0c10, 0 0 22px rgba(237, 27, 104, 0.7);
 }
 
 .lt-discount-panel {
@@ -6338,6 +6317,7 @@ span.wpcf7-not-valid-tip {
 
 #lt-calendar-body {
     position: relative;
+    margin-bottom: 28px;
 }
 
 .lt-lock-overlay {
@@ -6510,6 +6490,14 @@ span.wpcf7-not-valid-tip {
 }
 
 .lt-slots-msg {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: #6F7482;
+    margin: 0;
+    padding: 4px 0 6px;
+}
+
+.lt-no-date-msg {
     font-family: 'Outfit', sans-serif;
     font-size: 14px;
     color: #6F7482;
@@ -6834,7 +6822,36 @@ span.wpcf7-not-valid-tip {
 }
 
 .lt-terms-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     width: 100%;
+}
+
+.lt-terms-ro {
+    display: block;
+    font-weight: 500;
+    color: #dfe4f2;
+}
+
+.lt-terms-en {
+    display: block;
+    font-size: 12px;
+    color: rgba(180, 187, 204, 0.6);
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.lt-terms-text a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.lt-terms-text a:hover {
+    color: #ed1b68;
 }
 
 .lt-terms-label {
@@ -6943,7 +6960,17 @@ span.wpcf7-not-valid-tip {
     }
 
     .lt-about-imgs {
-        grid-template-columns: 1fr 1fr;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 14px;
+    }
+
+    .lt-about-img {
+        min-height: 240px;
+    }
+
+    .lt-about-img-offset {
+        margin-top: 0;
     }
 
     .lt-mission-grid {
@@ -6969,14 +6996,25 @@ span.wpcf7-not-valid-tip {
 
     .lt-discount-panel {
         padding: 40px 30px !important;
+        position: relative;
     }
 
     .lt-discount-panel+.lt-discount-panel {
-        border-top: 1px solid rgba(237, 27, 104, 0.3) !important;
+        border-top: none !important;
     }
 
-    .lt-stack-badge {
-        top: 50% !important;
+    .lt-discount-panel+.lt-discount-panel::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: auto !important;
+        left: 8%;
+        right: 8%;
+        height: 2px;
+        opacity: 1 !important;
+        background: linear-gradient(90deg, transparent 0%, #ed1b68 50%, transparent 100%) !important;
+        box-shadow: 0 0 10px rgba(237, 27, 104, 0.5) !important;
+        pointer-events: none;
     }
 
     .lt-booking-grid {
@@ -7012,16 +7050,6 @@ span.wpcf7-not-valid-tip {
 }
 
 @media (max-width: 560px) {
-    .lt-about-imgs {
-        grid-template-columns: 1fr;
-        gap: 14px;
-    }
-
-    .lt-about-img {
-        min-height: 240px;
-        margin-top: 0;
-    }
-
     .lt-keynote {
         flex: 0 0 50% !important;
     }

@@ -461,7 +461,8 @@ document.addEventListener("DOMContentLoaded", () => {
       city: "",
       players: 2,
       gameMode: "Battle Royale",
-      termsChecked: false,
+      termsChecked1: false,
+      termsChecked2: false,
       step: "build",
       mobileStep: 1,
       slots: [],
@@ -734,7 +735,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const reviewBtn = document.getElementById("lt-review-btn");
       const formStatus = document.getElementById("lt-form-status");
-      const canReview = !!(ltState.name && ltState.email && ltState.phone && ltState.selectedRounds && ltState.selectedDate && ltState.selectedSlot && ltState.termsChecked);
+      const canReview = !!(ltState.name && ltState.email && ltState.phone && ltState.selectedRounds && ltState.selectedDate && ltState.selectedSlot && ltState.termsChecked1 && ltState.termsChecked2);
 
       if (reviewBtn) {
         reviewBtn.disabled = !canReview;
@@ -862,14 +863,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const timeSection = document.getElementById("lt-time-section");
         const slotsContainer = document.getElementById("lt-slots-container");
 
+        const noDateMsg = document.getElementById("lt-no-date-msg");
+
         if (stepPkg) stepPkg.style.display = "block";
         if (calCard) calCard.style.display = "block";
         if (formCard) formCard.style.display = "block";
         if (calendarBody) calendarBody.style.display = "block";
         if (stepDateHeader) stepDateHeader.style.display = "block";
 
-        if (timeSection) timeSection.style.display = ltState.selectedDate ? "block" : "none";
+        if (timeSection) timeSection.style.display = "block";
         if (slotsContainer) slotsContainer.style.display = ltState.selectedDate ? "block" : "none";
+        if (noDateMsg) noDateMsg.style.display = ltState.selectedDate ? "none" : "block";
 
         const pkgSummary = document.getElementById("lt-pkg-summary");
         const dateSummary = document.getElementById("lt-date-summary");
@@ -1029,10 +1033,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cityInput) cityInput.addEventListener("input", (e) => { ltState.city = e.target.value; updateUI(); });
     if (gamemodeSelect) gamemodeSelect.addEventListener("change", (e) => { ltState.gameMode = e.target.value; updateUI(); });
 
-    const termsCheckbox = document.getElementById("lt-terms");
-    if (termsCheckbox) {
-      termsCheckbox.addEventListener("change", (e) => {
-        ltState.termsChecked = e.target.checked;
+    const termsCheckbox1 = document.getElementById("lt-terms-1");
+    const termsCheckbox2 = document.getElementById("lt-terms-2");
+
+    if (termsCheckbox1) {
+      termsCheckbox1.addEventListener("change", (e) => {
+        ltState.termsChecked1 = e.target.checked;
+        updateUI();
+      });
+    }
+
+    if (termsCheckbox2) {
+      termsCheckbox2.addEventListener("change", (e) => {
+        ltState.termsChecked2 = e.target.checked;
         updateUI();
       });
     }
@@ -1104,7 +1117,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ltState.city = "";
       ltState.players = 2;
       ltState.gameMode = "Battle Royale";
-      ltState.termsChecked = false;
+      ltState.termsChecked1 = false;
+      ltState.termsChecked2 = false;
       ltState.slots = [];
 
       if (nameInput) nameInput.value = "";
@@ -1113,7 +1127,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cityInput) cityInput.value = "";
       if (playersInput) playersInput.value = 2;
       if (gamemodeSelect) gamemodeSelect.value = "Battle Royale";
-      if (termsCheckbox) termsCheckbox.checked = false;
+      if (termsCheckbox1) termsCheckbox1.checked = false;
+      if (termsCheckbox2) termsCheckbox2.checked = false;
 
       updateUI();
     });

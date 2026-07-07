@@ -3,3 +3,4 @@ GEMINI.md
 .DS_Store
 assets/.DS_Store
 .agent/*
+DesignReference/*

@@ -228,6 +228,9 @@ function lt_submit_booking_handler() {
     <p><a href='" . admin_url('post.php?post=' . $post_id . '&action=edit') . "'>View in WordPress Admin</a></p>
     ";
 
+    $terms_ro_url = home_url('/termeni-conditii-regulament-lt/');
+    $terms_en_url = home_url('/terms-conditions-regulations-lt/');
+
     $subject_customer = 'MindShows Laser Tag - Booking Confirmed!';
     $message_customer = "
     <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 8px;'>
@@ -248,7 +251,24 @@ function lt_submit_booking_handler() {
             <p style='margin: 5px 0;'><strong>Email:</strong> {$email}</p>
             <p style='margin: 5px 0;'><strong>City:</strong> {$city_display}</p>
         </div>
-        <p>If you need to reschedule or cancel, please contact us at least 24 hours in advance.</p>
+        <p>If you need to reschedule or cancel, please contact us at least 24 hours in advance at <a href='mailto:hello@mindshows.ro' style='color: #ed1b68; text-decoration: underline;'>hello@mindshows.ro</a>.</p>
+        
+        <hr style='border: 0; border-top: 1px solid #ddd; margin: 20px 0;' />
+        <div style='font-size: 13px; color: #555; line-height: 1.5;'>
+            <p><strong>RO</strong><br/>
+            Participarea la Mind Shows Laser Tag este permisă numai după citirea și acceptarea Termenilor, Condițiilor și Regulamentului de Participare. Prin transmiterea rezervării, confirmați că ați avut posibilitatea de a citi aceste documente, că le acceptați și că vă obligați să le respectați. În cazul rezervărilor de grup, persoana care a efectuat rezervarea are responsabilitatea de a transmite aceste informații tuturor participanților înainte de joc.</p>
+            <p>Rezervarea confirmată și participarea la activitate reprezintă un acord contractual între participanți și MIND SHOWS SRL, în condițiile documentelor menționate.</p>
+            
+            <p style='margin-top: 15px;'><strong>EN</strong><br/>
+            Participation in Mind Shows Laser Tag is allowed only after reading and accepting the Terms, Conditions and Participation Rules. By submitting the booking, you confirm that you had the opportunity to read these documents, that you accept them and that you agree to follow them. For group bookings, the person who made the booking is responsible for sharing this information with all participants before the game.</p>
+            <p>The confirmed booking and participation in the activity represent a contractual agreement between the participants and MIND SHOWS SRL, under the conditions set out in the above-mentioned documents.</p>
+            
+            <p style='margin-top: 18px;'>
+                &#187; <a href='{$terms_ro_url}' style='color: #ed1b68; text-decoration: underline;' target='_blank'>Termeni, Condiții și Regulament (RO)</a><br/>
+                &#187; <a href='{$terms_en_url}' style='color: #ed1b68; text-decoration: underline;' target='_blank'>Terms, Conditions and Rules (EN)</a>
+            </p>
+        </div>
+        
         <p style='text-align: center; margin-top: 30px; font-size: 12px; color: #888;'>MindShows &copy; " . date('Y') . "</p>
     </div>
     ";

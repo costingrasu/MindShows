@@ -5,23 +5,23 @@ Template Name: Laser Tag
 
 get_header();
 
-$unsplash_hero = 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&amp;w=1600';
-$unsplash_about_1 = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&amp;w=800';
-$unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&amp;w=800';
+$theme_uri = get_stylesheet_directory_uri();
+$hero_img = $theme_uri . '/assets/images/Hero.png';
+$about_day_img = $theme_uri . '/assets/images/day.png';
+$about_night_img = $theme_uri . '/assets/images/night.png';
 ?>
 
 <main class="lt-main">
 
     <section class="lt-hero">
-        <div class="lt-hero-bg" style="background-image: url('<?php echo esc_url($unsplash_hero); ?>');"></div>
+        <div class="lt-hero-bg" style="background-image: url('<?php echo esc_url($hero_img); ?>');"></div>
         <div class="lt-hero-gradient"></div>
-        <div class="lt-hero-pattern"></div>
-        <div class="lt-hero-vignette"></div>
+        <div class="lt-hero-radial"></div>
         
         <div class="lt-hero-content">
             <span class="lt-hero-eyebrow">MIND SHOWS</span>
             <h1 class="lt-hero-title">Laser Tag</h1>
-            <p class="lt-hero-subtitle">Experience our outdoor laser tag arena in Costinești, where real-life gaming meets the pulse of summer, right next to Nibiru.</p>
+            <p class="lt-hero-subtitle">Experiece out outdoor las tag arena in Costinești, where real-life gaming modes meets the pulse of summer, located in LUN.R camping right next to Nibiru.</p>
             <div class="lt-cta-row">
                 <a href="#lt-booking" class="lt-btn-primary">Join the game now</a>
                 <a href="#lt-mission" class="lt-btn-outline">Discover game modes</a>
@@ -72,7 +72,7 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
                     <span class="lt-eyebrow-line"></span>
                 </div>
                 <h2 class="lt-section-heading">More than a<br>regular activity</h2>
-                <p class="lt-about-desc">Laser by the Beach is an outdoor laser tag experience in Costinești, created by Mind Shows for people who want more than a regular summer activity.</p>
+                <p class="lt-about-desc">Join our outdoor laser tag experience in Costinești, created by Mind Shows for people who want more than a regular summer activity.</p>
                 <p class="lt-about-desc">By day, it's fast, social and full of summer energy. By night, it's intense, cinematic and built for adventure.</p>
                 <div class="lt-about-badge">
                     <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><path d="M20 4 L24 16 L37 16 L26 24 L30 36 L20 28 L10 36 L14 24 L3 16 L16 16 Z" fill="#ed1b68"/></svg>
@@ -80,8 +80,8 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
                 </div>
             </div>
             <div class="lt-about-imgs">
-                <div class="lt-about-img" style="background-image: url('<?php echo esc_url($unsplash_about_1); ?>');"></div>
-                <div class="lt-about-img lt-about-img-offset" style="background-image: url('<?php echo esc_url($unsplash_about_2); ?>');"></div>
+                <div class="lt-about-img" style="background-image: url('<?php echo esc_url($about_day_img); ?>');"></div>
+                <div class="lt-about-img lt-about-img-offset" style="background-image: url('<?php echo esc_url($about_night_img); ?>');"></div>
             </div>
         </div>
     </section>
@@ -96,32 +96,32 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
                 <div class="lt-mode-card">
                     <span class="lt-mode-icon"><svg width="46" height="46" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="15" stroke="#ed1b68" stroke-width="1.4"/><circle cx="20" cy="20" r="8" stroke="#ed1b68" stroke-width="1.4"/><circle cx="20" cy="20" r="2.5" fill="#ed1b68"/></svg></span>
                     <h3 class="lt-mode-title">Battle Royale</h3>
-                    <p class="lt-mode-desc">Everyone for themselves — outscore all other players and be the last one on top of the leaderboard.</p>
+                    <p class="lt-mode-desc">Play solo, in pairs or in squads. Stay inside the shrinking safe zone and outlive everyone else.</p>
                 </div>
                 <div class="lt-mode-card">
                     <span class="lt-mode-icon"><svg width="46" height="46" viewBox="0 0 40 40" fill="none"><circle cx="14" cy="20" r="8" stroke="#ed1b68" stroke-width="1.4"/><circle cx="26" cy="20" r="8" stroke="#ed1b68" stroke-width="1.4"/></svg></span>
                     <h3 class="lt-mode-title">Team vs Team</h3>
-                    <p class="lt-mode-desc">Two squads, one arena. Coordinate with your team and out-tag the opponents to win the round.</p>
+                    <p class="lt-mode-desc">Work together, fight the enemy team and score more points before time runs out.</p>
                 </div>
                 <div class="lt-mode-card">
                     <span class="lt-mode-icon"><svg width="46" height="46" viewBox="0 0 40 40" fill="none"><path d="M20 4 L24 16 L37 16 L26 24 L30 36 L20 28 L10 36 L14 24 L3 16 L16 16 Z" stroke="#ed1b68" stroke-width="1.4"/></svg></span>
                     <h3 class="lt-mode-title">Last One Standing</h3>
-                    <p class="lt-mode-desc">One life each. Get tagged and you're out — survive longer than everyone else to take the win.</p>
+                    <p class="lt-mode-desc">Play solo or in squads, stay and be the last player standing.</p>
                 </div>
                 <div class="lt-mode-card">
                     <span class="lt-mode-icon"><svg width="46" height="46" viewBox="0 0 40 40" fill="none"><path d="M12 5 V35" stroke="#ed1b68" stroke-width="1.6"/><path d="M12 7 H31 L27 13 L31 19 H12 Z" stroke="#ed1b68" stroke-width="1.4"/></svg></span>
                     <h3 class="lt-mode-title">Capture the Flag</h3>
-                    <p class="lt-mode-desc">Raid the enemy base, grab their flag and carry it home without getting tagged along the way.</p>
+                    <p class="lt-mode-desc">Fight for the digital flag, protect your team and hold it longer than your opponents.</p>
                 </div>
                 <div class="lt-mode-card">
                     <span class="lt-mode-icon"><svg width="46" height="46" viewBox="0 0 40 40" fill="none"><path d="M6 30 L9 14 L16 23 L20 11 L24 23 L31 14 L34 30 Z" stroke="#ed1b68" stroke-width="1.4"/></svg></span>
                     <h3 class="lt-mode-title">VIP Escort</h3>
-                    <p class="lt-mode-desc">Protect your VIP and guide them safely across the arena while the other team hunts them down.</p>
+                    <p class="lt-mode-desc">One player becomes the VIP. Escort them safely across the arena while the enemy team tries to stop you.</p>
                 </div>
                 <div class="lt-mode-card">
                     <span class="lt-mode-icon"><svg width="46" height="46" viewBox="0 0 40 40" fill="none"><circle cx="10" cy="20" r="3" fill="#ed1b68"/><circle cx="20" cy="20" r="3" fill="#ed1b68"/><circle cx="30" cy="20" r="3" fill="#ed1b68"/></svg></span>
                     <h3 class="lt-mode-title">And Many More</h3>
-                    <p class="lt-mode-desc">New scenarios and custom rules are added throughout the season — ask our game masters on the day.</p>
+                    <p class="lt-mode-desc">New scenarios and custom rules are added throughout the season, ask our game masters on the day.</p>
                 </div>
             </div>
             <p class="lt-mission-summary">Every game mode brings a different way to play, think and win with your squad. Change your strategy and try new game modes every round.</p>
@@ -145,8 +145,7 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>1 laser tag round</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Performance Paper included</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Briefing included</span></div>
-                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Water included</span></div>
-                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Spare T-shirts if needed</span></div>
+                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Access to the LUN.R Camping bar & lounge</span></div>
                     </div>
                     <a href="#lt-booking" class="lt-pkg-cta">Join the game</a>
                 </div>
@@ -162,7 +161,7 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>10-minute break between rounds</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Performance Paper included</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Briefing included</span></div>
-                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Water included</span></div>
+                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Access to the LUN.R Camping bar & lounge</span></div>
                     </div>
                     <a href="#lt-booking" class="lt-pkg-cta">Join the game</a>
                 </div>
@@ -177,7 +176,7 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>10-minute break between rounds</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Performance Paper included</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Briefing included</span></div>
-                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Spare T-shirts if needed</span></div>
+                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Access to the LUN.R Camping bar & lounge</span></div>
                     </div>
                     <a href="#lt-booking" class="lt-pkg-cta">Join the game</a>
                 </div>
@@ -190,15 +189,11 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
             <div class="lt-section-center">
                 <span class="lt-eyebrow">Discounts</span>
                 <h2 class="lt-section-heading">Stack your savings</h2>
-                <p class="lt-section-sub">Two ways to pay less — and they combine for up to 26% off.</p>
                 <p style="font-family:'Aerospace','Brother 1816 Bold',sans-serif;text-transform:uppercase;letter-spacing:1px;font-size:clamp(16px,1.8vw,20px);color:#ed1b68;margin:14px 0 0;">Yep, the discounts stack!</p>
             </div>
 
             <div class="lt-discount-box">
                 <div class="lt-discount-divider"></div>
-                <div class="lt-stack-badge">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M4 12h16" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
-                </div>
 
                 <div class="lt-discount-panel">
                     <span class="lt-discount-num">13%<span style="font-size:0.42em;letter-spacing:1px;margin-left:6px;">OFF</span></span>
@@ -221,6 +216,7 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
                 <span class="lt-eyebrow">Book your session</span>
                 <h2 class="lt-section-heading">Reserve your spot</h2>
                 <p class="lt-section-sub">Choose your package, pick a date with open slots, select a time and tell us who's coming.</p>
+                <p class="lt-section-sub">You can find us inside LUN.R Camping, the official camping of Beach, Please! and Nibiru, at Strada Emil Costinescu 67, Costinești.</p>
             </div>
 
             <div id="lt-stage-build">
@@ -272,13 +268,14 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
 
                         <div id="lt-time-divider" class="lt-time-divider" style="display:none;"></div>
 
-                        <div data-lt-step="3" id="lt-time-section" style="display:none;">
+                        <div data-lt-step="3" id="lt-time-section">
                             <div class="lt-step-header">
                                 <span class="lt-step-num">3</span>
                                 <span class="lt-step-label">Choose a time</span>
                             </div>
                         </div>
                         <div id="lt-time-summary" class="lt-summary-bar" style="display:none;"></div>
+                        <p id="lt-no-date-msg" class="lt-no-date-msg">Pick a date to see available time slots.</p>
                         <div id="lt-slots-container"></div>
                     </div>
 
@@ -343,9 +340,17 @@ $unsplash_about_2 = 'https://images.unsplash.com/photo-1511512578047-dfb36704642
                         <div class="lt-form-field lt-terms-field">
                             <div class="lt-terms-wrapper">
                                 <label class="lt-terms-label">
-                                    <input type="checkbox" id="lt-terms" class="lt-checkbox" />
+                                    <input type="checkbox" id="lt-terms-1" class="lt-checkbox legal-check" />
                                     <span class="lt-terms-text">
-                                        Am citit <a href="/termeni-si-conditii" target="_blank">termenii si conditiile</a> si sunt de acord cu prelucrarea datelor.
+                                        <span class="lt-terms-ro">Am citit și accept <a href="/termeni-conditii-regulament-lt/" target="_blank">Termenii, Condițiile și Regulamentul de Participare Mind Shows Laser Tag</a>. Confirm că le voi transmite tuturor participanților incluși în rezervare.</span>
+                                        <span class="lt-terms-en">I have read and accept the <a href="/terms-conditions-regulations-lt/" target="_blank">Mind Shows Laser Tag Terms, Conditions and Participation Rules</a>. I confirm that I will share them with all participants included in the booking.</span>
+                                    </span>
+                                </label>
+                                <label class="lt-terms-label">
+                                    <input type="checkbox" id="lt-terms-2" class="lt-checkbox legal-check" />
+                                    <span class="lt-terms-text">
+                                        <span class="lt-terms-ro">Înțeleg că accesul la Mind Shows Laser Tag se face prin LUN.R Camping și este supus regulilor de acces și securitate ale campingului, inclusiv verificărilor la intrare.</span>
+                                        <span class="lt-terms-en">I understand that access to Mind Shows Laser Tag is through LUN.R Camping and is subject to the camping access and security rules, including entry checks.</span>
                                     </span>
                                 </label>
                             </div>
