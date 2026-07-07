@@ -640,9 +640,17 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!container) return;
 
       if (!ltState.selectedDate) {
-        if (timeSection) timeSection.style.display = "none";
-        if (timeDivider) timeDivider.style.display = "none";
-        container.innerHTML = '<p class="lt-slots-msg">Pick a date to see available time slots.</p>';
+        const noDateMsg = document.getElementById("lt-no-date-msg");
+        if (ltState.isMobile) {
+          if (timeSection) timeSection.style.display = "none";
+          if (timeDivider) timeDivider.style.display = "none";
+          if (noDateMsg) noDateMsg.style.display = "none";
+        } else {
+          if (timeSection) timeSection.style.display = "block";
+          if (timeDivider) timeDivider.style.display = "block";
+          if (noDateMsg) noDateMsg.style.display = "block";
+        }
+        container.innerHTML = "";
         return;
       }
 
@@ -780,6 +788,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const pkgSummary = document.getElementById("lt-pkg-summary");
         const dateSummary = document.getElementById("lt-date-summary");
         const timeSummary = document.getElementById("lt-time-summary");
+        const noDateMsg = document.getElementById("lt-no-date-msg");
+
+        if (noDateMsg) noDateMsg.style.display = "none";
 
         const stepPkg = document.querySelector('[data-lt-step="1"]');
         const calCard = document.getElementById("lt-cal-card");

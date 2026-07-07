@@ -78,6 +78,54 @@ function lt_calculate_slots($date, $rounds) {
         }
     }
 
+    $closures = get_field('lt_closures', 'option');
+    $day_of_week = date('D', strtotime($date));
+    $fully_closed = false;
+    $closed_intervals = array();
+
+    if ($closures && is_array($closures)) {
+        foreach ($closures as $row) {
+            $type = isset($row['lt_closure_type']) ? $row['lt_closure_type'] : '';
+            $match = false;
+            
+            if ($type === 'specific') {
+                if (!empty($row['lt_closed_date']) && $row['lt_closed_date'] === $date) {
+                    $match = true;
+                }
+            } elseif ($type === 'weekly') {
+                if (!empty($row['lt_closed_weekdays']) && is_array($row['lt_closed_weekdays'])) {
+                    if (in_array($day_of_week, $row['lt_closed_weekdays'])) {
+                        $match = true;
+                    }
+                }
+            }
+            
+            if ($match) {
+                $all_day = isset($row['lt_all_day']) ? (bool)$row['lt_all_day'] : true;
+                if ($all_day) {
+                    $fully_closed = true;
+                    break;
+                } else {
+                    $intervals = isset($row['lt_closed_intervals']) ? $row['lt_closed_intervals'] : array();
+                    if (is_array($intervals)) {
+                        foreach ($intervals as $interval) {
+                            if (!empty($interval['start_time']) && !empty($interval['end_time'])) {
+                                $closed_intervals[] = array(
+                                    'start' => strtotime($interval['start_time']),
+                                    'end'   => strtotime($interval['end_time']),
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if ($fully_closed) {
+        return array('slots' => array(), 'closed' => true);
+    }
+
     $opening_time = get_field('lt_opening_time', 'option');
     $closing_time = get_field('lt_closing_time', 'option');
 
@@ -123,9 +171,23 @@ function lt_calculate_slots($date, $rounds) {
 
     $grid = array();
     foreach ($all_slots as $s) {
+        $slot_start_ts = strtotime($s);
+        $slot_end_ts = strtotime('+30 minutes', $slot_start_ts);
+        
+        $slot_open = !in_array($s, $booked_slots);
+        
+        if ($slot_open && !empty($closed_intervals)) {
+            foreach ($closed_intervals as $ci) {
+                if ($slot_start_ts < $ci['end'] && $slot_end_ts > $ci['start']) {
+                    $slot_open = false;
+                    break;
+                }
+            }
+        }
+        
         $grid[] = array(
             't'    => $s,
-            'open' => !in_array($s, $booked_slots),
+            'open' => $slot_open,
         );
     }
 
@@ -301,6 +363,8 @@ function lt_get_month_availability_handler() {
         }
     }
 
+    $closures = get_field('lt_closures', 'option');
+
     $opening_time = get_field('lt_opening_time', 'option');
     $closing_time = get_field('lt_closing_time', 'option');
     if (!$opening_time) $opening_time = '10:00';
@@ -360,14 +424,81 @@ function lt_get_month_availability_handler() {
             $results[$date_key] = array('slots' => array(), 'closed' => true);
             continue;
         }
+
+        $day_of_week = date('D', strtotime($date_key));
+        $fully_closed = false;
+        $closed_intervals = array();
+
+        if ($closures && is_array($closures)) {
+            foreach ($closures as $row) {
+                $type = isset($row['lt_closure_type']) ? $row['lt_closure_type'] : '';
+                $match = false;
+                
+                if ($type === 'specific') {
+                    if (!empty($row['lt_closed_date']) && $row['lt_closed_date'] === $date_key) {
+                        $match = true;
+                    }
+                } elseif ($type === 'weekly') {
+                    if (!empty($row['lt_closed_weekdays']) && is_array($row['lt_closed_weekdays'])) {
+                        if (in_array($day_of_week, $row['lt_closed_weekdays'])) {
+                            $match = true;
+                        }
+                    }
+                }
+                
+                if ($match) {
+                    $all_day = isset($row['lt_all_day']) ? (bool)$row['lt_all_day'] : true;
+                    if ($all_day) {
+                        $fully_closed = true;
+                        break;
+                    } else {
+                        $intervals = isset($row['lt_closed_intervals']) ? $row['lt_closed_intervals'] : array();
+                        if (is_array($intervals)) {
+                            foreach ($intervals as $interval) {
+                                if (!empty($interval['start_time']) && !empty($interval['end_time'])) {
+                                    $closed_intervals[] = array(
+                                        'start' => strtotime($interval['start_time']),
+                                        'end'   => strtotime($interval['end_time']),
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($fully_closed) {
+            $results[$date_key] = array('slots' => array(), 'closed' => true);
+            continue;
+        }
+
         $day_bookings = isset($booked_by_date[$date_key]) ? $booked_by_date[$date_key] : array();
         
         $grid = array();
         foreach ($base_slots as $s) {
+            $slot_start_ts = strtotime($s);
+            $slot_end_ts = strtotime('+30 minutes', $slot_start_ts);
+            
             $grid[] = array(
                 't'    => $s,
                 'open' => !in_array($s, $day_bookings),
             );
+        }
+
+        if (!empty($closed_intervals)) {
+            for ($i = 0; $i < $total_slots; $i++) {
+                if ($grid[$i]['open']) {
+                    $slot_start_ts = strtotime($grid[$i]['t']);
+                    $slot_end_ts = strtotime('+30 minutes', $slot_start_ts);
+                    foreach ($closed_intervals as $ci) {
+                        if ($slot_start_ts < $ci['end'] && $slot_end_ts > $ci['start']) {
+                            $grid[$i]['open'] = false;
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         $valid_starts = array();
@@ -406,3 +537,90 @@ add_filter('wp_mail_from', function($original_from_email) {
     }
     return $original_from_email;
 });
+
+function lt_add_visual_calendar_submenu() {
+    add_submenu_page(
+        'edit.php?post_type=lasertag_booking',
+        'Visual Calendar',
+        'Visual Calendar',
+        'edit_posts',
+        'lt-visual-calendar',
+        'lt_render_visual_calendar_page'
+    );
+}
+add_action('admin_menu', 'lt_add_visual_calendar_submenu');
+
+function lt_render_visual_calendar_page() {
+    ?>
+    <div class="wrap">
+        <h1>Laser Tag Booking Calendar</h1>
+        <div id="lt-admin-calendar" style="max-width: 1000px; margin: 20px 0; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+    </div>
+    <?php
+}
+
+function lt_enqueue_admin_calendar_assets($hook) {
+    if (strpos($hook, 'lt-visual-calendar') === false) {
+        return;
+    }
+    
+    wp_enqueue_script('fullcalendar-js', 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js', array(), '6.1.15', true);
+    
+    wp_enqueue_script('lt-admin-calendar-js', get_stylesheet_directory_uri() . '/assets/js/admin-calendar.js', array('fullcalendar-js'), '1.0.0', true);
+    
+    wp_localize_script('lt-admin-calendar-js', 'ltAdminCalendar', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+    ));
+}
+add_action('admin_enqueue_scripts', 'lt_enqueue_admin_calendar_assets');
+
+function lt_get_calendar_bookings_handler() {
+    if (!current_user_can('edit_posts')) {
+        wp_send_json(array());
+    }
+
+    $args = array(
+        'post_type'      => 'lasertag_booking',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+    );
+    $query = new WP_Query($args);
+    $events = array();
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $post_id = get_the_ID();
+            
+            $name = get_field('lt_book_name', $post_id);
+            if (empty($name)) {
+                $name = get_the_title();
+            }
+            $date = get_field('lt_book_date', $post_id);
+            $start_time = get_field('lt_book_start_time', $post_id);
+            $rounds = intval(get_field('lt_book_rounds', $post_id));
+            $players = get_field('lt_book_players', $post_id);
+
+            if ($date && $start_time && $rounds) {
+                $start_timestamp = strtotime($start_time);
+                $end_time = date('H:i', strtotime('+' . ($rounds * 30) . ' minutes', $start_timestamp));
+                
+                $start_iso = $date . 'T' . $start_time . ':00';
+                $end_iso = $date . 'T' . $end_time . ':00';
+
+                $events[] = array(
+                    'id'    => $post_id,
+                    'title' => $name . ' (' . $players . ' players)',
+                    'start' => $start_iso,
+                    'end'   => $end_iso,
+                    'url'   => admin_url('post.php?post=' . $post_id . '&action=edit'),
+                    'color' => '#ed1b68',
+                );
+            }
+        }
+        wp_reset_postdata();
+    }
+
+    wp_send_json($events);
+}
+add_action('wp_ajax_lt_get_calendar_bookings', 'lt_get_calendar_bookings_handler');

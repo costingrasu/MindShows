@@ -5474,7 +5474,7 @@ span.wpcf7-not-valid-tip {
     color: #fff;
     font-family: 'Outfit', sans-serif;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .lt-section-pad {
@@ -5833,7 +5833,8 @@ span.wpcf7-not-valid-tip {
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: 210px;
+    height: 210px;
+    box-sizing: border-box;
     background: #0b0c10;
     border: 1px solid rgba(237, 27, 104, 0.22);
     border-radius: 16px;
@@ -6313,11 +6314,12 @@ span.wpcf7-not-valid-tip {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
     padding: 28px;
+    padding-bottom: 14px;
 }
 
 #lt-calendar-body {
     position: relative;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 }
 
 .lt-lock-overlay {
@@ -6499,10 +6501,10 @@ span.wpcf7-not-valid-tip {
 
 .lt-no-date-msg {
     font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    color: #6F7482;
-    margin: 0;
-    padding: 4px 0 6px;
+    font-size: 13px;
+    color: #8f96a9;
+    margin: 0 0 16px 0;
+    padding: 0;
 }
 
 .lt-slots-date-label {
@@ -6802,6 +6804,7 @@ span.wpcf7-not-valid-tip {
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    overflow: hidden;
 }
 
 .lt-hero.in-view,
@@ -6976,6 +6979,11 @@ span.wpcf7-not-valid-tip {
     .lt-mission-grid {
         grid-template-columns: 1fr 1fr;
         gap: 14px;
+    }
+
+    .lt-mode-card {
+        height: auto !important;
+        min-height: 210px !important;
     }
 
     .lt-packages-grid {
