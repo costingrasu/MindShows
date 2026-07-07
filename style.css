@@ -7084,6 +7084,7 @@ span.wpcf7-not-valid-tip {
 
     .lt-booking-card {
         padding: 16px 12px;
+        padding-bottom: 2px;
     }
 
     .lt-cal-grid,
