@@ -65,6 +65,12 @@ if (function_exists('acf_add_options_page')) {
     ));
 }
 
+function lt_time_to_minutes($time_str) {
+    $ts = strtotime($time_str);
+    if ($ts === false) return 0;
+    return intval(date('H', $ts)) * 60 + intval(date('i', $ts));
+}
+
 function lt_calculate_slots($date, $rounds) {
     if (!$date || !$rounds) {
         return array('slots' => array(), 'closed' => false);
@@ -111,8 +117,8 @@ function lt_calculate_slots($date, $rounds) {
                         foreach ($intervals as $interval) {
                             if (!empty($interval['start_time']) && !empty($interval['end_time'])) {
                                 $closed_intervals[] = array(
-                                    'start' => strtotime($interval['start_time']),
-                                    'end'   => strtotime($interval['end_time']),
+                                    'start' => lt_time_to_minutes($interval['start_time']),
+                                    'end'   => lt_time_to_minutes($interval['end_time']),
                                 );
                             }
                         }
@@ -126,11 +132,8 @@ function lt_calculate_slots($date, $rounds) {
         return array('slots' => array(), 'closed' => true);
     }
 
-    $opening_time = get_field('lt_opening_time', 'option');
-    $closing_time = get_field('lt_closing_time', 'option');
-
-    if (!$opening_time) $opening_time = '10:00';
-    if (!$closing_time) $closing_time = '21:00';
+    $opening_time = get_field('lt_opening_time', 'option') ?: '10:00';
+    $closing_time = get_field('lt_closing_time', 'option') ?: '21:00';
 
     $start = strtotime($opening_time);
     $end = strtotime($closing_time);
@@ -140,6 +143,7 @@ function lt_calculate_slots($date, $rounds) {
         $start = strtotime('+30 minutes', $start);
     }
 
+    $date_no_dashes = str_replace('-', '', $date);
     $args = array(
         'post_type'      => 'lasertag_booking',
         'posts_per_page' => -1,
@@ -147,8 +151,8 @@ function lt_calculate_slots($date, $rounds) {
         'meta_query'     => array(
             array(
                 'key'     => 'lt_book_date',
-                'value'   => $date,
-                'compare' => '=',
+                'value'   => array($date, $date_no_dashes),
+                'compare' => 'IN',
             ),
         ),
     );
@@ -161,7 +165,7 @@ function lt_calculate_slots($date, $rounds) {
             if ($slots_repeater && is_array($slots_repeater)) {
                 foreach ($slots_repeater as $row) {
                     if (!empty($row['lt_slot_time'])) {
-                        $booked_slots[] = $row['lt_slot_time'];
+                        $booked_slots[] = date('H:i', strtotime($row['lt_slot_time']));
                     }
                 }
             }
@@ -171,14 +175,14 @@ function lt_calculate_slots($date, $rounds) {
 
     $grid = array();
     foreach ($all_slots as $s) {
-        $slot_start_ts = strtotime($s);
-        $slot_end_ts = strtotime('+30 minutes', $slot_start_ts);
+        $slot_start_m = lt_time_to_minutes($s);
+        $slot_end_m = $slot_start_m + 30;
         
         $slot_open = !in_array($s, $booked_slots);
         
         if ($slot_open && !empty($closed_intervals)) {
             foreach ($closed_intervals as $ci) {
-                if ($slot_start_ts < $ci['end'] && $slot_end_ts > $ci['start']) {
+                if ($slot_start_m < $ci['end'] && $slot_end_m > $ci['start']) {
                     $slot_open = false;
                     break;
                 }
@@ -212,7 +216,6 @@ function lt_calculate_slots($date, $rounds) {
 }
 
 function lt_get_slots_handler() {
-    check_ajax_referer('lt_booking_nonce', 'nonce');
     $date = sanitize_text_field($_POST['date']);
     $rounds = intval($_POST['rounds']);
 
@@ -223,8 +226,6 @@ add_action('wp_ajax_lt_get_slots', 'lt_get_slots_handler');
 add_action('wp_ajax_nopriv_lt_get_slots', 'lt_get_slots_handler');
 
 function lt_submit_booking_handler() {
-    check_ajax_referer('lt_booking_nonce', 'nonce');
-
     $name = sanitize_text_field($_POST['name']);
     $email = sanitize_email($_POST['email']);
     $phone = sanitize_text_field($_POST['phone']);
@@ -344,7 +345,6 @@ add_action('wp_ajax_lt_submit_booking', 'lt_submit_booking_handler');
 add_action('wp_ajax_nopriv_lt_submit_booking', 'lt_submit_booking_handler');
 
 function lt_get_month_availability_handler() {
-    check_ajax_referer('lt_booking_nonce', 'nonce');
     $year = intval($_POST['year']);
     $month = intval($_POST['month']);
     $rounds = intval($_POST['rounds']);
@@ -353,22 +353,11 @@ function lt_get_month_availability_handler() {
     $days_in_month = intval(date('t', strtotime($start_date)));
     $end_date = sprintf('%04d-%02d-%02d', $year, $month, $days_in_month);
 
-    $closed_lookup = array();
-    $closed_dates = get_field('lt_closed_dates', 'option');
-    if ($closed_dates && is_array($closed_dates)) {
-        foreach ($closed_dates as $row) {
-            if (!empty($row['lt_closed_date'])) {
-                $closed_lookup[$row['lt_closed_date']] = true;
-            }
-        }
-    }
-
     $closures = get_field('lt_closures', 'option');
 
-    $opening_time = get_field('lt_opening_time', 'option');
-    $closing_time = get_field('lt_closing_time', 'option');
-    if (!$opening_time) $opening_time = '10:00';
-    if (!$closing_time) $closing_time = '21:00';
+    $opening_time = get_field('lt_opening_time', 'option') ?: '10:00';
+    $closing_time = get_field('lt_closing_time', 'option') ?: '21:00';
+    
     $start_ts = strtotime($opening_time);
     $end_ts = strtotime($closing_time);
     $base_slots = array();
@@ -386,7 +375,7 @@ function lt_get_month_availability_handler() {
             'relation' => 'AND',
             array(
                 'key'     => 'lt_book_date',
-                'value'   => array($start_date, $end_date),
+                'value'   => array($start_date, $end_date, str_replace('-', '', $start_date), str_replace('-', '', $end_date)),
                 'compare' => 'BETWEEN',
                 'type'    => 'DATE',
             ),
@@ -400,6 +389,11 @@ function lt_get_month_availability_handler() {
         while ($query->have_posts()) {
             $query->the_post();
             $b_date = get_post_meta(get_the_ID(), 'lt_book_date', true);
+            
+            if ($b_date && strlen($b_date) === 8 && strpos($b_date, '-') === false) {
+                $b_date = substr($b_date, 0, 4) . '-' . substr($b_date, 4, 2) . '-' . substr($b_date, 6, 2);
+            }
+            
             $slots_repeater = get_field('lt_book_slots');
             if ($b_date && $slots_repeater && is_array($slots_repeater)) {
                 if (!isset($booked_by_date[$b_date])) {
@@ -407,7 +401,7 @@ function lt_get_month_availability_handler() {
                 }
                 foreach ($slots_repeater as $row) {
                     if (!empty($row['lt_slot_time'])) {
-                        $booked_by_date[$b_date][] = $row['lt_slot_time'];
+                        $booked_by_date[$b_date][] = date('H:i', strtotime($row['lt_slot_time']));
                     }
                 }
             }
@@ -419,11 +413,6 @@ function lt_get_month_availability_handler() {
 
     for ($d = 1; $d <= $days_in_month; $d++) {
         $date_key = sprintf('%04d-%02d-%02d', $year, $month, $d);
-
-        if (isset($closed_lookup[$date_key])) {
-            $results[$date_key] = array('slots' => array(), 'closed' => true);
-            continue;
-        }
 
         $day_of_week = date('D', strtotime($date_key));
         $fully_closed = false;
@@ -457,8 +446,8 @@ function lt_get_month_availability_handler() {
                             foreach ($intervals as $interval) {
                                 if (!empty($interval['start_time']) && !empty($interval['end_time'])) {
                                     $closed_intervals[] = array(
-                                        'start' => strtotime($interval['start_time']),
-                                        'end'   => strtotime($interval['end_time']),
+                                        'start' => lt_time_to_minutes($interval['start_time']),
+                                        'end'   => lt_time_to_minutes($interval['end_time']),
                                     );
                                 }
                             }
@@ -477,9 +466,6 @@ function lt_get_month_availability_handler() {
         
         $grid = array();
         foreach ($base_slots as $s) {
-            $slot_start_ts = strtotime($s);
-            $slot_end_ts = strtotime('+30 minutes', $slot_start_ts);
-            
             $grid[] = array(
                 't'    => $s,
                 'open' => !in_array($s, $day_bookings),
@@ -489,10 +475,10 @@ function lt_get_month_availability_handler() {
         if (!empty($closed_intervals)) {
             for ($i = 0; $i < $total_slots; $i++) {
                 if ($grid[$i]['open']) {
-                    $slot_start_ts = strtotime($grid[$i]['t']);
-                    $slot_end_ts = strtotime('+30 minutes', $slot_start_ts);
+                    $slot_start_m = lt_time_to_minutes($grid[$i]['t']);
+                    $slot_end_m = $slot_start_m + 30;
                     foreach ($closed_intervals as $ci) {
-                        if ($slot_start_ts < $ci['end'] && $slot_end_ts > $ci['start']) {
+                        if ($slot_start_m < $ci['end'] && $slot_end_m > $ci['start']) {
                             $grid[$i]['open'] = false;
                             break;
                         }
