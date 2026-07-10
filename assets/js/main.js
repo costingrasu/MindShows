@@ -459,7 +459,7 @@ document.addEventListener("DOMContentLoaded", () => {
       email: "",
       phone: "",
       city: "",
-      players: 2,
+      players: 4,
       gameMode: "Battle Royale",
       termsChecked1: false,
       termsChecked2: false,
@@ -1066,7 +1066,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const playersInput = document.getElementById("lt-players");
 
     if (decPlayersBtn) decPlayersBtn.addEventListener("click", () => {
-      ltState.players = Math.max(1, ltState.players - 1);
+      ltState.players = Math.max(4, ltState.players - 1);
       if (playersInput) playersInput.value = ltState.players;
       updateUI();
     });
@@ -1079,7 +1079,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (playersInput) {
       playersInput.addEventListener("change", (e) => {
         let val = parseInt(e.target.value, 10);
-        if (isNaN(val) || val < 1) val = 1;
+        if (isNaN(val) || val < 4) val = 4;
         if (val > 14) val = 14;
         ltState.players = val;
         playersInput.value = val;
@@ -1088,7 +1088,7 @@ document.addEventListener("DOMContentLoaded", () => {
       playersInput.addEventListener("input", (e) => {
         let val = parseInt(e.target.value, 10);
         if (!isNaN(val)) {
-          if (val >= 1 && val <= 14) {
+          if (val >= 4 && val <= 14) {
             ltState.players = val;
             updateUI();
           }
@@ -1126,7 +1126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ltState.email = "";
       ltState.phone = "";
       ltState.city = "";
-      ltState.players = 2;
+      ltState.players = 4;
       ltState.gameMode = "Battle Royale";
       ltState.termsChecked1 = false;
       ltState.termsChecked2 = false;
@@ -1136,7 +1136,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (phoneInput) phoneInput.value = "";
       if (emailInput) emailInput.value = "";
       if (cityInput) cityInput.value = "";
-      if (playersInput) playersInput.value = 2;
+      if (playersInput) playersInput.value = 4;
       if (gamemodeSelect) gamemodeSelect.value = "Battle Royale";
       if (termsCheckbox1) termsCheckbox1.checked = false;
       if (termsCheckbox2) termsCheckbox2.checked = false;

@@ -319,7 +319,7 @@ $about_night_img = $theme_uri . '/assets/images/night.png';
                                 <label class="lt-label">Nr of players</label>
                                 <div class="lt-input-wrap lt-stepper-wrap">
                                     <button id="lt-dec-players" class="lt-stepper-btn" type="button">−</button>
-                                    <input type="number" id="lt-players" min="1" max="14" value="2" class="lt-stepper-input" />
+                                    <input type="number" id="lt-players" min="4" max="14" value="4" class="lt-stepper-input" />
                                     <button id="lt-inc-players" class="lt-stepper-btn" type="button">+</button>
                                 </div>
                             </div>

@@ -173,12 +173,24 @@ function lt_calculate_slots($date, $rounds) {
         wp_reset_postdata();
     }
 
+    $tz = new DateTimeZone('Europe/Bucharest');
+    $now = new DateTime('now', $tz);
+    $current_date = $now->format('Y-m-d');
+    $current_time_str = $now->format('H:i');
+
     $grid = array();
+    $is_today = ($date === $current_date);
+    $current_time_m = $is_today ? lt_time_to_minutes($current_time_str) : 0;
+
     foreach ($all_slots as $s) {
         $slot_start_m = lt_time_to_minutes($s);
         $slot_end_m = $slot_start_m + 30;
         
         $slot_open = !in_array($s, $booked_slots);
+        
+        if ($slot_open && $is_today && $slot_start_m <= $current_time_m) {
+            $slot_open = false;
+        }
         
         if ($slot_open && !empty($closed_intervals)) {
             foreach ($closed_intervals as $ci) {
@@ -464,11 +476,25 @@ function lt_get_month_availability_handler() {
 
         $day_bookings = isset($booked_by_date[$date_key]) ? $booked_by_date[$date_key] : array();
         
+        $tz = new DateTimeZone('Europe/Bucharest');
+        $now = new DateTime('now', $tz);
+        $current_date = $now->format('Y-m-d');
+        $current_time_str = $now->format('H:i');
+
         $grid = array();
+        $is_today = ($date_key === $current_date);
+        $current_time_m = $is_today ? lt_time_to_minutes($current_time_str) : 0;
+
         foreach ($base_slots as $s) {
+            $slot_open = !in_array($s, $day_bookings);
+            
+            if ($slot_open && $is_today && lt_time_to_minutes($s) <= $current_time_m) {
+                $slot_open = false;
+            }
+
             $grid[] = array(
                 't'    => $s,
-                'open' => !in_array($s, $day_bookings),
+                'open' => $slot_open,
             );
         }
 
