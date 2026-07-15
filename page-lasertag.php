@@ -146,6 +146,8 @@ $about_night_img = $theme_uri . '/assets/images/night.png';
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Performance Paper included</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Briefing included</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Access to the LUN.R Camping bar & lounge</span></div>
+                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Water included</span></div>
+                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Rent or buy spare T-Shirt</span></div>
                     </div>
                     <a href="#lt-booking" class="lt-pkg-cta">Join the game</a>
                 </div>
@@ -162,6 +164,8 @@ $about_night_img = $theme_uri . '/assets/images/night.png';
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Performance Paper included</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Briefing included</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Access to the LUN.R Camping bar & lounge</span></div>
+                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Water included</span></div>
+                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Rent or buy spare T-Shirt</span></div>
                     </div>
                     <a href="#lt-booking" class="lt-pkg-cta">Join the game</a>
                 </div>
@@ -177,6 +181,8 @@ $about_night_img = $theme_uri . '/assets/images/night.png';
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Performance Paper included</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Briefing included</span></div>
                         <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Access to the LUN.R Camping bar & lounge</span></div>
+                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Water included</span></div>
+                        <div class="lt-pkg-benefit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5 11-13" stroke="#ed1b68" stroke-width="2"/></svg><span>Rent or buy spare T-Shirt</span></div>
                     </div>
                     <a href="#lt-booking" class="lt-pkg-cta">Join the game</a>
                 </div>
@@ -217,6 +223,10 @@ $about_night_img = $theme_uri . '/assets/images/night.png';
                 <h2 class="lt-section-heading">Reserve your spot</h2>
                 <p class="lt-section-sub">Choose your package, pick a date with open slots, select a time and tell us who's coming.</p>
                 <p class="lt-section-sub">You can find us inside LUN.R Camping, the official camping of Beach, Please! and Nibiru, at Strada Emil Costinescu 67, Costinești.</p>
+                <a href="https://maps.app.goo.gl/8oh4P3cJqsfUxjD7A" target="_blank" rel="noopener noreferrer" class="lt-directions-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.7"/></svg>
+                    Get directions
+                </a>
             </div>
 
             <div id="lt-stage-build">

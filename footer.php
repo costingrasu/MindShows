@@ -23,7 +23,7 @@
                 </div>
                 <div class="footer-info">
                     <p class="footer-copyright">Copyright 2026 Mindshows SRL</p>
-                    <p class="footer-contact">Contact: <a href="mailto:hello@mindshows.ro">hello@mindshows.ro</a></p>
+                    <p class="footer-contact">Email: <a href="mailto:hello@mindshows.ro">hello@mindshows.ro</a><br>Phone: <a href="tel:+40750446520">+40750446520</a></p>
                 </div>
             </div>
 

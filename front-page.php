@@ -110,6 +110,54 @@
         </div>
     </section>
 
+    <?php
+    $lasertag_url = home_url('/lasertag/');
+    $pages = get_pages(array(
+        'meta_key' => '_wp_page_template',
+        'meta_value' => 'page-lasertag.php',
+        'number' => 1
+    ));
+    if (!empty($pages)) {
+        $lasertag_url = get_permalink($pages[0]->ID);
+    }
+    ?>
+    <section class="home-lasertag-section fade-up-element" data-screen-label="Laser Tag">
+        <div class="lasertag-home-container">
+            <h2 class="lasertag-home-title">LASER TAG</h2>
+            <p class="lasertag-home-description">Experience our outdoor laser tag arena in Costineşti, where real-life gaming meets the pulse of summer, located in LUN.R Camping right next to Nibiru.</p>
+            <div class="lasertag-home-card">
+                <div class="lasertag-home-card-bg"></div>
+                <div class="lasertag-home-card-overlay"></div>
+                <div class="lasertag-home-card-content">
+                    <div class="lasertag-card-head">
+                        <p class="lasertag-card-eyebrow"><span>OUTDOOR LASER TAG</span><span class="lt-eyebrow-dot"> · </span><span>COSTINEŞTI</span></p>
+                        <h3 class="lasertag-home-card-title">Gather your squad</h3>
+                        <p class="lasertag-card-lead">Book your slot in our open-air arena, pick a package and battle it out across multiple game modes</p>
+                    </div>
+                    <div class="lasertag-stats">
+                        <div class="lasertag-stat">
+                            <span class="lasertag-stat-num">3</span>
+                            <span class="lasertag-stat-label">packages to choose from</span>
+                        </div>
+                        <div class="lasertag-stat">
+                            <span class="lasertag-stat-num">5+</span>
+                            <span class="lasertag-stat-label">game modes</span>
+                        </div>
+                        <div class="lasertag-stat">
+                            <span class="lasertag-stat-num">14</span>
+                            <span class="lasertag-stat-label">players per battle max</span>
+                        </div>
+                        <div class="lasertag-stat">
+                            <span class="lasertag-stat-num">1000</span>
+                            <span class="lasertag-stat-label">sqm outdoor arena</span>
+                        </div>
+                    </div>
+                    <a href="<?php echo esc_url($lasertag_url); ?>" class="lasertag-home-btn">View More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="home-development-section fade-up-element">
         <div class="development-left slide-right-element">
             <div class="development-bg-wrapper">

@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const initScrollAnimations = () => {
     const animatedElements = document.querySelectorAll(
-      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list, .home-carousel-section, .home-value-section, .home-services-section, .home-development-section, .home-irlgaming-section, .home-journeys-section, .home-team-section, .lt-hero, .lt-keynotes, .lt-about, .lt-mission, .lt-packages, .lt-discounts, .lt-booking",
+      ".hero-title-component, .hero-image-component, .keypoints-container, .keypoint-card, .obiective-section, .unic-section, .gallery-section, .program-section, .info-section, .oferta-section, .dispo-section, .excursii-section, .journeys-about, .journeys-list, .home-carousel-section, .home-value-section, .home-services-section, .home-development-section, .home-irlgaming-section, .home-journeys-section, .home-team-section, .lt-hero, .lt-keynotes, .lt-about, .lt-mission, .lt-packages, .lt-discounts, .lt-booking, .home-lasertag-section",
     );
 
     if (animatedElements.length === 0) return;

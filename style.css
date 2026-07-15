@@ -4505,6 +4505,224 @@ span.wpcf7-not-valid-tip {
     line-height: 1;
 }
 
+.home-lasertag-section {
+    width: 100%;
+    background-color: #000;
+    position: relative;
+    padding: 50px 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-lasertag-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.home-lasertag-section::before {
+    content: none;
+}
+
+.lasertag-home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.lasertag-home-title {
+    font-family: 'Brother 1816 Bold', sans-serif;
+    font-weight: 800;
+    font-size: 109px;
+    line-height: 100%;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0 0 11px 0;
+}
+
+.lasertag-home-subtitle {
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: 66px;
+    line-height: 86%;
+    letter-spacing: -0.06em;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 46px 0;
+}
+
+.lasertag-home-description {
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 145%;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 959px;
+    margin: 0 auto 51px;
+}
+
+.lasertag-home-card {
+    position: relative;
+    width: 100%;
+    max-width: 1418px;
+    min-height: 602px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px solid #EC226E;
+    box-shadow: 0 0 40px -10px #EC226E, inset 0 0 20px -5px #EC226E;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.lasertag-home-card-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('assets/images/Hero.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.lasertag-home-card:hover .lasertag-home-card-bg {
+    transform: scale(1.05);
+}
+
+.lasertag-home-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(90% 90% at 50% 50%, rgba(6, 4, 10, 0.45) 0%, rgba(6, 4, 10, 0.55) 55%, rgba(28, 27, 30, 0.9) 100%);
+    z-index: 2;
+}
+
+.lasertag-home-card-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    padding: 60px 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 40px;
+}
+
+.lasertag-card-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    max-width: 640px;
+}
+
+.lasertag-card-eyebrow {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 800;
+    letter-spacing: 5px;
+    font-size: 13px;
+    color: #f7739e;
+    margin: 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.lasertag-home-card-title {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 90%;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+    margin: 0;
+    text-shadow: 0 0 24px rgba(237, 27, 104, 0.5), 0 3px 18px rgba(0, 0, 0, 0.6);
+}
+
+.lasertag-card-lead {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
+}
+
+.lasertag-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 14px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.lasertag-stat {
+    flex: 1;
+    min-width: 150px;
+    max-width: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 22px 18px;
+    background: rgba(11, 12, 16, 0.55);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(237, 27, 104, 0.35);
+    border-radius: 14px;
+}
+
+.lasertag-stat-num {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 1;
+    color: #ed1b68;
+}
+
+.lasertag-stat-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.lasertag-home-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 34px;
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 51px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    letter-spacing: -0.005em;
+    color: #0A0909;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.lasertag-home-btn:hover {
+    background: #ed1b68;
+    border-color: #ed1b68;
+    color: #FFFFFF;
+}
+
 .home-development-section {
     position: relative;
     width: 100%;
@@ -5569,6 +5787,37 @@ span.wpcf7-not-valid-tip {
     color: #201F1F !important;
     border-color: #fff;
     transform: translateY(-2px);
+}
+
+.lt-directions-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 13px 26px;
+    border-radius: 51px;
+    border: 1px solid rgba(237, 27, 104, 0.5);
+    background: rgba(237, 27, 104, 0.08);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all .2s ease;
+    cursor: pointer;
+}
+
+.lt-directions-btn:hover {
+    background: #ed1b68;
+    border-color: #ed1b68;
+    box-shadow: 0 0 22px rgba(237, 27, 104, 0.55);
+    transform: translateY(-2px);
+}
+
+.lt-directions-btn svg {
+    display: block;
+    width: 18px;
+    height: 18px;
 }
 
 .lt-hero {
@@ -7301,6 +7550,76 @@ span.wpcf7-not-valid-tip {
     .service-card.is-expanded .service-close-btn {
         opacity: 1;
         pointer-events: auto;
+    }
+
+    .home-lasertag-section {
+        padding: 50px 18px;
+    }
+
+    .lt-eyebrow-dot {
+        display: none !important;
+    }
+
+    .lasertag-card-eyebrow span {
+        display: block;
+    }
+
+    .lasertag-home-title {
+        font-size: clamp(46px, 8vw, 64px);
+    }
+
+    .lasertag-home-subtitle {
+        font-size: clamp(28px, 5vw, 40px);
+        margin-bottom: 32px;
+    }
+
+    .lasertag-home-description {
+        font-size: clamp(14px, 2.5vw, 16px);
+        margin-bottom: 32px;
+        max-width: 355px;
+    }
+
+    .lasertag-home-card {
+        height: auto;
+        min-height: 480px;
+    }
+
+    .lasertag-home-card-title {
+        font-size: clamp(30px, 6vw, 40px);
+    }
+
+    .lasertag-home-card-content {
+        padding: clamp(36px, 6vw, 48px) clamp(18px, 4vw, 28px);
+        gap: clamp(26px, 4vw, 32px);
+    }
+
+    .lasertag-card-lead {
+        font-size: 16px;
+    }
+
+    .lasertag-stat-num {
+        font-size: clamp(24px, 4vw, 28px);
+    }
+
+    .lasertag-stats {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 14px !important;
+        max-width: none !important;
+    }
+
+    .lasertag-stat {
+        flex: none !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        width: 100% !important;
+        padding: clamp(14px, 3vw, 22px) clamp(10px, 2vw, 18px) !important;
+        box-sizing: border-box !important;
+    }
+
+    .lasertag-home-btn {
+        font-size: clamp(16px, 2.2vw, 18px);
+        padding: 12px 28px;
     }
 
     .home-development-section {
