@@ -30,7 +30,23 @@ function journey_theme_setup() {
 add_action('after_setup_theme', 'journey_theme_setup');
 
 function journey_theme_scripts() {
-  wp_enqueue_style('journey-style', get_stylesheet_uri(), array(), '1.0.0');
+  wp_enqueue_style('mindshows-style', get_stylesheet_uri(), array(), '2.0.0');
+
+  if (is_front_page()) {
+      wp_enqueue_style('theme-front-page', get_template_directory_uri() . '/assets/css/front-page.css', array('mindshows-style'), '2.0.0');
+  } 
+  elseif (is_page_template('page-lasertag.php')) {
+      wp_enqueue_style('theme-lasertag', get_template_directory_uri() . '/assets/css/page-lasertag.css', array('mindshows-style'), '2.0.0');
+  } 
+  elseif (is_page_template('journeys.php') || is_post_type_archive('journey')) {
+      wp_enqueue_style('theme-journeys', get_template_directory_uri() . '/assets/css/journeys.css', array('mindshows-style'), '2.0.0');
+  } 
+  elseif (is_singular('journey') || is_page_template('single-journey.php')) {
+      wp_enqueue_style('theme-single-journey', get_template_directory_uri() . '/assets/css/single-journey.css', array('mindshows-style'), '2.0.0');
+  } 
+  elseif (is_page()) {
+      wp_enqueue_style('theme-page', get_template_directory_uri() . '/assets/css/page.css', array('mindshows-style'), '2.0.0');
+  }
 
   wp_enqueue_script('journey-main-js', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.0', true);
 

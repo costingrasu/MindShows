@@ -1,0 +1,2413 @@
+.home-carousel-section {
+    width: 100%;
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(40px, 6vw, 80px) 20px;
+    position: relative;
+    overflow: hidden;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-carousel-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.home-carousel-logo {
+    position: absolute;
+    top: clamp(80px, 8.5vw, 123px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(20px, 2vw, 30px);
+}
+
+.brand-logo-img {
+    height: clamp(60px, 5.7vw, 82px);
+    width: auto;
+}
+
+.logo-delimiter {
+    width: 0;
+    height: 66px;
+    border-left: 3px solid #FFFFFF;
+}
+
+.logo-text {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: clamp(18px, 1.6vw, 24px);
+    line-height: 1.1;
+    color: #FFFFFF;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.home-carousel-track {
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    height: clamp(500px, 50vw, 850px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-carousel-slide {
+    position: absolute;
+    height: 100%;
+    width: clamp(500px, 50vw, 1100px);
+    max-width: 95%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+    transform: translateX(0) scale(0.6);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.home-carousel-slide.active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    z-index: 3;
+    pointer-events: auto;
+}
+
+.home-carousel-slide.prev {
+    opacity: 0.3;
+    transform: translateX(-45%) scale(0.65);
+    z-index: 2;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.home-carousel-slide.next {
+    opacity: 0.3;
+    transform: translateX(45%) scale(0.65);
+    z-index: 2;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.slide-content {
+    position: absolute;
+    top: 78%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 0 20px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.home-carousel-slide.active .slide-content {
+    pointer-events: auto;
+}
+
+.slide-title {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(70px, 7.5vw, 109px);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0;
+    white-space: nowrap;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-carousel-slide.active .slide-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+.slide-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    margin-top: 0;
+}
+
+.home-carousel-slide.active .slide-details {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 20px;
+    transition-delay: 0.4s;
+}
+
+.slide-description {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    text-align: center;
+    margin: 0;
+    max-width: 800px;
+}
+
+.slide-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btn-start-now {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(8px, 0.7vw, 10px) clamp(20px, 2vw, 29px);
+    height: clamp(40px, 3.3vw, 48px);
+    border: 1px solid #FFFFFF;
+    border-radius: 51px;
+    background-color: transparent;
+
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: clamp(18px, 1.6vw, 23px);
+    line-height: 1;
+    letter-spacing: -0.005em;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-start-now:hover {
+    background-color: #FFFFFF;
+    color: #201F1F;
+}
+
+.home-carousel-nav-next {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    padding: 20px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.7;
+    outline: none;
+}
+
+.home-carousel-nav-next:hover {
+    opacity: 1;
+    transform: translateY(-50%) translateX(5px);
+}
+
+.home-value-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 120px 45px;
+    background-color: #000000;
+    width: 100%;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-value-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.value-card-wrapper {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+}
+
+.value-card-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #00FFBB, #EC226E, #8a38f5);
+    filter: blur(30px);
+    opacity: 0.6;
+    border-radius: 24px;
+    z-index: 0;
+}
+
+.value-card {
+    position: relative;
+    z-index: 1;
+    background: rgba(26, 26, 26, 0.6);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 50px 40px;
+}
+
+.value-text {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.6;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin: 0;
+}
+
+.value-highlight {
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.home-services-section {
+    padding: clamp(60px, 7vw, 100px) clamp(20px, 5vw, 60px);
+    background-color: #000000;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-services-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.services-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 3vw, 50px);
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.service-card {
+    position: relative;
+    height: clamp(400px, 40vw, 582px);
+    background: #151417;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), box-shadow 0.4s ease;
+}
+
+.service-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1;
+}
+
+.service-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(180deg, rgba(21, 20, 23, 0) 0%, rgba(21, 20, 23, 0.9) 100%);
+    z-index: 2;
+    transition: height 0.4s ease;
+}
+
+.service-card-content {
+    position: relative;
+    z-index: 3;
+    padding: clamp(15px, 2.5vw, 30px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.service-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 3.5vw, 57px);
+    line-height: 0.86;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0 0 clamp(5px, 1vw, 10px) 0;
+}
+
+.service-subtitle {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: clamp(16px, 1.8vw, 27px);
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+}
+
+.service-hidden-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transform: translateY(20px);
+    transition: max-height 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), opacity 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), margin-top 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3);
+}
+
+.service-description {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: clamp(13px, 1vw, 17px);
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: #BFBFBF;
+    margin: 0 0 20px 0;
+}
+
+.service-btn {
+    display: inline-block;
+    padding: 10px 29px;
+    border: 1px solid #FFFFFF;
+    border-radius: 51px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: clamp(18px, 1.6vw, 23px);
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.service-btn:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.service-card:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.service-card:hover .service-card-bg {
+    transform: scale(1.2);
+}
+
+.service-card:hover .service-hidden-content {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 10px;
+    transform: translateY(0);
+}
+
+.service-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.61);
+    border: none;
+    font-size: 24px;
+    font-weight: 800;
+    font-family: sans-serif;
+    cursor: pointer;
+    z-index: 4;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.home-lasertag-section {
+    width: 100%;
+    background-color: #000;
+    position: relative;
+    padding: 50px 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-lasertag-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.home-lasertag-section::before {
+    content: none;
+}
+
+.lasertag-home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.lasertag-home-title {
+    font-family: 'Brother 1816 Bold', sans-serif;
+    font-weight: 800;
+    font-size: 109px;
+    line-height: 100%;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0 0 11px 0;
+}
+
+.lasertag-home-description {
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 145%;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 959px;
+    margin: 0 auto 51px;
+}
+
+.lasertag-home-card {
+    position: relative;
+    width: 100%;
+    max-width: 1418px;
+    min-height: 602px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px solid #EC226E;
+    box-shadow: 0 0 40px -10px #EC226E, inset 0 0 20px -5px #EC226E;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.lasertag-home-card-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('../images/Hero.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.lasertag-home-card:hover .lasertag-home-card-bg {
+    transform: scale(1.05);
+}
+
+.lasertag-home-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(90% 90% at 50% 50%, rgba(6, 4, 10, 0.45) 0%, rgba(6, 4, 10, 0.55) 55%, rgba(28, 27, 30, 0.9) 100%);
+    z-index: 2;
+}
+
+.lasertag-home-card-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    padding: 60px 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 40px;
+}
+
+.lasertag-card-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    max-width: 640px;
+}
+
+.lasertag-card-eyebrow {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 800;
+    letter-spacing: 5px;
+    font-size: 13px;
+    color: #f7739e;
+    margin: 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.lasertag-home-card-title {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 90%;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+    margin: 0;
+    text-shadow: 0 0 24px rgba(237, 27, 104, 0.5), 0 3px 18px rgba(0, 0, 0, 0.6);
+}
+
+.lasertag-card-lead {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
+}
+
+.lasertag-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 14px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.lasertag-stat {
+    flex: 1;
+    min-width: 150px;
+    max-width: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 22px 18px;
+    background: rgba(11, 12, 16, 0.55);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(237, 27, 104, 0.35);
+    border-radius: 14px;
+}
+
+.lasertag-stat-num {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 1;
+    color: #ed1b68;
+}
+
+.lasertag-stat-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.lasertag-home-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 34px;
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 51px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    letter-spacing: -0.005em;
+    color: #0A0909;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.lasertag-home-btn:hover {
+    background: #ed1b68;
+    border-color: #ed1b68;
+    color: #FFFFFF;
+}
+
+.home-development-section {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #000;
+    padding: 50px 50px;
+    box-sizing: border-box;
+    gap: 40px;
+    align-items: flex-start;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-development-section.in-view {
+    opacity: 1;
+}
+
+.development-left {
+    position: sticky;
+    top: 80px;
+    width: 50%;
+    max-width: 856px;
+    flex: 1;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.development-bg-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.development-bg-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.development-left-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.development-title {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(50px, 6vw, 109px);
+    color: #FFFFFF;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.development-subtitle {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: clamp(18px, 2vw, 40px);
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+}
+
+.slide-right-element {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease-out;
+    transition-delay: 0.2s;
+}
+
+.home-development-section.in-view .slide-right-element {
+    opacity: 1;
+    transform: none;
+}
+
+.development-right {
+    width: 50%;
+    max-width: 856px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dev-right-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: calc(100vh - 75px);
+    padding-bottom: 100px;
+    gap: 99px;
+    width: 100%;
+    max-width: 510px;
+    margin: 0 auto;
+}
+
+.dev-right-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.dev-right-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.dev-right-description {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+}
+
+.dev-cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 34px;
+    width: 100%;
+}
+
+.dev-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 30px;
+    gap: 30px;
+    width: 100%;
+    background: #1C1B1E;
+    border-radius: 14px;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), box-shadow 0.4s ease;
+}
+
+.dev-card:hover {
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+.dev-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.desktop-icon {
+    display: block;
+}
+
+.mobile-icon {
+    display: none;
+}
+
+.dev-card-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    flex: 1;
+}
+
+.dev-card-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: normal;
+    letter-spacing: -0.05em;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.dev-card-desc {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+}
+
+.dev-btn {
+    align-self: flex-start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 29px;
+    width: 210px;
+    height: 37px;
+    box-sizing: border-box;
+    border: 1px solid #FFFFFF;
+    border-radius: 51px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    color: #FFFFFF;
+    text-decoration: none;
+    background: transparent;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dev-btn:hover {
+    background: #FFFFFF;
+    color: #000000;
+}
+
+.dev-tree-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    gap: 99px;
+    width: 100%;
+    max-width: 510px;
+    margin: 0 auto;
+}
+
+.dev-tree-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.dev-tree-lines {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.dev-tree-root {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 217px;
+    height: 105px;
+    background: #1C1B1E;
+    border-radius: 64px;
+    box-shadow: 0px 5px 8.4px #00FFBB;
+    cursor: pointer;
+    z-index: 2;
+    margin-bottom: 70px;
+    transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), height 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), border-radius 0.3s ease;
+}
+
+.root-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 500;
+    font-size: 40px;
+    color: #FFFFFF;
+    transition: opacity 0.3s ease;
+}
+
+.root-hidden-content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.root-hidden-subtitle {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 700;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+.root-hidden-desc {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.dev-tree-root:hover {
+    width: 291px;
+    height: 103px;
+    border-radius: 14px;
+}
+
+.dev-tree-root:hover .root-title {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.dev-tree-root:hover .root-hidden-content {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dev-tree-branches {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.dev-tree-branch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 148px;
+    opacity: 0.36;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3);
+    cursor: pointer;
+}
+
+.dev-tree-branch:hover {
+    opacity: 1;
+    transform: translateY(-10px);
+}
+
+.branch-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    min-height: 102px;
+    background: #1C1B1E;
+    border-radius: 14px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: normal;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.branch-nodes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    width: 100%;
+}
+
+.branch-nodes::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 3px dashed #3A3A3A;
+    z-index: -1;
+}
+
+.branch-node-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    min-height: 65px;
+}
+
+.branch-node {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: #1C1B1E;
+    box-shadow: 0px 5px 8.4px #00FFBB;
+    transition: width 0.4s cubic-bezier(0.68, -0.55, 0.27, 3), height 0.4s cubic-bezier(0.68, -0.55, 0.27, 3), border-radius 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.node-number {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 500;
+    font-size: 20px;
+    color: #FFFFFF;
+    transition: opacity 0.3s ease;
+}
+
+.node-hidden-content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    width: 100%;
+    height: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.node-hidden-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif !important;
+    font-weight: 500;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-bottom: 2px;
+}
+
+.node-hidden-desc {
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.45;
+}
+
+.branch-node-container:hover .branch-node {
+    width: 148px;
+    height: auto;
+    min-height: 80px;
+    padding: 15px 5px;
+    box-sizing: border-box;
+    border-radius: 14px;
+    z-index: 10;
+}
+
+.branch-node-container:hover .node-number {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.branch-node-container:hover .node-hidden-content {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+}
+
+.dev-tree-content .dev-btn {
+    align-self: center;
+}
+
+.home-irlgaming-section {
+    width: 100%;
+    background-color: #000;
+    position: relative;
+    padding: 50px 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-irlgaming-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.home-irlgaming-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url('../images/symbol-irlGaming.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.75;
+}
+
+.irlgaming-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.irlgaming-title {
+    font-family: 'Brother 1816 Bold', sans-serif;
+    font-weight: 900;
+    font-size: 109px;
+    line-height: 100%;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0 0 11px 0;
+}
+
+.irlgaming-subtitle {
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: 66px;
+    line-height: 86%;
+    letter-spacing: -0.06em;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 46px 0;
+}
+
+.irlgaming-description {
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 145%;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 959px;
+    margin: 0 auto 51px;
+}
+
+.irlgaming-placeholder {
+    width: 100%;
+    max-width: 1418px;
+    height: 602px;
+    max-height: 602px;
+    background: #1C1B1E;
+    border-radius: 14px;
+    padding: 30px;
+    border: 2px solid #EC226E;
+    box-shadow: 0 0 40px -10px #EC226E, inset 0 0 20px -5px #EC226E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.irlgaming-placeholder span {
+    font-size: 64px;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-transform: none;
+}
+
+.home-journeys-section {
+    width: 100%;
+    background-color: #000;
+    position: relative;
+    padding: 50px 45px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-journeys-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.home-journeys-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url('../images/symbol-journeys.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.75;
+}
+
+.journeys-home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.journeys-home-title {
+    font-family: 'Brother 1816 Bold', sans-serif;
+    font-weight: 900;
+    font-size: 109px;
+    line-height: 100%;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0 0 11px 0;
+}
+
+.journeys-home-subtitle {
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: 66px;
+    line-height: 86%;
+    letter-spacing: -0.06em;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 46px 0;
+}
+
+.journeys-home-description {
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 145%;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 959px;
+    margin: 0 auto 51px;
+}
+
+.journeys-home-slideshow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    max-width: 1418px;
+    overflow: visible;
+    padding: 20px 0;
+}
+
+.journeys-home-track {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 47px;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 30px 45px 30px 45px;
+    box-sizing: border-box;
+}
+
+.journeys-home-track::-webkit-scrollbar {
+    height: 6px;
+}
+
+.journeys-home-track::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.journeys-home-track::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+}
+
+.journeys-home-track::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.journeys-home-track {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.journeys-home-card {
+    position: relative;
+    flex-shrink: 0;
+    width: 560px;
+    height: 501px;
+    background: #151417;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    scroll-snap-align: center;
+    transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1), height 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), box-shadow 0.4s ease;
+}
+
+.jhc-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1;
+}
+
+.jhc-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(178.92deg, rgba(0, 0, 0, 0) 20.3%, #1C1B1E 99.07%);
+    z-index: 2;
+    transition: height 0.4s ease;
+}
+
+.journeys-home-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    background-image: url('../images/symbol-journeys2.png');
+    background-size: 200% 200%;
+    background-position: 100% 0%;
+    background-repeat: no-repeat;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.jhc-content {
+    position: relative;
+    z-index: 4;
+    padding: 25px 30px 27px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0;
+}
+
+.jhc-title {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 86%;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0 0 26px 0;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3);
+}
+
+.jhc-subtitle {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 145%;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.95);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3);
+}
+
+.jhc-hidden-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transform: translateY(20px);
+    transition: max-height 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), opacity 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), margin-top 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3);
+}
+
+.jhc-description {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 145%;
+    letter-spacing: -0.005em;
+    color: #BFBFBF;
+    margin: 0 0 20px 0;
+}
+
+.jhc-btn {
+    display: inline-block;
+    padding: 10px 29px;
+    border: 1px solid #FFFFFF;
+    border-radius: 51px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.jhc-btn:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.journeys-home-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.journeys-home-card:hover .jhc-title,
+.journeys-home-card:hover .jhc-subtitle {
+    transform: translateY(-10px);
+}
+
+.journeys-home-card:hover .jhc-hidden-content {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 20px;
+    transform: translateY(0);
+}
+
+.journeys-home-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 29px;
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 51px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    letter-spacing: -0.005em;
+    color: #0A0909;
+    text-decoration: none;
+    margin-top: 20px;
+    z-index: 3;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.journeys-home-btn:hover {
+    background: #8a38f5;
+    border-color: #8a38f5;
+    color: #FFFFFF;
+}
+
+.journeys-home-placeholder {
+    width: 100%;
+    max-width: 1418px;
+    height: 602px;
+    background: #1C1B1E;
+    border-radius: 14px;
+    padding: 30px;
+    border: 2px solid #8a38f5;
+    box-shadow: 0 0 40px -10px #8a38f5, inset 0 0 20px -5px #8a38f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.journeys-home-placeholder span {
+    font-size: 64px;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-transform: none;
+}
+
+.home-team-section {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1478 / 1176;
+    background-image: url('../images/bg-team.svg');
+    background-size: cover;
+    background-position: center bottom;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.home-team-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.team-container {
+    position: absolute;
+    top: 67%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 806px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.team-title {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(45px, 4.2vw, 60px);
+    line-height: 1;
+    color: #FFFFFF;
+    margin: 0 0 11px 0;
+    text-transform: uppercase;
+    letter-spacing: -0.06em;
+}
+
+.team-description {
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 30px 0;
+    max-width: 800px;
+}
+
+.btn-team {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(8px, 0.7vw, 10px) clamp(30px, 3.3vw, 48px);
+    border: 1px solid #FFFFFF;
+    border-radius: 46px;
+    font-family: 'Brother 1816', sans-serif;
+    font-weight: 500;
+    font-size: clamp(16px, 1.4vw, 20px);
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-team:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+
+@media (max-width: 1024px) {
+    .home-carousel-section {
+        padding: 0 15px;
+    }
+
+    .home-carousel-logo {
+        top: 100px;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .brand-logo-img {
+        height: 50px;
+    }
+
+    .logo-delimiter {
+        width: 60px;
+        height: 0;
+        border-left: none;
+        border-top: 2px solid #FFFFFF;
+    }
+
+    .logo-text {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .home-carousel-track {
+        height: 100vh;
+        margin-top: 0;
+    }
+
+    .home-carousel-slide {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .home-carousel-slide.prev,
+    .home-carousel-slide.next {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .slide-content {
+        top: 75%;
+        padding: 0 10px;
+    }
+
+    .slide-title {
+        font-size: 37px;
+    }
+
+    .slide-description {
+        font-size: 15px;
+        line-height: 1.3;
+    }
+
+    .btn-start-now {
+        font-size: 18px;
+        height: 40px;
+        padding: 5px 20px;
+    }
+
+    .home-carousel-slide.active .slide-details {
+        margin-top: 10px;
+    }
+
+    .home-carousel-nav-next {
+        right: 10px;
+        padding: 10px;
+    }
+
+    .home-value-section {
+        padding: 60px 20px;
+    }
+
+    .value-card-wrapper {
+        max-width: 90vw;
+    }
+
+    .value-card {
+        padding: 35px 25px;
+    }
+
+    .value-text {
+        font-size: 18px;
+    }
+
+    .home-services-section {
+        padding: 60px 15px;
+    }
+
+    .services-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .service-card {
+        max-width: 498px;
+        margin: 0 auto;
+    }
+
+    .service-title {
+        font-size: 29px;
+    }
+
+    .service-subtitle {
+        font-size: 18px;
+    }
+
+    .service-description {
+        font-size: 12px;
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        overflow: hidden;
+        transition: max-height 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), opacity 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), margin-top 0.5s cubic-bezier(0.68, -0.55, 0.27, 3);
+    }
+
+    .service-hidden-content {
+        max-height: none;
+        opacity: 1;
+        transform: none;
+        margin-top: 15px;
+        transition: none;
+    }
+
+    .service-btn {
+        margin-top: 5px;
+        font-size: 18px;
+        padding: 8px 20px;
+    }
+
+    .service-card:hover {
+        transform: none;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .service-card:hover .service-card-bg {
+        transform: none;
+    }
+
+    .service-card.is-expanded {
+        transform: scale(1.02);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .service-card.is-expanded .service-card-bg {
+        transform: scale(1.2);
+    }
+
+    .service-card.is-expanded .service-description {
+        max-height: 300px;
+        opacity: 1;
+        margin-top: 15px;
+    }
+
+    .service-card.is-expanded .service-btn {
+        display: none;
+    }
+
+    .service-card.is-expanded .service-close-btn {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .home-lasertag-section {
+        padding: 50px 18px;
+    }
+
+    .lt-eyebrow-dot {
+        display: none !important;
+    }
+
+    .lasertag-card-eyebrow span {
+        display: block;
+    }
+
+    .lasertag-home-title {
+        font-size: clamp(46px, 8vw, 64px);
+    }
+
+    .lasertag-home-description {
+        font-size: clamp(14px, 2.5vw, 16px);
+        margin-bottom: 32px;
+        max-width: 355px;
+    }
+
+    .lasertag-home-card {
+        height: auto;
+        min-height: 480px;
+    }
+
+    .lasertag-home-card-title {
+        font-size: clamp(30px, 6vw, 40px);
+    }
+
+    .lasertag-home-card-content {
+        padding: clamp(36px, 6vw, 48px) clamp(18px, 4vw, 28px);
+        gap: clamp(26px, 4vw, 32px);
+    }
+
+    .lasertag-card-lead {
+        font-size: 16px;
+    }
+
+    .lasertag-stat-num {
+        font-size: clamp(24px, 4vw, 28px);
+    }
+
+    .lasertag-stats {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 14px !important;
+        max-width: none !important;
+    }
+
+    .lasertag-stat {
+        flex: none !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        width: 100% !important;
+        padding: clamp(14px, 3vw, 22px) clamp(10px, 2vw, 18px) !important;
+        box-sizing: border-box !important;
+    }
+
+    .lasertag-home-btn {
+        font-size: clamp(16px, 2.2vw, 18px);
+        padding: 12px 28px;
+    }
+
+    .home-development-section {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px 50px 20px;
+    }
+
+    .development-left {
+        position: static !important;
+        top: auto !important;
+        width: 100%;
+        height: auto !important;
+        min-height: auto;
+        margin-bottom: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 33px;
+    }
+
+    .development-bg-wrapper {
+        width: 100%;
+        max-width: 335px;
+        aspect-ratio: 335 / 383;
+        border-radius: 15px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .development-bg-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .development-left-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .development-right {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dev-right-content {
+        --bg-symbol-width: 1000px;
+        --bg-symbol-top: -150px;
+        --bg-symbol-left: 40%;
+        --bg-symbol-margin-left: calc(var(--bg-symbol-width) / -2);
+        --bg-symbol-opacity: 0.75;
+
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        gap: 70px !important;
+        z-index: 1;
+    }
+
+    .dev-right-content::before {
+        content: '';
+        position: absolute;
+        top: var(--bg-symbol-top);
+        left: var(--bg-symbol-left);
+        margin-left: var(--bg-symbol-margin-left);
+        width: var(--bg-symbol-width);
+        aspect-ratio: 699 / 619;
+        background: url('../images/symbol-development.png') no-repeat center center;
+        background-size: 100% 100%;
+        opacity: var(--bg-symbol-opacity);
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .dev-right-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px !important;
+        margin-bottom: 0 !important;
+    }
+
+    .dev-right-title {
+        font-family: 'FONTSPRING DEMO - Brother 1816', 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 1.16;
+        letter-spacing: -0.005em;
+        color: #FFFFFF;
+        margin: 0;
+    }
+
+    .dev-right-description {
+        font-family: 'FONTSPRING DEMO - Brother 1816', 'Outfit', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.45;
+        letter-spacing: -0.005em;
+        color: rgba(255, 255, 255, 0.55);
+        margin: 0;
+        max-width: 335px;
+    }
+
+    .dev-cards-container {
+        gap: 34px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .dev-card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+            "icon title"
+            "desc desc";
+        align-items: center;
+        padding: 30px;
+        gap: 14px 23px;
+        width: 100%;
+        max-width: 335px;
+        background: #1C1B1E;
+        box-shadow: none;
+        border-radius: 14px;
+    }
+
+    .dev-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .dev-card-icon {
+        grid-area: icon;
+    }
+
+    .desktop-icon {
+        display: none !important;
+    }
+
+    .mobile-icon {
+        display: block !important;
+    }
+
+    .dev-card-text {
+        display: contents;
+    }
+
+    .dev-card-title {
+        grid-area: title;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.45;
+        letter-spacing: -0.005em;
+        color: #FFFFFF;
+    }
+
+    .dev-card-desc {
+        grid-area: desc;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.45;
+        letter-spacing: -0.005em;
+        color: rgba(255, 255, 255, 0.55);
+        text-align: left;
+    }
+
+    .dev-btn {
+        align-self: center;
+        width: 186px;
+        height: 34px;
+        margin-top: 0 !important;
+        background: transparent !important;
+        border: 1px solid #FFFFFF !important;
+        border-radius: 51px;
+        color: #FFFFFF !important;
+        font-size: 19px;
+        font-weight: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .dev-tree-content {
+        align-items: center;
+        padding-top: 50px;
+        gap: 70px !important;
+    }
+
+    .dev-tree-container {
+        width: 335px !important;
+        margin: 0 auto;
+    }
+
+    .dev-tree-root {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 20px !important;
+        width: 291px !important;
+        height: 126px !important;
+        border-radius: 14px !important;
+        background: #1C1B1E !important;
+        box-shadow: 0px 5px 8.4px #00FFBB !important;
+        margin-bottom: 50px !important;
+    }
+
+    .dev-tree-root .root-title {
+        display: none !important;
+    }
+
+    .dev-tree-root .root-hidden-content {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 11px !important;
+    }
+
+    .dev-tree-root .root-hidden-subtitle {
+        font-family: 'FONTSPRING DEMO - Brother 1816', 'Outfit', sans-serif !important;
+        font-weight: 800 !important;
+        font-size: 37px !important;
+        line-height: 1 !important;
+        letter-spacing: -0.06em !important;
+        margin: 0 !important;
+    }
+
+    .dev-tree-root .root-hidden-desc {
+        font-family: 'FONTSPRING DEMO - Brother 1816', 'Outfit', sans-serif !important;
+        font-weight: 400 !important;
+        font-size: 13px !important;
+        line-height: 1.45 !important;
+        letter-spacing: -0.005em !important;
+        color: rgba(255, 255, 255, 0.78) !important;
+    }
+
+    .dev-tree-branches {
+        gap: 18px;
+        justify-content: center;
+    }
+
+    .dev-tree-branch {
+        width: 99.67px !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .branch-header {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: auto;
+        height: auto !important;
+        min-height: 54px !important;
+        padding: 10px 5px !important;
+        background: #1C1B1E !important;
+        box-shadow: 0px 4px 4px #00FFBB !important;
+        border-radius: 14px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        box-sizing: border-box !important;
+        line-height: 1.45 !important;
+        letter-spacing: -0.005em !important;
+    }
+
+    .branch-node-container {
+        height: auto !important;
+        min-height: 76px !important;
+    }
+
+    .branch-node {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: auto !important;
+        height: auto !important;
+        min-height: 76px !important;
+        padding: 10px 7px !important;
+        background: #1C1B1E !important;
+        box-shadow: 0px 6px 8.1px rgba(0, 255, 187, 0.09) !important;
+        border-radius: 14px !important;
+        box-sizing: border-box !important;
+    }
+
+    .branch-node .node-number {
+        display: none !important;
+    }
+
+    .branch-node .node-hidden-content {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 8px !important;
+        padding: 0 !important;
+    }
+
+    .node-hidden-title {
+        font-size: 10px !important;
+        font-weight: 700 !important;
+        text-align: center !important;
+        margin: 0 !important;
+    }
+
+    .node-hidden-desc {
+        font-size: 10px !important;
+        font-weight: 400 !important;
+        text-align: center !important;
+        color: rgba(255, 255, 255, 0.78) !important;
+        margin: 0 !important;
+    }
+
+    .branch-nodes::before {
+        bottom: 39px !important;
+    }
+
+    .development-title {
+        font-size: clamp(35px, 11vw, 55px);
+        color: #FFFFFF;
+        line-height: 1;
+        letter-spacing: -0.06em;
+        text-align: center;
+        margin: 0;
+    }
+
+    .development-subtitle {
+        font-family: 'Brother 1816', 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: clamp(18px, 6.4vw, 32px);
+        color: rgba(181, 181, 181, 0.95);
+        line-height: 1.16;
+        letter-spacing: -0.005em;
+        text-align: center;
+        margin: 0;
+    }
+
+    .home-irlgaming-section {
+        padding: 60px 20px;
+    }
+
+    .irlgaming-subtitle {
+        display: none;
+    }
+
+    .irlgaming-title {
+        font-size: 48px;
+        line-height: 100%;
+    }
+
+    .irlgaming-description {
+        font-size: 14px;
+        line-height: 145%;
+        letter-spacing: -0.005em;
+        width: 100%;
+        max-width: 355px;
+        margin: 0 auto 30px;
+    }
+
+    .irlgaming-placeholder {
+        height: 250px;
+    }
+
+    .irlgaming-placeholder span {
+        font-size: 32px;
+    }
+
+    .home-journeys-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 60px 10px;
+    }
+
+    .journeys-home-subtitle {
+        display: none;
+    }
+
+    .journeys-home-title {
+        font-size: 37px;
+        line-height: 100%;
+        letter-spacing: -0.06em;
+    }
+
+    .journeys-home-description {
+        font-size: 14px;
+        line-height: 145%;
+        letter-spacing: -0.005em;
+        width: 100%;
+        max-width: 355px;
+        margin: 0 auto 18px;
+    }
+
+    .journeys-home-slideshow {
+        max-height: none;
+        flex: none;
+        height: auto;
+        overflow: visible;
+    }
+
+    .journeys-home-track {
+        width: 100%;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 40px;
+        padding: 0 16px;
+        transition: none;
+        transform: none !important;
+    }
+
+    .journeys-home-card {
+        scroll-snap-align: start;
+        width: 100%;
+        max-width: 323px;
+        height: 396px;
+        flex-shrink: 0;
+    }
+
+    .jhc-title,
+    .jhc-subtitle {
+        transition: none !important;
+    }
+
+    .journeys-home-card:hover {
+        transform: none !important;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .journeys-home-card:hover .jhc-bg {
+        transform: none !important;
+    }
+
+    .journeys-home-card:hover .jhc-title,
+    .journeys-home-card:hover .jhc-subtitle {
+        transform: none !important;
+    }
+
+    .jhc-title {
+        font-size: 32px;
+        line-height: 100%;
+        margin: 0 0 15px 0;
+    }
+
+    .jhc-subtitle {
+        font-size: 19px;
+    }
+
+    .jhc-hidden-content {
+        max-height: none;
+        opacity: 1;
+        margin-top: 15px;
+        transform: translateY(0);
+        overflow: visible;
+    }
+
+    .jhc-description {
+        display: none;
+    }
+
+    .jhc-btn {
+        font-size: 16px;
+        padding: 7px 10px;
+    }
+
+    .journeys-home-placeholder {
+        height: 250px;
+        flex: none;
+    }
+
+    .journeys-home-placeholder span {
+        font-size: 32px;
+    }
+
+    .journeys-home-btn {
+        font-size: 16px;
+        padding: 7px 10px;
+    }
+
+    .home-team-section {
+        min-height: 799px;
+        background-position: top center;
+    }
+
+    .team-container {
+        position: absolute;
+        top: 73%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .team-title {
+        font-size: 37px;
+        font-weight: 800;
+        text-transform: none;
+    }
+
+    .team-title-br {
+        display: none;
+    }
+
+    .team-description {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 360px) {
+    .dev-tree-container {
+        width: 275px !important;
+        margin: 0 auto;
+    }
+
+    .dev-tree-branches {
+        gap: 10px !important;
+    }
+
+    .dev-tree-branch {
+        width: 85px !important;
+    }
+
+    .branch-header {
+        width: auto;
+        padding: 0 5px !important;
+        font-size: 10px !important;
+    }
+
+    .branch-node {
+        width: auto !important;
+        padding: 10px 5px !important;
+    }
+
+    .branch-nodes::before {
+        top: -30px;
+    }
+}

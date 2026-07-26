@@ -1,3 +1,3 @@
 <?php
-require_once get_template_directory() . '/journeys.php';
+require_once get_template_directory() . '/front-page.php';
 ?>

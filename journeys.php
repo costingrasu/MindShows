@@ -109,7 +109,6 @@ get_header(); ?>
                     <article class="journey-card fade-up-element" style="--card-font: <?php echo esc_attr($title_font); ?>; --card-color: <?php echo esc_attr($c4_color); ?>;">
                         
                         <div class="journey-card-bg" style="background-image: url('<?php echo esc_url($card_img_url); ?>');"></div>
-                        <div class="journey-card-overlay"></div>
 
                         <div class="journey-card-content">
                             <h3 class="journey-card-title"><?php the_title(); ?></h3>

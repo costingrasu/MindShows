@@ -1,0 +1,649 @@
+.page-journeys {
+    width: 100%;
+    background-color: #000000;
+    position: relative;
+}
+
+.journeys-hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 147.5px 20px 80px;
+}
+
+.journeys-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.journeys-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.journeys-hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 555px;
+}
+
+.journeys-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 67px;
+    line-height: 1.1;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0;
+    text-align: center;
+}
+
+.journeys-subtitle {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+}
+
+.journeys-desc {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: #ffffff8c;
+    margin: 0;
+    max-width: 950px;
+    text-align: center;
+}
+
+.journeys-hero-btn {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    padding: 0 15px;
+    font-size: 25px;
+    width: 160px;
+    height: 42.5px;
+    border: 1px solid #FFFFFF;
+    background-color: transparent;
+    border-radius: 51px;
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.journeys-hero-btn:hover {
+    background-color: #FFFFFF;
+    color: #201F1F;
+}
+
+.hero-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUpAnimation 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 0.2s;
+}
+
+.journeys-about {
+    width: 100%;
+    background-color: #1D1D1D;
+    padding: 27px 55px;
+    display: flex;
+    justify-content: center;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.journeys-about.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.journeys-about-container {
+    width: 100%;
+    max-width: 1168px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 58px;
+}
+
+.journeys-about-image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 555px;
+    height: 507px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex: none;
+}
+
+.journeys-about-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.journeys-about-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    max-width: 555px;
+    flex: none;
+}
+
+.journeys-about-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 72px;
+    line-height: 0.86;
+    letter-spacing: -0.09em;
+    color: #FFFFFF;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.journeys-about-desc {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: #C2C2C2;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.journeys-about-desc p {
+    margin: 0;
+}
+
+.title-mobile {
+    display: none;
+}
+
+.title-desktop {
+    display: flex;
+}
+
+.journeys-list {
+    width: 100%;
+    padding: 57px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #000000;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.journeys-list.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.journeys-list-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+    max-width: 1280px;
+    text-align: center;
+}
+
+.journeys-list-title {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 110px;
+    line-height: 1;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.journeys-list-desc {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+    max-width: 980px;
+}
+
+.journeys-cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1185px;
+    margin: 60px auto 0;
+}
+
+.journey-card {
+    position: relative;
+    width: 100%;
+    height: 465px;
+    border-radius: 14px;
+    background-color: #1D1D1D;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 3), box-shadow 0.4s ease;
+}
+
+.journey-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 43.55%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.journey-card-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(270deg, #1D1D1D 0%, rgba(29, 29, 29, 0) 100%);
+    z-index: 2;
+}
+
+.journey-card-content {
+    position: relative;
+    z-index: 3;
+    width: 48%;
+    margin-left: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.journey-card-title {
+    font-family: var(--card-font);
+    font-size: 49px;
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    margin: 0;
+}
+
+.journey-card-location {
+    display: flex;
+    align-items: center;
+    color: var(--card-color);
+
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.location-text {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+}
+
+.icon-location {
+    flex-shrink: 0;
+}
+
+.journey-card-desc {
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    margin-top: 32px;
+}
+
+.journey-card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+}
+
+.journey-card-info {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 9px 15px;
+    gap: 34px;
+    border: 1px solid #FFFFFF;
+    border-radius: 33px;
+
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    color: #FFFFFF;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+}
+
+.journey-card-btn {
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 30px;
+    min-height: 48px;
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 51px;
+
+    font-family: 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    color: #0A0909;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.journey-card-btn:hover {
+    background-color: var(--card-color);
+    border-color: var(--card-color);
+    color: #FFF;
+}
+
+@keyframes fadeUpAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 799px) {
+    .journeys-hero {
+        min-height: 80vh;
+        padding: 100px 20px 60px;
+    }
+
+    .journeys-title {
+        font-size: 65px;
+    }
+
+    .journeys-subtitle {
+        font-size: 20px;
+    }
+
+    .journeys-desc {
+        font-size: 16px;
+    }
+
+    .journeys-hero-btn {
+        padding: 0 15px;
+        font-size: 25px;
+    }
+
+    .journeys-about {
+        padding: 27px 10px;
+    }
+
+    .journeys-about-container {
+        flex-direction: column;
+        gap: 40px;
+        max-width: 370px;
+    }
+
+    .journeys-about-image-wrapper {
+        max-width: 100%;
+        height: 492px;
+    }
+
+    .journeys-about-image-wrapper::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+        pointer-events: none;
+    }
+
+    .journeys-about-content {
+        align-items: center;
+        gap: 0;
+    }
+
+    .title-desktop {
+        display: none;
+    }
+
+    .title-mobile {
+        display: flex;
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        z-index: 2;
+
+        font-size: 72px;
+        line-height: 0.88;
+        letter-spacing: -0.06em;
+    }
+
+    .journeys-about-desc {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .journeys-list {
+        padding: 60px 20px;
+    }
+
+    .journeys-list-title {
+        font-size: 60px;
+    }
+
+    .journeys-list-desc {
+        font-size: 14px;
+    }
+
+    .journeys-cards-container {
+        gap: 30px;
+        margin: 40px auto 0;
+    }
+
+    .journey-card {
+        flex-direction: column;
+        height: 625px;
+        transition: box-shadow 0.4s ease;
+        align-items: flex-start;
+    }
+
+    .journey-card-bg {
+        width: 100%;
+        height: 370px;
+        position: absolute;
+        left: 0;
+        transition: filter 0.4s ease;
+        z-index: 1;
+    }
+
+    .journey-card-bg::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(29, 29, 29, 0) 0%, rgba(29, 29, 29, 0) 60%, #1D1D1D 100%);
+        z-index: 2;
+    }
+
+    .journey-card-bg::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(29, 29, 29, 0) 0%, rgba(29, 29, 29, 0.9) 50%, #1D1D1D 100%);
+        z-index: 3;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .journey-card-content {
+        width: 100%;
+        height: 100%;
+        margin-left: 0;
+        padding: 16px 10px;
+        justify-content: flex-end;
+        box-sizing: border-box;
+    }
+
+    .journey-card-title {
+        font-size: 34px;
+        width: 100%;
+    }
+
+    .journey-card-location,
+    .journey-card-desc,
+    .journey-card-info {
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: none;
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .journey-card-footer {
+        width: 100%;
+        margin-top: 25px;
+        justify-content: flex-end;
+    }
+
+    .journey-card-btn {
+        padding: 12px 18px;
+        min-height: 45px;
+        font-size: 19px;
+        width: auto;
+    }
+
+    .journey-card.is-active {
+        transform: none;
+        box-shadow: 0px 4px 25.5px 2px var(--card-color);
+    }
+
+    .journey-card.is-active .journey-card-bg::before {
+        opacity: 1;
+    }
+
+    .journey-card.is-active .journey-card-location {
+        max-height: 55px;
+        opacity: 1;
+        margin-top: 20px;
+    }
+
+    .journey-card.is-active .journey-card-desc {
+        max-height: 200px;
+        opacity: 1;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    .journey-card.is-active .journey-card-info {
+        max-height: 45px;
+        opacity: 1;
+        border: 1px solid #FFFFFF;
+        padding: 10px 10px;
+        gap: 12px;
+        font-size: 18px;
+    }
+
+    .journey-card.is-active .journey-card-footer {
+        justify-content: space-between;
+    }
+
+    .journey-card.is-active .location-text {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 800px) {
+    .journey-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0px 4px 24px 7px var(--card-color);
+    }
+
+    .journey-card:hover .journey-card-location {
+        max-height: 52px;
+        opacity: 1;
+        margin-top: 20px;
+    }
+
+    .journey-card:hover .journey-card-desc {
+        margin-top: 20px;
+    }
+}
