@@ -2,53 +2,61 @@
 /*
 Template Name: Journeys Page
 */
+get_header();
+
+$hero_bg_img      = function_exists('get_field') ? get_field('journeys_hero_bg_image') : null;
+$hero_bg_img_url  = ($hero_bg_img && isset($hero_bg_img['url'])) ? $hero_bg_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.png';
+$hero_title       = (function_exists('get_field') && get_field('journeys_hero_title')) ? get_field('journeys_hero_title') : 'JOURNEYS';
+$hero_subtitle    = (function_exists('get_field') && get_field('journeys_hero_subtitle')) ? get_field('journeys_hero_subtitle') : 'Redefinim felul in care calatorim';
+$hero_description = (function_exists('get_field') && get_field('journeys_hero_description')) ? get_field('journeys_hero_description') : 'Prin excursii, taberele, retreaturi sau o escapadă la munte dedicate tinerilor. Construim experiențe gamificate, atent gândite și antrenante care facilitează atât explorarea, cât și descoperirea de sine și dezvoltarea personală. Nu doar ne plimbăm, ci trăim povești care ne cresc.';
+$hero_btn_text    = (function_exists('get_field') && get_field('journeys_hero_button_text')) ? get_field('journeys_hero_button_text') : 'Start Now';
+$hero_btn_link    = (function_exists('get_field') && get_field('journeys_hero_button_link')) ? get_field('journeys_hero_button_link') : '#lista-excursii';
+
+$about_img        = function_exists('get_field') ? get_field('journeys_about_image') : null;
+$about_img_url    = ($about_img && isset($about_img['url'])) ? $about_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.png';
+$about_title      = (function_exists('get_field') && get_field('journeys_about_title')) ? get_field('journeys_about_title') : 'TABERE DE VARA';
+$about_desc       = (function_exists('get_field') && get_field('journeys_about_description')) ? get_field('journeys_about_description') : '<p>În spatele fiecărei tabere reușite se află o idee puternică. Noi suntem cei care o construiesc.</p><p>Mind Shows transformă taberele organizate de agențiile de turism în experiențe educaționale memorabile, prin concepte originale, scenarii imersive și design atent gândit. Creăm tematici care captivează, activități care dezvoltă și povești care leagă emoțional participanții de tot ceea ce trăiesc.</p>';
+
+$list_title       = (function_exists('get_field') && get_field('journeys_list_title')) ? get_field('journeys_list_title') : 'TABERE DE VARA 2026';
+$list_desc        = (function_exists('get_field') && get_field('journeys_list_description')) ? get_field('journeys_list_description') : 'Povești unice create cu atenție de o echipă cu peste 10 ani de experiență în conceptualizarea și facilitarea de programe educaționale pentru tineri';
+$card_btn_text    = (function_exists('get_field') && get_field('journeys_card_button_text')) ? get_field('journeys_card_button_text') : 'Descopera';
 ?>
 
-<?php
-get_header(); ?>
-
 <main class="page-journeys">
-    
     <section class="journeys-hero hero-fade-up">
-        
         <div class="journeys-hero-bg">
-            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bg-journeys.png'); ?>" alt="Fundal Excursii" class="journeys-bg-img" />
+            <img src="<?php echo esc_url($hero_bg_img_url); ?>" alt="<?php echo esc_attr($hero_title); ?>" class="journeys-bg-img" />
         </div>
 
         <div class="journeys-hero-content">
-            <h1 class="journeys-title">JOURNEYS</h1>
-            <p class="journeys-subtitle">Redefinim felul in care calatorim</p>
-            <p class="journeys-desc">Prin excursii, taberele, retreaturi sau o escapadă la munte dedicate tinerilor. Construim experiențe gamificate, atent gândite și antrenante care facilitează atât explorarea, cât și descoperirea de sine și dezvoltarea personală. Nu doar ne plimbăm, ci trăim povești care ne cresc.</p>
+            <h1 class="journeys-title"><?php echo esc_html($hero_title); ?></h1>
+            <p class="journeys-subtitle"><?php echo esc_html($hero_subtitle); ?></p>
+            <div class="journeys-desc"><?php echo wp_kses_post($hero_description); ?></div>
             
-            <a href="#lista-excursii" class="journeys-hero-btn">Start Now</a>
+            <a href="<?php echo esc_url($hero_btn_link); ?>" class="journeys-hero-btn"><?php echo esc_html($hero_btn_text); ?></a>
         </div>
-        
     </section>
 
     <section class="journeys-about">
         <div class="journeys-about-container">
-            
             <div class="journeys-about-image-wrapper">
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bg-journeys.png'); ?>" alt="Tabere Next Level" class="journeys-about-img" />
-                <h2 class="journeys-about-title title-mobile">TABERE DE VARA</h2>
+                <img src="<?php echo esc_url($about_img_url); ?>" alt="<?php echo esc_attr($about_title); ?>" class="journeys-about-img" />
+                <h2 class="journeys-about-title title-mobile"><?php echo esc_html($about_title); ?></h2>
             </div>
 
             <div class="journeys-about-content">
-                <h2 class="journeys-about-title title-desktop">TABERE DE VARA</h2>
-                
+                <h2 class="journeys-about-title title-desktop"><?php echo esc_html($about_title); ?></h2>
                 <div class="journeys-about-desc">
-                    <p>În spatele fiecărei tabere reușite se află o idee puternică. Noi suntem cei care o construiesc.</p>
-                    <p>Mind Shows transformă taberele organizate de agențiile de turism în experiențe educaționale memorabile, prin concepte originale, scenarii imersive și design atent gândit. Creăm tematici care captivează, activități care dezvoltă și povești care leagă emoțional participanții de tot ceea ce trăiesc.</p>
+                    <?php echo wp_kses_post($about_desc); ?>
                 </div>
             </div>
-
         </div>
     </section>
 
     <section id="lista-excursii" class="journeys-list">
         <div class="journeys-list-header">
-            <h2 class="journeys-list-title">TABERE DE VARA 2026</h2>
-            <p class="journeys-list-desc">Povești unice create cu atenție de o echipă cu peste 10 ani de experiență în conceptualizarea și facilitarea de programe educaționale pentru tineri</p>
+            <h2 class="journeys-list-title"><?php echo esc_html($list_title); ?></h2>
+            <p class="journeys-list-desc"><?php echo esc_html($list_desc); ?></p>
         </div>
         
         <div class="journeys-cards-container">
@@ -107,7 +115,6 @@ get_header(); ?>
                     ?>
 
                     <article class="journey-card fade-up-element" style="--card-font: <?php echo esc_attr($title_font); ?>; --card-color: <?php echo esc_attr($c4_color); ?>;">
-                        
                         <div class="journey-card-bg" style="background-image: url('<?php echo esc_url($card_img_url); ?>');"></div>
 
                         <div class="journey-card-content">
@@ -130,10 +137,9 @@ get_header(); ?>
                                     <?php if($age_text): ?><span><?php echo esc_html($age_text); ?></span><?php endif; ?>
                                     <?php if($capacity_text): ?><span><?php echo esc_html($capacity_text); ?></span><?php endif; ?>
                                 </div>
-                                <a href="<?php echo esc_url(get_permalink()); ?>" class="journey-card-btn">Descopera</a>
+                                <a href="<?php echo esc_url(get_permalink()); ?>" class="journey-card-btn"><?php echo esc_html($card_btn_text); ?></a>
                             </div>
                         </div>
-
                     </article>
 
                 <?php 
