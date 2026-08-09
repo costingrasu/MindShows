@@ -3,8 +3,8 @@ name: Deploy Theme to GoDaddy Staging
 on:
   push:
     branches:
-      - main # Automatically deploys when you push to main
-  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+      - main
+  workflow_dispatch:
     inputs:
       deployment_dest:
         description: 'Target server directory'
@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Synchronize Files with GoDaddy WordPress Hosting Server
-        uses: godaddy-wordpress/gd-wordpress-deployer@v1
+        uses: godaddy-wordpress/gd-wordpress-deployer@v1.1
         with:
           remote_host: "1243931.eu15.myftpupload.com"
           ssh_user: "git_deployer_36e43e8b24_1243931"
