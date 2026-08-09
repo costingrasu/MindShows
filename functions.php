@@ -81,6 +81,9 @@ if (function_exists('acf_add_options_page')) {
     ));
 }
 
+require_once get_template_directory() . '/inc/acf-field-registration.php';
+add_action('acf/init', 'mindshows_register_acf_fields');
+
 function lt_get_slot_duration() {
     static $cached_duration = null;
     if ($cached_duration !== null) {
