@@ -1,0 +1,28 @@
+name: Deploy Theme to GoDaddy Staging
+
+on:
+  push:
+    branches:
+      - main # Automatically deploys when you push to main
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+    inputs:
+      deployment_dest:
+        description: 'Target server directory'
+        required: false
+        default: 'wp-content/themes/MindShows/'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Synchronize Files with GoDaddy WordPress Hosting Server
+        uses: godaddy-wordpress/gd-wordpress-deployer@v1
+        with:
+          remote_host: "1243931.eu15.myftpupload.com"
+          ssh_user: "git_deployer_36e43e8b24_1243931"
+          ssh_private_key: ${{ secrets.GODADDY_PRIVATE_KEY }}
+          deployment_dest: ${{ github.event.inputs.deployment_dest || 'wp-content/themes/MindShows/' }}

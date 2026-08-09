@@ -81,6 +81,30 @@ if (function_exists('acf_add_options_page')) {
     ));
 }
 
+function lt_get_slot_duration() {
+    static $cached_duration = null;
+    if ($cached_duration !== null) {
+        return $cached_duration;
+    }
+
+    $lt_page = get_pages(array(
+        'meta_key'   => '_wp_page_template',
+        'meta_value' => 'page-lasertag.php',
+        'number'     => 1,
+    ));
+
+    $page_id = !empty($lt_page) ? $lt_page[0]->ID : 0;
+    if (!$page_id) {
+        $page = get_page_by_path('laser-tag');
+        $page_id = $page ? $page->ID : 0;
+    }
+
+    $pkg_sec = $page_id ? get_field('lt_packages_section', $page_id) : null;
+    $cached_duration = ($pkg_sec && !empty($pkg_sec['slot_duration_minutes'])) ? intval($pkg_sec['slot_duration_minutes']) : 30;
+
+    return $cached_duration;
+}
+
 function lt_time_to_minutes($time_str) {
     $ts = strtotime($time_str);
     if ($ts === false) return 0;
@@ -151,12 +175,13 @@ function lt_calculate_slots($date, $rounds) {
     $opening_time = get_field('lt_opening_time', 'option') ?: '10:00';
     $closing_time = get_field('lt_closing_time', 'option') ?: '21:00';
 
+    $slot_dur = lt_get_slot_duration();
     $start = strtotime($opening_time);
     $end = strtotime($closing_time);
     $all_slots = array();
     while ($start < $end) {
         $all_slots[] = date('H:i', $start);
-        $start = strtotime('+30 minutes', $start);
+        $start = strtotime('+' . $slot_dur . ' minutes', $start);
     }
 
     $date_no_dashes = str_replace('-', '', $date);
@@ -200,7 +225,7 @@ function lt_calculate_slots($date, $rounds) {
 
     foreach ($all_slots as $s) {
         $slot_start_m = lt_time_to_minutes($s);
-        $slot_end_m = $slot_start_m + 30;
+        $slot_end_m = $slot_start_m + $slot_dur;
         
         $slot_open = !in_array($s, $booked_slots);
         
@@ -290,10 +315,11 @@ function lt_submit_booking_handler() {
     update_field('lt_book_rounds', $rounds, $post_id);
     update_field('lt_book_start_time', $start_time, $post_id);
 
+    $slot_dur = lt_get_slot_duration();
     $start_timestamp = strtotime($start_time);
     $slots_data = array();
     for ($k = 0; $k < $rounds; $k++) {
-        $slot_time = date('H:i', strtotime('+' . ($k * 30) . ' minutes', $start_timestamp));
+        $slot_time = date('H:i', strtotime('+' . ($k * $slot_dur) . ' minutes', $start_timestamp));
         $slots_data[] = array('lt_slot_time' => $slot_time);
     }
     update_field('lt_book_slots', $slots_data, $post_id);
@@ -301,7 +327,7 @@ function lt_submit_booking_handler() {
     $admin_email = get_option('admin_email');
     $subject_admin = 'New Laser Tag Booking: ' . $post_title;
     $headers = array('Content-Type: text/html; charset=UTF-8');
-    $end_time = date('H:i', strtotime('+' . ($rounds * 30) . ' minutes', $start_timestamp));
+    $end_time = date('H:i', strtotime('+' . ($rounds * $slot_dur) . ' minutes', $start_timestamp));
     $package_name = ($rounds === 1) ? '1 ROUND' : ($rounds === 2 ? '2 ROUNDS' : '3 ROUNDS');
     $city_display = !empty($city) ? $city : '—';
 
@@ -386,12 +412,13 @@ function lt_get_month_availability_handler() {
     $opening_time = get_field('lt_opening_time', 'option') ?: '10:00';
     $closing_time = get_field('lt_closing_time', 'option') ?: '21:00';
     
+    $slot_dur = lt_get_slot_duration();
     $start_ts = strtotime($opening_time);
     $end_ts = strtotime($closing_time);
     $base_slots = array();
     while ($start_ts < $end_ts) {
         $base_slots[] = date('H:i', $start_ts);
-        $start_ts = strtotime('+30 minutes', $start_ts);
+        $start_ts = strtotime('+' . $slot_dur . ' minutes', $start_ts);
     }
     $total_slots = count($base_slots);
 
@@ -518,7 +545,7 @@ function lt_get_month_availability_handler() {
             for ($i = 0; $i < $total_slots; $i++) {
                 if ($grid[$i]['open']) {
                     $slot_start_m = lt_time_to_minutes($grid[$i]['t']);
-                    $slot_end_m = $slot_start_m + 30;
+                    $slot_end_m = $slot_start_m + $slot_dur;
                     foreach ($closed_intervals as $ci) {
                         if ($slot_start_m < $ci['end'] && $slot_end_m > $ci['start']) {
                             $grid[$i]['open'] = false;
@@ -630,8 +657,9 @@ function lt_get_calendar_bookings_handler() {
             $players = get_field('lt_book_players', $post_id);
 
             if ($date && $start_time && $rounds) {
+                $slot_dur = lt_get_slot_duration();
                 $start_timestamp = strtotime($start_time);
-                $end_time = date('H:i', strtotime('+' . ($rounds * 30) . ' minutes', $start_timestamp));
+                $end_time = date('H:i', strtotime('+' . ($rounds * $slot_dur) . ' minutes', $start_timestamp));
                 
                 $start_iso = $date . 'T' . $start_time . ':00';
                 $end_iso = $date . 'T' . $end_time . ':00';
@@ -652,3 +680,14 @@ function lt_get_calendar_bookings_handler() {
     wp_send_json($events);
 }
 add_action('wp_ajax_lt_get_calendar_bookings', 'lt_get_calendar_bookings_handler');
+
+
+add_filter('acf/settings/save_json', function( $path ) {
+    return get_stylesheet_directory() . '/acf-json';
+});
+
+add_filter('acf/settings/load_json', function( $paths ) {
+    unset($paths[0]);
+    $paths[] = get_stylesheet_directory() . '/acf-json';
+    return $paths;
+});

@@ -471,18 +471,38 @@ document.addEventListener("DOMContentLoaded", () => {
       loadingSlots: false,
     };
 
-    const packages = [
+    const stageBuild = document.getElementById("lt-stage-build");
+    const ROUND_MINUTES = stageBuild ? parseInt(stageBuild.dataset.slotDuration, 10) || 30 : 30;
+
+    const packages = (stageBuild && stageBuild.dataset.pkg1Rounds) ? [
+      {
+        n: parseInt(stageBuild.dataset.pkg1Rounds, 10) || 1,
+        name: stageBuild.dataset.pkg1Name || "1 ROUND",
+        price: parseInt(stageBuild.dataset.pkg1Price, 10) || 39,
+        dur: stageBuild.dataset.pkg1Dur || "30 min total"
+      },
+      {
+        n: parseInt(stageBuild.dataset.pkg2Rounds, 10) || 2,
+        name: stageBuild.dataset.pkg2Name || "2 ROUNDS",
+        price: parseInt(stageBuild.dataset.pkg2Price, 10) || 69,
+        dur: stageBuild.dataset.pkg2Dur || "60 min total"
+      },
+      {
+        n: parseInt(stageBuild.dataset.pkg3Rounds, 10) || 3,
+        name: stageBuild.dataset.pkg3Name || "3 ROUNDS",
+        price: parseInt(stageBuild.dataset.pkg3Price, 10) || 99,
+        dur: stageBuild.dataset.pkg3Dur || "90 min total"
+      }
+    ] : [
       { n: 1, name: "1 ROUND", price: 39, dur: "30 min total" },
       { n: 2, name: "2 ROUNDS", price: 69, dur: "60 min total" },
-      { n: 3, name: "3 ROUNDS", price: 99, dur: "90 min total" },
+      { n: 3, name: "3 ROUNDS", price: 99, dur: "90 min total" }
     ];
 
     const monthNames = [
       "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
-
-    const ROUND_MINUTES = 30;
 
     const addMinutes = (t, min) => {
       let parts = t.split(":").map(Number);
