@@ -9,14 +9,10 @@ if (!defined('ABSPATH')) exit;
 function mindshows_register_acf_fields() {
     if (!function_exists('acf_add_local_field_group')) return;
 
-    // ═══════════════════════════════════════════════
-    // FIELD GROUP 1: HOMEPAGE (front-page.php)
-    // ═══════════════════════════════════════════════
     acf_add_local_field_group(array(
         'key' => 'group_fp_fields',
         'title' => 'Homepage Fields',
         'fields' => array(
-            // ── Activity Buttons ──
             array(
                 'key' => 'field_fp_activity_buttons',
                 'label' => 'Activity Buttons',
@@ -24,7 +20,6 @@ function mindshows_register_acf_fields() {
                 'type' => 'group',
                 'layout' => 'block',
                 'sub_fields' => array(
-                    // Development sub-group
                     array(
                         'key' => 'field_fp_act_development',
                         'label' => 'Development',
@@ -37,7 +32,6 @@ function mindshows_register_acf_fields() {
                             array('key' => 'field_fp_dev_link', 'label' => 'Button Link', 'name' => 'dev_button_link', 'type' => 'text', 'default_value' => '/development'),
                         ),
                     ),
-                    // IRL Gaming sub-group
                     array(
                         'key' => 'field_fp_act_irl',
                         'label' => 'IRL Gaming',
@@ -50,7 +44,6 @@ function mindshows_register_acf_fields() {
                             array('key' => 'field_fp_irl_link', 'label' => 'Button Link', 'name' => 'irl_button_link', 'type' => 'text', 'default_value' => '/irl-gaming'),
                         ),
                     ),
-                    // Journeys sub-group
                     array(
                         'key' => 'field_fp_act_journeys',
                         'label' => 'Journeys',
@@ -65,8 +58,6 @@ function mindshows_register_acf_fields() {
                     ),
                 ),
             ),
-
-            // ── Hero Section ──
             array(
                 'key' => 'field_fp_hero_section',
                 'label' => 'Hero Section',
@@ -79,8 +70,6 @@ function mindshows_register_acf_fields() {
                     array('key' => 'field_fp_slide_2_desc', 'label' => 'Slide 2 Description', 'name' => 'slide_2_desc', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Concepte, povești și sisteme gamificate pentru tabere, excursii, trasee, aventuri și experiențe tematice. Journeys transformă o călătorie într-o poveste scrisă cu atenție. Creăm concepte, jocuri și programe care sunt unite de o viziune și un obiectiv adaptabile grupului țintă.<br><strong>Potrivit pentru:</strong> copii și adolescenți, tabere, agenții de turism, școli, organizatori de evenimente, proiecte educaționale și parteneri.'),
                 ),
             ),
-
-            // ── Value Section ──
             array(
                 'key' => 'field_fp_value_section',
                 'label' => 'Value Section',
@@ -91,8 +80,6 @@ function mindshows_register_acf_fields() {
                     array('key' => 'field_fp_value_text', 'label' => 'Value Text', 'name' => 'value_text', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Organizăm <span class="value-highlight">experiențe educaționale</span>, <span class="value-highlight">traininguri interactive</span>, <span class="value-highlight">jocuri imersive</span> și <span class="value-highlight">concepte gamificate</span> pentru adolescenți, tineri, școli, tabere, branduri și organizații.'),
                 ),
             ),
-
-            // ── Services Section ──
             array(
                 'key' => 'field_fp_services_section',
                 'label' => 'Services Section',
@@ -109,7 +96,6 @@ function mindshows_register_acf_fields() {
                 ),
             ),
 
-            // ── Laser Tag Section (Homepage) ──
             array(
                 'key' => 'field_fp_lasertag_section',
                 'label' => 'Laser Tag Section',
@@ -122,7 +108,6 @@ function mindshows_register_acf_fields() {
                     array('key' => 'field_fp_lt_title', 'label' => 'Card Title', 'name' => 'card_title', 'type' => 'text', 'default_value' => 'Gather your squad'),
                     array('key' => 'field_fp_lt_lead', 'label' => 'Card Lead', 'name' => 'card_lead', 'type' => 'textarea', 'default_value' => 'Book your slot in our open-air arena, pick a package and battle it out across multiple game modes'),
                     array('key' => 'field_fp_lt_btn', 'label' => 'Button Text', 'name' => 'btn_text', 'type' => 'text', 'default_value' => 'View More'),
-                    // Stats repeater
                     array(
                         'key' => 'field_fp_lt_stats',
                         'label' => 'Stats',
@@ -138,8 +123,6 @@ function mindshows_register_acf_fields() {
                     ),
                 ),
             ),
-
-            // ── Development Section ──
             array(
                 'key' => 'field_fp_dev_section',
                 'label' => 'Development Section',
@@ -154,7 +137,6 @@ function mindshows_register_acf_fields() {
                     array('key' => 'field_fp_dev_rd2', 'label' => 'Right Description 2', 'name' => 'right_desc_2', 'type' => 'textarea', 'default_value' => 'Seria de traininguri principale, de o zi (8 ore) - un „must have" al abilităților și dezvoltării personale.'),
                     array('key' => 'field_fp_dev_root_t', 'label' => 'Root Title', 'name' => 'root_title', 'type' => 'text', 'default_value' => 'TRIAL'),
                     array('key' => 'field_fp_dev_root_d', 'label' => 'Root Description', 'name' => 'root_desc', 'type' => 'textarea', 'default_value' => 'Descoperă seria de MAIN QUESTS gratuit, fără niciun angajament.'),
-                    // Cards repeater
                     array(
                         'key' => 'field_fp_dev_cards',
                         'label' => 'Cards',
@@ -168,7 +150,6 @@ function mindshows_register_acf_fields() {
                             array('key' => 'field_fp_dev_card_d', 'label' => 'Card Description', 'name' => 'card_desc', 'type' => 'textarea'),
                         ),
                     ),
-                    // Branch 0
                     array(
                         'key' => 'field_fp_dev_branch0',
                         'label' => 'Branch 0 - Dezvoltare Personală',
@@ -192,7 +173,6 @@ function mindshows_register_acf_fields() {
                             ),
                         ),
                     ),
-                    // Branch 1
                     array(
                         'key' => 'field_fp_dev_branch1',
                         'label' => 'Branch 1 - Leadership',
@@ -216,7 +196,6 @@ function mindshows_register_acf_fields() {
                             ),
                         ),
                     ),
-                    // Branch 2
                     array(
                         'key' => 'field_fp_dev_branch2',
                         'label' => 'Branch 2 - Comunicare',
@@ -242,8 +221,6 @@ function mindshows_register_acf_fields() {
                     ),
                 ),
             ),
-
-            // ── IRL Gaming Section ──
             array(
                 'key' => 'field_fp_irl_section',
                 'label' => 'IRL Gaming Section',
@@ -255,8 +232,6 @@ function mindshows_register_acf_fields() {
                     array('key' => 'field_fp_irl_desc', 'label' => 'Description', 'name' => 'description', 'type' => 'textarea', 'default_value' => 'Imaginează-ți un joc video scos din ecran și adus în lumea reală. Aducem jocurile video și atmosfera de film în realitate prin experiențe imersive, roluri, obiective, strategie și competiție. Intră într-o lume construită de la 0, ia decizii, colaborează, concurează și trăiește o experiență construită cu reguli clare, atmosferă și miză.'),
                 ),
             ),
-
-            // ── Journeys Section ──
             array(
                 'key' => 'field_fp_journeys_section',
                 'label' => 'Journeys Section',
@@ -285,10 +260,6 @@ function mindshows_register_acf_fields() {
         'instruction_placement' => 'label',
         'active' => true,
     ));
-
-    // ═══════════════════════════════════════════════
-    // FIELD GROUP 2: JOURNEYS PAGE (journeys.php)
-    // ═══════════════════════════════════════════════
     acf_add_local_field_group(array(
         'key' => 'group_jrn_fields',
         'title' => 'Journeys Page Fields',
@@ -323,10 +294,6 @@ function mindshows_register_acf_fields() {
         'active' => true,
     ));
 
-    // ═══════════════════════════════════════════════
-    // FIELD GROUP 3: LASER TAG PAGE (page-lasertag.php)
-    // ═══════════════════════════════════════════════
-    // Helper to build keynote sub-groups
     $lt_kp_defaults = array(
         1 => array('Location', 'Costinești'),
         2 => array('Outdoor', 'Open-air arena'),
@@ -348,8 +315,6 @@ function mindshows_register_acf_fields() {
             ),
         );
     }
-
-    // Helper to build mode sub-groups
     $lt_mode_defaults = array(
         1 => array('Battle Royale', 'Play solo, in pairs or in squads. Stay inside the shrinking safe zone and outlive everyone else.'),
         2 => array('Team vs Team', 'Work together, fight the enemy team and score more points before time runs out.'),
@@ -373,7 +338,6 @@ function mindshows_register_acf_fields() {
         );
     }
 
-    // Helper to build package sub-groups
     $lt_pkg_defaults = array(
         1 => array('rounds' => 1, 'tag' => 'A quick first mission.', 'price' => 39, 'unit' => 'LEI / player', 'badge' => '', 'benefits' => "1 laser tag round\nPerformance Paper included\nBriefing included\nAccess to the LUN.R Camping bar & lounge\nWater included\nRent or buy spare T-Shirt"),
         2 => array('rounds' => 2, 'tag' => 'More action. More strategy. More fun.', 'price' => 69, 'unit' => 'LEI / player', 'badge' => 'MOST POPULAR', 'benefits' => "2 laser tag rounds\n10-minute break between rounds\nPerformance Paper included\nBriefing included\nAccess to the LUN.R Camping bar & lounge\nWater included\nRent or buy spare T-Shirt"),
@@ -397,8 +361,6 @@ function mindshows_register_acf_fields() {
             ),
         );
     }
-
-    // Helper to build discount panel sub-groups
     $lt_panel_defaults = array(
         1 => array('13%', 'For LUN.R Campers', 'Camping access bracelet required.'),
         2 => array('13%', 'Monday to Friday, 12-6 PM', 'Every Monday to Friday afternoon.'),
@@ -423,7 +385,6 @@ function mindshows_register_acf_fields() {
         'key' => 'group_lt_fields',
         'title' => 'Laser Tag Page Fields',
         'fields' => array(
-            // ── Hero Section ──
             array(
                 'key' => 'field_lt_hero_section',
                 'label' => 'Hero Section',
@@ -442,8 +403,6 @@ function mindshows_register_acf_fields() {
                     array('key' => 'field_lt_hero_notice', 'label' => 'Notice Text', 'name' => 'notice_text', 'type' => 'textarea', 'default_value' => 'Limited time slots available. Booking in advance is recommended for groups.'),
                 ),
             ),
-
-            // ── Keynotes Section ──
             array(
                 'key' => 'field_lt_keynotes_section',
                 'label' => 'Keynotes Section',
@@ -452,8 +411,6 @@ function mindshows_register_acf_fields() {
                 'layout' => 'block',
                 'sub_fields' => $lt_kp_fields,
             ),
-
-            // ── About Section ──
             array(
                 'key' => 'field_lt_about_section',
                 'label' => 'About Section',
@@ -470,8 +427,6 @@ function mindshows_register_acf_fields() {
                     array('key' => 'field_lt_about_badge', 'label' => 'Badge Text', 'name' => 'badge_text', 'type' => 'text', 'default_value' => 'BUILT FOR ADRENALINE. DESIGNED FOR TEAMWORK. MADE FOR SUMMER NIGHTS.'),
                 ),
             ),
-
-            // ── Mission Section ──
             array(
                 'key' => 'field_lt_mission_section',
                 'label' => 'Mission Section',
@@ -489,8 +444,6 @@ function mindshows_register_acf_fields() {
                     )
                 ),
             ),
-
-            // ── Packages Section ──
             array(
                 'key' => 'field_lt_packages_section',
                 'label' => 'Packages Section',
@@ -508,8 +461,6 @@ function mindshows_register_acf_fields() {
                     $lt_pkg_fields
                 ),
             ),
-
-            // ── Discounts Section ──
             array(
                 'key' => 'field_lt_discounts_section',
                 'label' => 'Discounts Section',
@@ -525,8 +476,6 @@ function mindshows_register_acf_fields() {
                     $lt_panel_fields
                 ),
             ),
-
-            // ── Booking Section ──
             array(
                 'key' => 'field_lt_booking_section',
                 'label' => 'Booking Section',
