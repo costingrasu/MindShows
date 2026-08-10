@@ -31,8 +31,7 @@ function journey_theme_setup() {
 add_action('after_setup_theme', 'journey_theme_setup');
 
 function journey_theme_scripts() {
-  wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Outfit:wght@400;500;700;900&display=swap', array(), null);
-  wp_enqueue_style('mindshows-style', get_stylesheet_uri(), array('google-fonts'), '2.0.0');
+  wp_enqueue_style('mindshows-style', get_stylesheet_uri(), array(), '2.0.0');
 
   if (is_front_page()) {
       wp_enqueue_style('theme-front-page', get_template_directory_uri() . '/assets/css/front-page.css', array('mindshows-style'), '2.0.0');
@@ -696,15 +695,6 @@ add_filter('acf/settings/load_json', function( $paths ) {
     $paths[] = get_stylesheet_directory() . '/acf-json';
     return $paths;
 });
-
-function mindshows_resource_hints($urls, $relation_type) {
-    if ('preconnect' === $relation_type) {
-        $urls[] = array('href' => 'https://fonts.googleapis.com', 'crossorigin' => '');
-        $urls[] = array('href' => 'https://fonts.gstatic.com', 'crossorigin' => 'anonymous');
-    }
-    return $urls;
-}
-add_filter('wp_resource_hints', 'mindshows_resource_hints', 10, 2);
 
 function mindshows_defer_scripts($tag, $handle, $src) {
     $defer_handles = array('journey-main-js');
