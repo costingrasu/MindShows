@@ -18,6 +18,7 @@ function journey_theme_register_cpt() {
 add_action('init', 'journey_theme_register_cpt');
 
 function journey_theme_setup() {
+  add_theme_support('title-tag');
   add_theme_support('post-thumbnails');
 
   register_nav_menus(array(
@@ -30,7 +31,8 @@ function journey_theme_setup() {
 add_action('after_setup_theme', 'journey_theme_setup');
 
 function journey_theme_scripts() {
-  wp_enqueue_style('mindshows-style', get_stylesheet_uri(), array(), '2.0.0');
+  wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Outfit:wght@400;500;700;900&display=swap', array(), null);
+  wp_enqueue_style('mindshows-style', get_stylesheet_uri(), array('google-fonts'), '2.0.0');
 
   if (is_front_page()) {
       wp_enqueue_style('theme-front-page', get_template_directory_uri() . '/assets/css/front-page.css', array('mindshows-style'), '2.0.0');
@@ -694,3 +696,160 @@ add_filter('acf/settings/load_json', function( $paths ) {
     $paths[] = get_stylesheet_directory() . '/acf-json';
     return $paths;
 });
+
+function mindshows_resource_hints($urls, $relation_type) {
+    if ('preconnect' === $relation_type) {
+        $urls[] = array('href' => 'https://fonts.googleapis.com', 'crossorigin' => '');
+        $urls[] = array('href' => 'https://fonts.gstatic.com', 'crossorigin' => 'anonymous');
+    }
+    return $urls;
+}
+add_filter('wp_resource_hints', 'mindshows_resource_hints', 10, 2);
+
+function mindshows_defer_scripts($tag, $handle, $src) {
+    $defer_handles = array('journey-main-js');
+    if (in_array($handle, $defer_handles)) {
+        return str_replace(' src', ' defer src', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'mindshows_defer_scripts', 10, 3);
+
+function mindshows_seo_fallback() {
+    if (defined('WPSEO_VERSION') || class_exists('RankMath')) return;
+
+    echo '<link rel="canonical" href="' . esc_url(get_permalink()) . '" />' . "\n";
+
+    $description = '';
+    if (is_front_page()) {
+        $value_sec = get_field('value_section');
+        $description = !empty($value_sec['value_text']) ? wp_strip_all_tags($value_sec['value_text']) : get_bloginfo('description');
+    } elseif (is_page_template('page-lasertag.php')) {
+        $hero_sec = get_field('lt_hero_section');
+        $description = !empty($hero_sec['subtitle']) ? wp_strip_all_tags($hero_sec['subtitle']) : '';
+    } elseif (is_page_template('journeys.php') || is_post_type_archive('journey')) {
+        $description = get_field('journeys_hero_description') ?: '';
+    } elseif (is_singular('journey')) {
+        $description = get_field('hero_description') ?: get_the_excerpt();
+    } else {
+        $description = get_the_excerpt() ?: get_bloginfo('description');
+    }
+
+    if ($description) {
+        $description = mb_substr(wp_strip_all_tags($description), 0, 160);
+        echo '<meta name="description" content="' . esc_attr($description) . '" />' . "\n";
+    }
+
+    echo '<meta property="og:type" content="website" />' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr(wp_get_document_title()) . '" />' . "\n";
+    echo '<meta property="og:url" content="' . esc_url(get_permalink()) . '" />' . "\n";
+    echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '" />' . "\n";
+    if ($description) {
+        echo '<meta property="og:description" content="' . esc_attr($description) . '" />' . "\n";
+    }
+    $og_image = get_field('hero_background_image');
+    if (is_array($og_image) && !empty($og_image['url'])) {
+        echo '<meta property="og:image" content="' . esc_url($og_image['url']) . '" />' . "\n";
+    } elseif (has_post_thumbnail()) {
+        echo '<meta property="og:image" content="' . esc_url(get_the_post_thumbnail_url(null, 'large')) . '" />' . "\n";
+    }
+
+    echo '<meta name="twitter:card" content="summary_large_image" />' . "\n";
+}
+add_action('wp_head', 'mindshows_seo_fallback', 1);
+
+function mindshows_structured_data() {
+    if (is_front_page()) {
+        $schema = array(
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => 'Mind Shows',
+            'url' => home_url('/'),
+            'logo' => get_template_directory_uri() . '/assets/images/logo.svg',
+            'description' => 'Experiențe educaționale, jocuri imersive și concepte gamificate pentru adolescenți, tineri, școli, tabere și organizații.',
+            'sameAs' => array(
+                'https://www.instagram.com/mindshows/',
+                'https://www.facebook.com/mindshows/',
+            ),
+        );
+        echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . '</script>' . "\n";
+    }
+
+    if (is_page_template('page-lasertag.php')) {
+        $pkg_sec = get_field('lt_packages_section');
+        $prices = array();
+        foreach (array('pkg1', 'pkg2', 'pkg3') as $key) {
+            if (!empty($pkg_sec[$key]['price'])) {
+                $prices[] = array(
+                    '@type' => 'Offer',
+                    'price' => $pkg_sec[$key]['price'],
+                    'priceCurrency' => 'RON',
+                    'availability' => 'https://schema.org/InStock',
+                    'name' => $pkg_sec[$key]['rounds'] . ' ' . ($pkg_sec[$key]['rounds'] == 1 ? 'Round' : 'Rounds'),
+                );
+            }
+        }
+        $schema = array(
+            '@context' => 'https://schema.org',
+            '@type' => 'EntertainmentBusiness',
+            'name' => 'Mind Shows Laser Tag',
+            'description' => 'Outdoor laser tag arena in Costinești, located in LUN.R Camping.',
+            'url' => get_permalink(),
+            'address' => array(
+                '@type' => 'PostalAddress',
+                'streetAddress' => 'Strada Emil Costinescu 67',
+                'addressLocality' => 'Costinești',
+                'addressCountry' => 'RO',
+            ),
+            'geo' => array(
+                '@type' => 'GeoCoordinates',
+                'latitude' => '43.9481',
+                'longitude' => '28.6394',
+            ),
+            'hasOfferCatalog' => array(
+                '@type' => 'OfferCatalog',
+                'name' => 'Laser Tag Packages',
+                'itemListElement' => $prices,
+            ),
+        );
+        echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . '</script>' . "\n";
+    }
+
+    if (is_singular('journey')) {
+        $schema = array(
+            '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            'name' => get_the_title(),
+            'description' => wp_strip_all_tags(get_field('hero_description') ?: get_the_excerpt()),
+            'url' => get_permalink(),
+            'brand' => array('@type' => 'Brand', 'name' => 'Mind Shows'),
+        );
+        if (has_post_thumbnail()) {
+            $schema['image'] = get_the_post_thumbnail_url(null, 'large');
+        }
+        $offers = array();
+        for ($i = 1; $i <= 3; $i++) {
+            $pkg = get_field('package_' . $i);
+            if (!empty($pkg['price'])) {
+                $offers[] = array(
+                    '@type' => 'Offer',
+                    'price' => $pkg['price'],
+                    'priceCurrency' => 'RON',
+                    'availability' => 'https://schema.org/InStock',
+                );
+            }
+        }
+        if (!empty($offers)) {
+            $schema['offers'] = $offers;
+        }
+        echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . '</script>' . "\n";
+    }
+}
+add_action('wp_head', 'mindshows_structured_data', 5);
+
+function mindshows_robots_txt($output, $public) {
+    if ('0' === $public) return $output;
+    $output .= "\nSitemap: " . home_url('/sitemap_index.xml') . "\n";
+    return $output;
+}
+add_filter('robots_txt', 'mindshows_robots_txt', 10, 2);

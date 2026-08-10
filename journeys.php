@@ -40,8 +40,8 @@ $card_btn_text    = (function_exists('get_field') && get_field('journeys_card_bu
     <section class="journeys-about">
         <div class="journeys-about-container">
             <div class="journeys-about-image-wrapper">
-                <img src="<?php echo esc_url($about_img_url); ?>" alt="<?php echo esc_attr($about_title); ?>" class="journeys-about-img" />
-                <h2 class="journeys-about-title title-mobile"><?php echo esc_html($about_title); ?></h2>
+                <img src="<?php echo esc_url($about_img_url); ?>" alt="<?php echo esc_attr($about_title); ?>" class="journeys-about-img" loading="lazy" />
+                <span class="journeys-about-title title-mobile"><?php echo esc_html($about_title); ?></span>
             </div>
 
             <div class="journeys-about-content">

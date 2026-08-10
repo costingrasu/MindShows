@@ -321,11 +321,12 @@ while ( have_posts() ) : the_post();
         }
     </style>
 
+    <main class="journey-main">
     <div class="journey-hero-wrapper">
         <div class="hero-title-component">
             <div class="hero-main-heading-row">
                 <?php if( !empty($hero_logo) ): ?>
-                    <div class="hero-logo-icon"><img src="<?php echo esc_url($hero_logo['url']); ?>" alt="Hero Logo" /></div>
+                    <div class="hero-logo-icon"><img src="<?php echo esc_url($hero_logo['url']); ?>" alt="<?php echo esc_attr(get_the_title()); ?> Logo" /></div>
                 <?php endif; ?>
                 <h1 class="hero-dynamic-title"><?php the_title(); ?></h1>
             </div>
@@ -345,12 +346,12 @@ while ( have_posts() ) : the_post();
     </div>
 
     <?php if ($show_keypoints) : ?>
-        <div class="keypoints-section">
+        <section class="keypoints-section">
             <div class="keypoints-container">
                 <?php $delay = 0; foreach($final_keypoints as $kp): $delay += 0.2; ?>
                     <div class="keypoint-card" style="--anim-delay: <?php echo $delay; ?>s">
                         <div class="kp-icon">
-                            <?php if($kp_icon): ?><img src="<?php echo esc_url($kp_icon['url']); ?>" alt="Icon"><?php else: ?>
+                            <?php if($kp_icon): ?><img src="<?php echo esc_url($kp_icon['url']); ?>" alt="<?php echo esc_attr($kp['title']); ?>"><?php else: ?>
                                 <svg width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M44 0L56 32L88 44L56 56L44 88L32 56L0 44L32 32L44 0Z" fill="white"/><circle cx="44" cy="44" r="30" stroke="white" stroke-width="1"/></svg>
                             <?php endif; ?>
                         </div>
@@ -359,23 +360,23 @@ while ( have_posts() ) : the_post();
                     </div>
                 <?php endforeach; ?>
             </div>
-        </div>
+        </section>
     <?php endif; ?>
 
     <?php if ($show_banner) : ?>
         <?php if($bg_desktop_url): ?>
         <div class="journey-banner-wrapper">
-            <img src="<?php echo esc_url($bg_desktop_url); ?>" alt="Journey Banner Desktop" class="banner-img-desktop" />
+            <img src="<?php echo esc_url($bg_desktop_url); ?>" alt="Journey Banner Desktop" class="banner-img-desktop" loading="lazy" />
             
             <?php if($bg_mobile_url): ?>
-                <img src="<?php echo esc_url($bg_mobile_url); ?>" alt="Journey Banner Mobile" class="banner-img-mobile" />
+                <img src="<?php echo esc_url($bg_mobile_url); ?>" alt="Journey Banner Mobile" class="banner-img-mobile" loading="lazy" />
             <?php endif; ?>
         </div>
         <?php endif; ?>
     <?php endif; ?>
 
     <?php if ($show_obiective) : ?>
-        <div class="obiective-section">
+        <section class="obiective-section">
             <h2 class="obiective-title"><?php echo esc_html($display_obiective_title); ?></h2>
             
             <div class="obiective-cards-container">
@@ -384,7 +385,7 @@ while ( have_posts() ) : the_post();
                     <div class="obiectiv-header-visible">
                         <div class="obiectiv-icon">
                             <?php if ($obiective_icon_url): ?>
-                                <img src="<?php echo esc_url($obiective_icon_url); ?>" alt="Obiectiv Icon">
+                                <img src="<?php echo esc_url($obiective_icon_url); ?>" alt="<?php echo esc_attr($obj['title']); ?> icon">
                             <?php else: ?>
                                 <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M21 4V38M8 12L34 30M8 30L34 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -413,7 +414,7 @@ while ( have_posts() ) : the_post();
             <?php if($obiective_text_bottom): ?>
                 <p class="obiective-bottom-text"><?php echo wp_kses_post($obiective_text_bottom); ?></p>
             <?php endif; ?>
-        </div>
+        </section>
     <?php endif; ?>
 
     <?php if ($show_unic) : ?>
@@ -450,7 +451,7 @@ while ( have_posts() ) : the_post();
             <div class="gallery-track">
                 <?php foreach( $gal_images as $index => $image ): ?>
                     <div class="gallery-slide" data-index="<?php echo $index; ?>">
-                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
+                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" loading="lazy" />
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -494,7 +495,7 @@ while ( have_posts() ) : the_post();
                     <div class="info-row <?php echo $row_layout_class; ?>">
                         
                         <div class="info-image">
-                            <img src="<?php echo esc_url($row['image']); ?>" alt="Info Layout Image">
+                            <img src="<?php echo esc_url($row['image']); ?>" alt="<?php echo esc_attr($info_title); ?>" loading="lazy">
                         </div>
                         
                         <div class="info-text-content">
@@ -525,7 +526,7 @@ while ( have_posts() ) : the_post();
                 <?php foreach($bucuram_tabs as $index => $tab): ?>
                     <div class="bucuram-content-state <?php echo ($index === 0) ? 'active' : ''; ?>" id="<?php echo esc_attr($tab['id']); ?>">
                         <div class="bucuram-image">
-                            <img src="<?php echo esc_url($tab['image']); ?>" alt="<?php echo esc_attr($tab['name']); ?>">
+                            <img src="<?php echo esc_url($tab['image']); ?>" alt="<?php echo esc_attr($tab['name']); ?>" loading="lazy">
                         </div>
                         <p class="bucuram-desc"><?php echo wp_kses_post($tab['desc']); ?></p>
                     </div>
@@ -590,13 +591,13 @@ while ( have_posts() ) : the_post();
                     <?php if($excursii_main_image): 
                         $main_img_url = is_array($excursii_main_image) ? $excursii_main_image['url'] : (is_string($excursii_main_image) ? $excursii_main_image : wp_get_attachment_image_url($excursii_main_image, 'full'));
                     ?>
-                        <img src="<?php echo esc_url($main_img_url); ?>" alt="Excursii Decor Desktop" class="excursii-main-img excursii-img-desktop" />
+                        <img src="<?php echo esc_url($main_img_url); ?>" alt="Excursii Decor Desktop" class="excursii-main-img excursii-img-desktop" loading="lazy" />
                     <?php endif; ?>
                     
                     <?php if($excursii_mobile_image): 
                         $mob_img_url = is_array($excursii_mobile_image) ? $excursii_mobile_image['url'] : (is_string($excursii_mobile_image) ? $excursii_mobile_image : wp_get_attachment_image_url($excursii_mobile_image, 'full'));
                     ?>
-                        <img src="<?php echo esc_url($mob_img_url); ?>" alt="Excursii Decor Mobile" class="excursii-main-img excursii-img-mobile" />
+                        <img src="<?php echo esc_url($mob_img_url); ?>" alt="Excursii Decor Mobile" class="excursii-main-img excursii-img-mobile" loading="lazy" />
                     <?php endif; ?>
 
                 </div>
@@ -607,7 +608,7 @@ while ( have_posts() ) : the_post();
                     <div class="excursii-card">
                         <?php if($card['image']): ?>
                             <div class="excursii-card-img-wrapper">
-                                <img src="<?php echo esc_url($card['image']); ?>" alt="<?php echo esc_attr($card['title']); ?>">
+                                <img src="<?php echo esc_url($card['image']); ?>" alt="<?php echo esc_attr($card['title']); ?>" loading="lazy">
                             </div>
                         <?php endif; ?>
                         
@@ -637,7 +638,7 @@ while ( have_posts() ) : the_post();
             <div class="program-track">
                 <?php foreach( $prog_images as $index => $image ): ?>
                     <div class="program-slide" data-index="<?php echo $index; ?>">
-                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
+                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" loading="lazy" />
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -676,7 +677,7 @@ while ( have_posts() ) : the_post();
 
             <div class="dispo-container">
                 <div class="dispo-image-wrapper">
-                    <img src="<?php echo esc_url($dispo_img_url); ?>" alt="Disponibilitate Image">
+                    <img src="<?php echo esc_url($dispo_img_url); ?>" alt="Disponibilitate Image" loading="lazy">
                 </div>
 
                 <div class="dispo-list-wrapper">
@@ -849,10 +850,11 @@ while ( have_posts() ) : the_post();
 
                 <?php echo do_shortcode('[contact-form-7 id="5cda477" title="Journey Contact 2"]'); ?>
             </div>
-        </div>
+        </section>
     <?php endif; ?>
 
     <div class="container"><div class="content"><?php the_content(); ?></div></div>
+    </main>
 
 <?php endwhile; ?>
 <?php get_footer(); ?>

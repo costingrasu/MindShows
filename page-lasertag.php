@@ -176,7 +176,7 @@ $check_svg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path 
                 <?php if ($idx > 1) : ?><span class="lt-keynote-div"></span><?php endif; ?>
                 <div class="lt-keynote">
                     <?php echo $kp_svgs[$idx]; ?>
-                    <h3 class="lt-keynote-title"><?php echo esc_html($kp['title']); ?></h3>
+                    <span class="lt-keynote-title"><?php echo esc_html($kp['title']); ?></span>
                     <p class="lt-keynote-value"><?php echo esc_html($kp['value']); ?></p>
                 </div>
             <?php endforeach; ?>
@@ -381,25 +381,25 @@ $check_svg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path 
                         
                         <div class="lt-form-grid">
                             <div class="lt-form-field">
-                                <label class="lt-label">Full name</label>
+                                <label class="lt-label" for="lt-name">Full name</label>
                                 <div class="lt-input-wrap">
                                     <input type="text" id="lt-name" placeholder="Your name" class="lt-input"/>
                                 </div>
                             </div>
                             <div class="lt-form-field">
-                                <label class="lt-label">Phone</label>
+                                <label class="lt-label" for="lt-phone">Phone</label>
                                 <div class="lt-input-wrap">
                                     <input type="tel" id="lt-phone" placeholder="07xx xxx xxx" class="lt-input"/>
                                 </div>
                             </div>
                             <div class="lt-form-field">
-                                <label class="lt-label">Email</label>
+                                <label class="lt-label" for="lt-email">Email</label>
                                 <div class="lt-input-wrap">
                                     <input type="email" id="lt-email" placeholder="you@email.com" class="lt-input"/>
                                 </div>
                             </div>
                             <div class="lt-form-field">
-                                <label class="lt-label">City <span class="lt-optional">(optional)</span></label>
+                                <label class="lt-label" for="lt-city">City <span class="lt-optional">(optional)</span></label>
                                 <div class="lt-input-wrap">
                                     <input type="text" id="lt-city" placeholder="Your city" class="lt-input"/>
                                 </div>
@@ -408,15 +408,15 @@ $check_svg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path 
                         
                         <div class="lt-form-grid">
                             <div class="lt-form-field">
-                                <label class="lt-label">Nr of players</label>
+                                <label class="lt-label" for="lt-players">Nr of players</label>
                                 <div class="lt-input-wrap lt-stepper-wrap">
-                                    <button id="lt-dec-players" class="lt-stepper-btn" type="button">−</button>
+                                    <button id="lt-dec-players" class="lt-stepper-btn" type="button" aria-label="Decrease number of players">-</button>
                                     <input type="number" id="lt-players" min="4" max="14" value="4" class="lt-stepper-input" />
-                                    <button id="lt-inc-players" class="lt-stepper-btn" type="button">+</button>
+                                    <button id="lt-inc-players" class="lt-stepper-btn" type="button" aria-label="Increase number of players">+</button>
                                 </div>
                             </div>
                             <div class="lt-form-field">
-                                <label class="lt-label">Game mode</label>
+                                <label class="lt-label" for="lt-gamemode">Game mode</label>
                                 <div class="lt-input-wrap">
                                     <select id="lt-gamemode" class="lt-select">
                                         <option value="Battle Royale">Battle Royale</option>

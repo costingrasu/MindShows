@@ -122,9 +122,10 @@ function render_branch_nodes( $branch, $default_nodes ) {
 ?>
 
 <main class="home-main">
+    <h1 class="sr-only">Mind Shows — Experiențe Educaționale, Jocuri Imersive și Tabere Gamificate</h1>
     <section class="home-carousel-section">
         <div class="home-carousel-logo">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/brandLogo.png" alt="MindShows Logo" class="brand-logo-img" />
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/brandLogo.png" alt="MindShows Logo" class="brand-logo-img" width="155" height="100" />
             <div class="logo-delimiter"></div>
             <div class="logo-text">
                 YOUR WAY TO<br>THE NEXT LEVEL
@@ -134,7 +135,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
             
             <div class="home-carousel-slide active" data-index="0" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/bg-development.png');">
                 <div class="slide-content">
-                    <h1 class="slide-title">DEVELOPMENT</h1>
+                    <h2 class="slide-title">DEVELOPMENT</h2>
                     <div class="slide-details">
                         <p class="slide-description"><?php echo wp_kses_post($hero_desc_0); ?></p>
                         <div class="slide-action">
@@ -146,7 +147,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
 
             <div class="home-carousel-slide" data-index="1" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/bg-irlGaming.png');">
                 <div class="slide-content">
-                    <h1 class="slide-title">IRL GAMING</h1>
+                    <h2 class="slide-title">IRL GAMING</h2>
                     <div class="slide-details">
                         <p class="slide-description"><?php echo wp_kses_post($hero_desc_1); ?></p>
                         <div class="slide-action">
@@ -158,7 +159,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
 
             <div class="home-carousel-slide" data-index="2" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/bg-journeys.png');">
                 <div class="slide-content">
-                    <h1 class="slide-title">JOURNEYS</h1>
+                    <h2 class="slide-title">JOURNEYS</h2>
                     <div class="slide-details">
                         <p class="slide-description"><?php echo wp_kses_post($hero_desc_2); ?></p>
                         <div class="slide-action">
@@ -300,7 +301,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
     <section class="home-development-section fade-up-element">
         <div class="development-left slide-right-element">
             <div class="development-bg-wrapper">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/bg-development1.svg" class="development-bg-image" alt="Development Graphic">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/bg-development1.svg" class="development-bg-image" alt="Development Graphic" loading="lazy">
             </div>
             <div class="development-left-content">
                 <h2 class="development-title">DEVELOPMENT</h2>

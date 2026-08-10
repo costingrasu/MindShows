@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="legal-page-wrapper">
+<main class="legal-page-wrapper">
     <div class="legal-page-container">
         <?php while ( have_posts() ) : the_post(); ?>
             <h1 class="legal-title"><?php the_title(); ?></h1>
@@ -11,6 +11,6 @@
             
         <?php endwhile; ?>
     </div>
-</div>
+</main>
 
 <?php get_footer(); ?>

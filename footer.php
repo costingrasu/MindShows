@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <div class="footer-links-wrapper">
+            <nav class="footer-links-wrapper" aria-label="Footer Navigation">
                 <div class="footer-column">
                     <h4 class="footer-column-title">Pages</h4>
                     <?php
@@ -51,7 +51,7 @@
                     ) );
                     ?>
                 </div>
-            </div>
+            </nav>
         </div>
     </footer>
 
