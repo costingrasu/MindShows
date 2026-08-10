@@ -6,25 +6,9 @@ Version: 2.0
 */
 
 @font-face {
-    font-family: 'Brother 1816';
-    src: url('assets/fonts/Brother-1816-ExtraBold.ttf') format('truetype');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
     font-family: 'Brother 1816 Bold';
     src: url('assets/fonts/Brother-1816-ExtraBold.ttf') format('truetype');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'FONTSPRING DEMO - Brother 1816';
-    src: url('assets/fonts/Brother-1816-ExtraBold.ttf') format('truetype');
-    font-weight: 100 900;
+    font-weight: 800;
     font-style: normal;
     font-display: swap;
 }
