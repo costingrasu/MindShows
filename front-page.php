@@ -540,6 +540,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
         </div>
     </section>
 
+    <?php /*
     <section class="home-team-section fade-up-element" style="display: none;">
         <div class="team-container">
             <h2 class="team-title">Meet the <br class="team-title-br">Team</h2>
@@ -547,6 +548,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
             <a href="/team" class="btn-team">Afla Mai Multe</a>
         </div>
     </section>
+    */ ?>
 </main>
 
 <?php get_footer(); ?>
