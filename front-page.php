@@ -125,7 +125,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
     <h1 class="sr-only">Mind Shows — Experiențe Educaționale, Jocuri Imersive și Tabere Gamificate</h1>
     <section class="home-carousel-section">
         <div class="home-carousel-logo">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/brandLogo.png" alt="MindShows Logo" class="brand-logo-img" width="155" height="100" />
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/brandLogo.webp" alt="MindShows Logo" class="brand-logo-img" width="155" height="100" />
             <div class="logo-delimiter"></div>
             <div class="logo-text">
                 YOUR WAY TO<br>THE NEXT LEVEL
@@ -133,7 +133,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
         </div>
         <div class="home-carousel-track">
             
-            <div class="home-carousel-slide active" data-index="0" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/bg-development.png');">
+            <div class="home-carousel-slide active" data-index="0" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/bg-development.webp');">
                 <div class="slide-content">
                     <h2 class="slide-title">DEVELOPMENT</h2>
                     <div class="slide-details">
@@ -145,7 +145,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
                 </div>
             </div>
 
-            <div class="home-carousel-slide" data-index="1" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/bg-irlGaming.png');">
+            <div class="home-carousel-slide" data-index="1" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/bg-irlGaming.webp');">
                 <div class="slide-content">
                     <h2 class="slide-title">IRL GAMING</h2>
                     <div class="slide-details">
@@ -157,7 +157,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
                 </div>
             </div>
 
-            <div class="home-carousel-slide" data-index="2" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/bg-journeys.png');">
+            <div class="home-carousel-slide" data-index="2" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/bg-journeys.webp');">
                 <div class="slide-content">
                     <h2 class="slide-title">JOURNEYS</h2>
                     <div class="slide-details">
@@ -189,7 +189,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
         <div class="services-container">
             <article class="service-card">
                 <button class="service-close-btn" aria-label="Close" type="button">X</button>
-                <div class="service-card-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/symbol-development.png');"></div>
+                <div class="service-card-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/symbol-development.webp');"></div>
                 <div class="service-card-overlay"></div>
                 <div class="service-card-content">
                     <h2 class="service-title">Development</h2>
@@ -203,7 +203,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
 
             <article class="service-card">
                 <button class="service-close-btn" aria-label="Close" type="button">X</button>
-                <div class="service-card-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/symbol-irlGaming.png');"></div>
+                <div class="service-card-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/symbol-irlGaming.webp');"></div>
                 <div class="service-card-overlay"></div>
                 <div class="service-card-content">
                     <h2 class="service-title">IRL Gaming</h2>
@@ -217,7 +217,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
 
             <article class="service-card">
                 <button class="service-close-btn" aria-label="Close" type="button">X</button>
-                <div class="service-card-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/symbol-journeys.png');"></div>
+                <div class="service-card-bg" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/symbol-journeys.webp');"></div>
                 <div class="service-card-overlay"></div>
                 <div class="service-card-content">
                     <h2 class="service-title">Journeys</h2>
@@ -301,7 +301,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
     <section class="home-development-section fade-up-element">
         <div class="development-left slide-right-element">
             <div class="development-bg-wrapper">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/bg-development1.svg" class="development-bg-image" alt="Development Graphic" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/bg-development1.webp" class="development-bg-image" alt="Development Graphic" loading="lazy">
             </div>
             <div class="development-left-content">
                 <h2 class="development-title">DEVELOPMENT</h2>
@@ -493,7 +493,7 @@ function render_branch_nodes( $branch, $default_nodes ) {
                     if (!$hj_card_img && function_exists('get_field')) {
                         $hj_card_img = get_field('hero_background_image', $hj_post_id);
                     }
-                    $hj_card_img_url = $hj_card_img ? $hj_card_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.png';
+                    $hj_card_img_url = $hj_card_img ? $hj_card_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.webp';
                     $hj_subtitle     = function_exists('get_field') ? get_field('hero_top_subtitle', $hj_post_id) : '';
                     $hj_description  = function_exists('get_field') ? get_field('hero_description', $hj_post_id) : '';
                     $hj_clean_desc   = $hj_description ? strip_tags($hj_description) : '';

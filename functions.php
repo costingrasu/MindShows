@@ -755,7 +755,7 @@ function mindshows_structured_data() {
             '@type' => 'Organization',
             'name' => 'Mind Shows',
             'url' => home_url('/'),
-            'logo' => get_template_directory_uri() . '/assets/images/logo.svg',
+            'logo' => get_template_directory_uri() . '/assets/images/brandLogo.webp',
             'description' => 'Experiențe educaționale, jocuri imersive și concepte gamificate pentru adolescenți, tineri, școli, tabere și organizații.',
             'sameAs' => array(
                 'https://www.instagram.com/mindshows/',

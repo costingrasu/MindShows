@@ -15,7 +15,7 @@ $pkg_sec     = function_exists('get_field') ? get_field('lt_packages_section') :
 $disc_sec    = function_exists('get_field') ? get_field('lt_discounts_section') : null;
 $booking_sec = function_exists('get_field') ? get_field('lt_booking_section') : null;
 
-$hero_bg_img = ($hero_sec && !empty($hero_sec['bg_image']['url'])) ? $hero_sec['bg_image']['url'] : $theme_uri . '/assets/images/Hero.png';
+$hero_bg_img = ($hero_sec && !empty($hero_sec['bg_image']['url'])) ? $hero_sec['bg_image']['url'] : $theme_uri . '/assets/images/Hero.webp';
 $hero_eyebrow= ($hero_sec && !empty($hero_sec['eyebrow'])) ? $hero_sec['eyebrow'] : 'MIND SHOWS';
 $hero_title  = ($hero_sec && !empty($hero_sec['title'])) ? $hero_sec['title'] : 'Laser Tag';
 $hero_sub    = ($hero_sec && !empty($hero_sec['subtitle'])) ? $hero_sec['subtitle'] : 'Experiece out outdoor las tag arena in Costinești, where real-life gaming modes meets the pulse of summer, located in LUN.R camping right next to Nibiru.';
@@ -41,8 +41,8 @@ for ($i = 1; $i <= 5; $i++) {
     );
 }
 
-$about_day_img   = ($about_sec && !empty($about_sec['img_day']['url'])) ? $about_sec['img_day']['url'] : $theme_uri . '/assets/images/day.png';
-$about_night_img = ($about_sec && !empty($about_sec['img_night']['url'])) ? $about_sec['img_night']['url'] : $theme_uri . '/assets/images/night.png';
+$about_day_img   = ($about_sec && !empty($about_sec['img_day']['url'])) ? $about_sec['img_day']['url'] : $theme_uri . '/assets/images/day.webp';
+$about_night_img = ($about_sec && !empty($about_sec['img_night']['url'])) ? $about_sec['img_night']['url'] : $theme_uri . '/assets/images/night.webp';
 $about_eyebrow   = ($about_sec && !empty($about_sec['eyebrow'])) ? $about_sec['eyebrow'] : 'Real-life shooter';
 $about_heading   = ($about_sec && !empty($about_sec['heading'])) ? $about_sec['heading'] : 'More than a<br>regular activity';
 $about_desc_1    = ($about_sec && !empty($about_sec['desc_1'])) ? $about_sec['desc_1'] : 'Join our outdoor laser tag experience in Costinești, created by Mind Shows for people who want more than a regular summer activity.';

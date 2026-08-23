@@ -5,7 +5,7 @@ Template Name: Journeys Page
 get_header();
 
 $hero_bg_img      = function_exists('get_field') ? get_field('journeys_hero_bg_image') : null;
-$hero_bg_img_url  = ($hero_bg_img && isset($hero_bg_img['url'])) ? $hero_bg_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.png';
+$hero_bg_img_url  = ($hero_bg_img && isset($hero_bg_img['url'])) ? $hero_bg_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.webp';
 $hero_title       = (function_exists('get_field') && get_field('journeys_hero_title')) ? get_field('journeys_hero_title') : 'JOURNEYS';
 $hero_subtitle    = (function_exists('get_field') && get_field('journeys_hero_subtitle')) ? get_field('journeys_hero_subtitle') : 'Redefinim felul in care calatorim';
 $hero_description = (function_exists('get_field') && get_field('journeys_hero_description')) ? get_field('journeys_hero_description') : 'Prin excursii, taberele, retreaturi sau o escapadă la munte dedicate tinerilor. Construim experiențe gamificate, atent gândite și antrenante care facilitează atât explorarea, cât și descoperirea de sine și dezvoltarea personală. Nu doar ne plimbăm, ci trăim povești care ne cresc.';
@@ -13,7 +13,7 @@ $hero_btn_text    = (function_exists('get_field') && get_field('journeys_hero_bu
 $hero_btn_link    = (function_exists('get_field') && get_field('journeys_hero_button_link')) ? get_field('journeys_hero_button_link') : '#lista-excursii';
 
 $about_img        = function_exists('get_field') ? get_field('journeys_about_image') : null;
-$about_img_url    = ($about_img && isset($about_img['url'])) ? $about_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.png';
+$about_img_url    = ($about_img && isset($about_img['url'])) ? $about_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.webp';
 $about_title      = (function_exists('get_field') && get_field('journeys_about_title')) ? get_field('journeys_about_title') : 'TABERE DE VARA';
 $about_desc       = (function_exists('get_field') && get_field('journeys_about_description')) ? get_field('journeys_about_description') : '<p>În spatele fiecărei tabere reușite se află o idee puternică. Noi suntem cei care o construiesc.</p><p>Mind Shows transformă taberele organizate de agențiile de turism în experiențe educaționale memorabile, prin concepte originale, scenarii imersive și design atent gândit. Creăm tematici care captivează, activități care dezvoltă și povești care leagă emoțional participanții de tot ceea ce trăiesc.</p>';
 
@@ -80,7 +80,7 @@ $card_btn_text    = (function_exists('get_field') && get_field('journeys_card_bu
                     if (!$card_img && function_exists('get_field')) {
                         $card_img = get_field('hero_background_image', $post_id);
                     }
-                    $card_img_url = $card_img ? $card_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.png';
+                    $card_img_url = $card_img ? $card_img['url'] : get_template_directory_uri() . '/assets/images/bg-journeys.webp';
                     
                     $description = function_exists('get_field') ? get_field('hero_description', $post_id) : '';
                     $clean_desc  = $description ? strip_tags($description) : '';

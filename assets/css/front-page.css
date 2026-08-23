@@ -526,7 +526,7 @@
 .lasertag-home-card-bg {
     position: absolute;
     inset: 0;
-    background-image: url('../images/Hero.png');
+    background-image: url('../images/Hero.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1175,7 +1175,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-image: url('../images/symbol-irlGaming.png');
+    background-image: url('../images/symbol-irlGaming.webp');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1271,7 +1271,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-image: url('../images/symbol-journeys.png');
+    background-image: url('../images/symbol-journeys.webp');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1411,7 +1411,7 @@
     left: 0;
     width: 50%;
     height: 50%;
-    background-image: url('../images/symbol-journeys2.png');
+    background-image: url('../images/symbol-journeys2.webp');
     background-size: 200% 200%;
     background-position: 100% 0%;
     background-repeat: no-repeat;
@@ -1556,7 +1556,7 @@
     position: relative;
     width: 100%;
     aspect-ratio: 1478 / 1176;
-    background-image: url('../images/bg-team.svg');
+    background-image: url('../images/bg-team.webp');
     background-size: cover;
     background-position: center bottom;
 
@@ -1933,7 +1933,7 @@
         margin-left: var(--bg-symbol-margin-left);
         width: var(--bg-symbol-width);
         aspect-ratio: 699 / 619;
-        background: url('../images/symbol-development.png') no-repeat center center;
+        background: url('../images/symbol-development.webp') no-repeat center center;
         background-size: 100% 100%;
         opacity: var(--bg-symbol-opacity);
         z-index: -1;
