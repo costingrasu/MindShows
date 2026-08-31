@@ -1146,13 +1146,16 @@
 .dev-cal-cities {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
+    justify-content: safe center;
     align-items: center;
     gap: 8px;
-    padding-bottom: 11px;
+    padding: 2px 4px 11px;
     width: 100%;
+    max-width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 .dev-cal-cities::-webkit-scrollbar {
@@ -1160,6 +1163,7 @@
 }
 
 .dev-city-btn {
+    flex: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2027,8 +2031,10 @@
     }
 
     .dev-cal-cities {
-        justify-content: center !important;
+        justify-content: flex-start !important;
+        justify-content: safe center !important;
         width: 100% !important;
+        padding: 2px 4px 11px !important;
     }
 
     .dev-cal-event-bar {

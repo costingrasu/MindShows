@@ -318,7 +318,13 @@
             var btns = citiesWrap.querySelectorAll('.dev-city-btn');
             btns.forEach(function (btn) {
                 var c = btn.getAttribute('data-city');
-                btn.setAttribute('data-state', c === activeCity ? 'on' : 'off');
+                var isActive = (c === activeCity);
+                btn.setAttribute('data-state', isActive ? 'on' : 'off');
+                if (isActive && typeof btn.scrollIntoView === 'function') {
+                    try {
+                        btn.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+                    } catch (e) {}
+                }
             });
         }
 
