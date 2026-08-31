@@ -45,6 +45,14 @@ function journey_theme_scripts() {
   elseif (is_singular('journey') || is_page_template('single-journey.php')) {
       wp_enqueue_style('theme-single-journey', get_template_directory_uri() . '/assets/css/single-journey.css', array('mindshows-style'), '2.0.0');
   } 
+  elseif (is_singular('development') || is_post_type_archive('development')) {
+      wp_enqueue_style('theme-single-development', get_template_directory_uri() . '/assets/css/single-development.css', array('mindshows-style'), '2.0.0');
+      wp_enqueue_script('development-js', get_template_directory_uri() . '/assets/js/development.js', array(), '1.0.0', true);
+      wp_localize_script('development-js', 'devAjax', array(
+          'url'   => admin_url('admin-ajax.php'),
+          'nonce' => wp_create_nonce('dev_enrollment_nonce'),
+      ));
+  } 
   elseif (is_page()) {
       wp_enqueue_style('theme-page', get_template_directory_uri() . '/assets/css/page.css', array('mindshows-style'), '2.0.0');
   }
@@ -84,6 +92,9 @@ if (function_exists('acf_add_options_page')) {
 
 require_once get_template_directory() . '/inc/acf-field-registration.php';
 add_action('acf/init', 'mindshows_register_acf_fields');
+
+require_once get_template_directory() . '/inc/acf-development-fields.php';
+require_once get_template_directory() . '/inc/development-sessions.php';
 
 function lt_get_slot_duration() {
     static $cached_duration = null;
@@ -697,7 +708,7 @@ add_filter('acf/settings/load_json', function( $paths ) {
 });
 
 function mindshows_defer_scripts($tag, $handle, $src) {
-    $defer_handles = array('journey-main-js');
+    $defer_handles = array('journey-main-js', 'development-js');
     if (in_array($handle, $defer_handles)) {
         return str_replace(' src', ' defer src', $tag);
     }
@@ -721,6 +732,8 @@ function mindshows_seo_fallback() {
         $description = get_field('journeys_hero_description') ?: '';
     } elseif (is_singular('journey')) {
         $description = get_field('hero_description') ?: get_the_excerpt();
+    } elseif (is_singular('development')) {
+        $description = get_field('dev_hero_description') ?: get_the_excerpt();
     } else {
         $description = get_the_excerpt() ?: get_bloginfo('description');
     }
@@ -832,6 +845,29 @@ function mindshows_structured_data() {
         if (!empty($offers)) {
             $schema['offers'] = $offers;
         }
+        echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . '</script>' . "\n";
+    }
+
+    if (is_singular('development')) {
+        $dt1 = get_field('dev_detaliu_1');
+        $price = (!empty($dt1['value'])) ? intval(preg_replace('/[^0-9]/', '', $dt1['value'])) : 250;
+        $schema = array(
+            '@context' => 'https://schema.org',
+            '@type' => 'Course',
+            'name' => get_the_title(),
+            'description' => wp_strip_all_tags(get_field('dev_hero_description') ?: get_the_excerpt()),
+            'provider' => array(
+                '@type' => 'Organization',
+                'name' => 'Mind Shows',
+                'sameAs' => home_url('/'),
+            ),
+            'offers' => array(
+                '@type' => 'Offer',
+                'price' => $price ?: '250',
+                'priceCurrency' => 'RON',
+                'availability' => 'https://schema.org/InStock',
+            ),
+        );
         echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . '</script>' . "\n";
     }
 }
