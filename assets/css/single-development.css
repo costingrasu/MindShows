@@ -170,6 +170,7 @@
 
 .dev-obiective,
 .dev-galerie,
+.dev-about,
 .dev-principii,
 .dev-traineri,
 .dev-pentru-tine,
@@ -182,6 +183,7 @@
 
 .dev-obiective.in-view,
 .dev-galerie.in-view,
+.dev-about.in-view,
 .dev-principii.in-view,
 .dev-traineri.in-view,
 .dev-pentru-tine.in-view,
@@ -566,6 +568,16 @@
     background: #4A4A4A;
 }
 
+.dev-about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 63px;
+    width: 100%;
+    padding: 63px 0 0;
+}
+
 .dev-concept-row {
     display: flex;
     flex-direction: row;
@@ -785,6 +797,8 @@
 .dev-traineri-row {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: flex-start;
     gap: clamp(16px, 2.5vw, 34px);
     width: 100%;
@@ -794,14 +808,31 @@
 
 .dev-trainer {
     position: relative;
-    flex: 1 1 0;
-    min-width: 0;
+    flex: 0 1 calc(33.333% - 23px);
+    min-width: 280px;
+    max-width: 400px;
     height: 486px;
     overflow: hidden;
     background: #151417;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
     cursor: pointer;
+}
+
+.dev-traineri-row[data-count="1"] .dev-trainer {
+    flex: 0 1 400px;
+    max-width: 400px;
+}
+
+.dev-traineri-row[data-count="2"] .dev-trainer {
+    flex: 0 1 calc(50% - 17px);
+    max-width: 550px;
+}
+
+.dev-traineri-row[data-count="3"] .dev-trainer {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
 }
 
 .dev-tr-tribal {
@@ -853,6 +884,8 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg, rgba(21, 20, 23, 0) 0%, #151417 100%);
+    pointer-events: none;
+    z-index: 1;
 }
 
 .dev-tr-text {
@@ -1496,6 +1529,13 @@
     color: #0A0909;
 }
 
+.dev-in-submit:disabled,
+.dev-in-submit[disabled] {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .dev-in-done {
     display: none;
     flex-direction: column;
@@ -1790,6 +1830,15 @@
         max-width: min(355px, 100%) !important;
     }
 
+    .dev-about {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 40px !important;
+        width: 100% !important;
+        padding: 40px 10px 0 !important;
+    }
+
     .dev-concept-row,
     .dev-concept-row.reverse {
         flex-direction: column !important;
@@ -1799,13 +1848,30 @@
     }
 
     .dev-concept-img {
+        flex: none !important;
         width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
         height: 240px !important;
+        aspect-ratio: auto !important;
         border-radius: 10px !important;
+        overflow: hidden !important;
+        display: block !important;
+    }
+
+    .dev-concept-img img {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
     }
 
     .dev-concept-text {
+        flex: none !important;
         width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
         align-items: center !important;
     }
 
@@ -1832,7 +1898,6 @@
     }
 
     .dev-principii-bg {
-        left: calc(50% - 187.5px) !important;
         top: 120px !important;
         width: 375px !important;
         height: 315.73px !important;
@@ -1876,13 +1941,14 @@
     .dev-traineri-row {
         display: flex !important;
         flex-direction: column !important;
-        align-items: stretch !important;
+        align-items: center !important;
         gap: 34px !important;
         width: 100% !important;
     }
 
     .dev-trainer {
         width: 100% !important;
+        max-width: min(500px, 100%) !important;
         height: 380px !important;
         flex: none !important;
         display: block !important;

@@ -12,6 +12,87 @@ function mindshows_register_development_acf_fields() {
     }
 
     acf_add_local_field_group(array(
+        'key' => 'group_dev_visibility',
+        'title' => 'Development: 00 Section Visibility',
+        'fields' => array(
+            array(
+                'key' => 'field_dev_show_obiective',
+                'label' => 'Show Obiective?',
+                'name' => 'dev_show_obiective',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
+            array(
+                'key' => 'field_dev_show_galerie',
+                'label' => 'Show Galerie?',
+                'name' => 'dev_show_galerie',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
+            array(
+                'key' => 'field_dev_show_about',
+                'label' => 'Show About/Concept?',
+                'name' => 'dev_show_about',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
+            array(
+                'key' => 'field_dev_show_principii',
+                'label' => 'Show Principii?',
+                'name' => 'dev_show_principii',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
+            array(
+                'key' => 'field_dev_show_traineri',
+                'label' => 'Show Traineri?',
+                'name' => 'dev_show_traineri',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
+            array(
+                'key' => 'field_dev_show_pentru_tine',
+                'label' => 'Show Pentru Tine?',
+                'name' => 'dev_show_pentru_tine',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
+            array(
+                'key' => 'field_dev_show_detalii',
+                'label' => 'Show Detalii?',
+                'name' => 'dev_show_detalii',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
+            array(
+                'key' => 'field_dev_show_inscriere',
+                'label' => 'Show Inscriere?',
+                'name' => 'dev_show_inscriere',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'development',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+    ));
+
+    acf_add_local_field_group(array(
         'key' => 'group_dev_hero',
         'title' => 'Development: 01 Hero Section',
         'fields' => array(
@@ -300,39 +381,38 @@ function mindshows_register_development_acf_fields() {
             'type' => 'text',
             'default_value' => 'Traineri',
         ),
-    );
-
-    for ($i = 1; $i <= 3; $i++) {
-        $traineri_subfields[] = array(
-            'key' => "field_dev_trainer_{$i}",
-            'label' => "Trainer {$i}",
-            'name' => "dev_trainer_{$i}",
-            'type' => 'group',
+        array(
+            'key' => 'field_dev_trainers_repeater',
+            'label' => 'Trainers',
+            'name' => 'dev_trainers',
+            'type' => 'repeater',
             'layout' => 'block',
+            'button_label' => 'Adaugă Trainer',
+            'min' => 1,
             'sub_fields' => array(
                 array(
-                    'key' => "field_dev_tr_{$i}_img",
+                    'key' => 'field_dev_tr_rep_image',
                     'label' => 'Portrait Photo (Cutout)',
                     'name' => 'image',
                     'type' => 'image',
                     'return_format' => 'array',
                 ),
                 array(
-                    'key' => "field_dev_tr_{$i}_name",
+                    'key' => 'field_dev_tr_rep_name',
                     'label' => 'Name',
                     'name' => 'name',
                     'type' => 'text',
                     'default_value' => 'Christina Abrams',
                 ),
                 array(
-                    'key' => "field_dev_tr_{$i}_role",
+                    'key' => 'field_dev_tr_rep_role',
                     'label' => 'Role',
                     'name' => 'role',
                     'type' => 'text',
                     'default_value' => 'Development Trainer',
                 ),
                 array(
-                    'key' => "field_dev_tr_{$i}_desc",
+                    'key' => 'field_dev_tr_rep_description',
                     'label' => 'Bio / Description',
                     'name' => 'description',
                     'type' => 'textarea',
@@ -340,8 +420,8 @@ function mindshows_register_development_acf_fields() {
                     'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin felis ac aliquam rhoncus. Ut in purus in orci faucibus porta. Cras sollicitudin,',
                 ),
             ),
-        );
-    }
+        ),
+    );
 
     acf_add_local_field_group(array(
         'key' => 'group_dev_traineri',

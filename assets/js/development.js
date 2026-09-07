@@ -14,7 +14,7 @@
         document.documentElement.setAttribute('data-rv', '');
 
         var sections = document.querySelectorAll(
-            '.dev-obiective, .dev-galerie, .dev-principii, .dev-traineri, .dev-pentru-tine, .dev-detalii, .dev-inscriere'
+            '.dev-obiective, .dev-galerie, .dev-about, .dev-principii, .dev-traineri, .dev-pentru-tine, .dev-detalii, .dev-inscriere'
         );
 
         var elements = document.querySelectorAll('[data-reveal]');
@@ -323,7 +323,7 @@
                 if (isActive && typeof btn.scrollIntoView === 'function') {
                     try {
                         btn.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
-                    } catch (e) {}
+                    } catch (e) { }
                 }
             });
         }
@@ -510,22 +510,48 @@
 
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+        function checkFormValidity() {
+            if (!submitBtn) return;
+            var nameOk = !!(nameInput && nameInput.value.trim());
+            var digits = phoneInput ? phoneInput.value.replace(/[^0-9]/g, '') : '';
+            var phoneOk = digits.length >= 10;
+            var emailOk = !!(emailInput && emailRegex.test(emailInput.value.trim()));
+            var dateOk = !!(dateDisplay && dateDisplay.hasAttribute('data-selected-date'));
+
+            submitBtn.disabled = !(nameOk && phoneOk && emailOk && dateOk);
+        }
+
         if (nameInput) {
             nameInput.addEventListener('input', function () {
                 if (nameInput.value.trim()) nameInput.classList.remove('error');
+                checkFormValidity();
             });
         }
         if (phoneInput) {
             phoneInput.addEventListener('input', function () {
                 var digits = phoneInput.value.replace(/[^0-9]/g, '');
                 if (digits.length >= 10) phoneInput.classList.remove('error');
+                checkFormValidity();
             });
         }
         if (emailInput) {
             emailInput.addEventListener('input', function () {
                 if (emailRegex.test(emailInput.value.trim())) emailInput.classList.remove('error');
+                checkFormValidity();
             });
         }
+
+        if (dateDisplay && window.MutationObserver) {
+            var dateObserver = new MutationObserver(function () {
+                checkFormValidity();
+            });
+            dateObserver.observe(dateDisplay, {
+                attributes: true,
+                attributeFilter: ['data-selected-date']
+            });
+        }
+
+        checkFormValidity();
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -625,8 +651,8 @@
                 })
                 .finally(function () {
                     if (submitBtn) {
-                        submitBtn.disabled = false;
                         submitBtn.textContent = 'Start Now';
+                        checkFormValidity();
                     }
                 });
         }
@@ -657,6 +683,7 @@
 
                 if (successCard) successCard.setAttribute('data-visible', 'false');
                 form.removeAttribute('data-hidden');
+                checkFormValidity();
             });
         }
     }

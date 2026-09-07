@@ -6,16 +6,34 @@ while ( have_posts() ) : the_post();
     $post_id = get_the_ID();
 
     $hero_title = get_field('dev_hero_title', $post_id) ?: get_the_title();
-    $hero_subtitle = get_field('dev_hero_subtitle', $post_id) ?: 'Modul 1: Dragoste si Frica';
+    $hero_subtitle = get_field('dev_hero_subtitle', $post_id) ?: 'Empty subtitle';
     $hero_desc = get_field('dev_hero_description', $post_id) ?: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sapien libero, ultrices eget nunc mattis, finibus maximus enim. Suspendisse neque augue, rutrum eu sollicitudin cursus, maximus in velit.';
     $hero_btn_text = get_field('dev_hero_button_text', $post_id) ?: 'Inscriere';
+
+    $show_obiective   = get_field('dev_show_obiective', $post_id);
+    $show_galerie     = get_field('dev_show_galerie', $post_id);
+    $show_about       = get_field('dev_show_about', $post_id);
+    $show_principii   = get_field('dev_show_principii', $post_id);
+    $show_traineri    = get_field('dev_show_traineri', $post_id);
+    $show_pentru_tine = get_field('dev_show_pentru_tine', $post_id);
+    $show_detalii     = get_field('dev_show_detalii', $post_id);
+    $show_inscriere   = get_field('dev_show_inscriere', $post_id);
+
+    if ($show_obiective === null)   $show_obiective = true;
+    if ($show_galerie === null)     $show_galerie = true;
+    if ($show_about === null)       $show_about = true;
+    if ($show_principii === null)   $show_principii = true;
+    if ($show_traineri === null)    $show_traineri = true;
+    if ($show_pentru_tine === null) $show_pentru_tine = true;
+    if ($show_detalii === null)     $show_detalii = true;
+    if ($show_inscriere === null)   $show_inscriere = true;
 
     $obiective_title = get_field('dev_obiective_title', $post_id) ?: 'Obiective';
     $tiles = array();
     for ($i = 1; $i <= 4; $i++) {
         $ob_grp = get_field("dev_obiective_{$i}", $post_id);
         $tiles[] = array(
-            'title' => (!empty($ob_grp['title'])) ? $ob_grp['title'] : 'Dezvoltare Gandire Strategica',
+            'title' => (!empty($ob_grp['title'])) ? $ob_grp['title'] : 'Empty keypoint title',
             'desc'  => (!empty($ob_grp['description'])) ? $ob_grp['description'] : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             'icon'  => (!empty($ob_grp['icon']['url'])) ? $ob_grp['icon']['url'] : '',
         );
@@ -35,17 +53,45 @@ while ( have_posts() ) : the_post();
     }
 
     $ab1 = get_field('dev_about_1', $post_id);
+    $ab1_img = '';
+    if (!empty($ab1['image'])) {
+        if (is_array($ab1['image']) && !empty($ab1['image']['url'])) {
+            $ab1_img = $ab1['image']['url'];
+        } elseif (is_numeric($ab1['image'])) {
+            $ab1_img = wp_get_attachment_image_url($ab1['image'], 'full');
+        } elseif (is_string($ab1['image'])) {
+            $ab1_img = $ab1['image'];
+        }
+    }
+    if (empty($ab1_img)) {
+        $ab1_img = get_template_directory_uri() . '/assets/images/bg-development.webp';
+    }
+
     $about_1 = array(
         'title' => (!empty($ab1['title'])) ? $ab1['title'] : 'Concept',
         'desc'  => (!empty($ab1['description'])) ? $ab1['description'] : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sapien libero, ultrices eget nunc mattis, finibus maximus enim. Suspendisse neque augue, rutrum eu sollicitudin cursus, maximus in velit.',
-        'image' => (!empty($ab1['image']['url'])) ? $ab1['image']['url'] : get_template_directory_uri() . '/assets/images/bg-development.webp',
+        'image' => $ab1_img,
     );
 
     $ab2 = get_field('dev_about_2', $post_id);
+    $ab2_img = '';
+    if (!empty($ab2['image'])) {
+        if (is_array($ab2['image']) && !empty($ab2['image']['url'])) {
+            $ab2_img = $ab2['image']['url'];
+        } elseif (is_numeric($ab2['image'])) {
+            $ab2_img = wp_get_attachment_image_url($ab2['image'], 'full');
+        } elseif (is_string($ab2['image'])) {
+            $ab2_img = $ab2['image'];
+        }
+    }
+    if (empty($ab2_img)) {
+        $ab2_img = get_template_directory_uri() . '/assets/images/bg-development1.webp';
+    }
+
     $about_2 = array(
         'title' => (!empty($ab2['title'])) ? $ab2['title'] : 'Concept',
         'desc'  => (!empty($ab2['description'])) ? $ab2['description'] : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sapien libero, ultrices eget nunc mattis, finibus maximus enim. Suspendisse neque augue, rutrum eu sollicitudin cursus, maximus in velit.',
-        'image' => (!empty($ab2['image']['url'])) ? $ab2['image']['url'] : get_template_directory_uri() . '/assets/images/bg-development1.webp',
+        'image' => $ab2_img,
     );
 
     $principii_title = get_field('dev_principii_title', $post_id) ?: 'Principii';
@@ -53,31 +99,57 @@ while ( have_posts() ) : the_post();
     for ($i = 1; $i <= 5; $i++) {
         $pr_grp = get_field("dev_principiu_{$i}", $post_id);
         $principii[] = array(
-            'title' => (!empty($pr_grp['title'])) ? $pr_grp['title'] : 'Respect Reciproc',
+            'title' => (!empty($pr_grp['title'])) ? $pr_grp['title'] : 'Empty title',
             'desc'  => (!empty($pr_grp['description'])) ? $pr_grp['description'] : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
         );
     }
 
     $traineri_title = get_field('dev_traineri_title', $post_id) ?: 'Traineri';
+    $trainers_raw = get_field('dev_trainers', $post_id);
     $trainers = array();
-    for ($i = 1; $i <= 3; $i++) {
-        $tr_grp = get_field("dev_trainer_{$i}", $post_id);
-        $trainers[] = array(
-            'name'  => (!empty($tr_grp['name'])) ? $tr_grp['name'] : 'Christina Abrams',
-            'role'  => (!empty($tr_grp['role'])) ? $tr_grp['role'] : 'Development Trainer',
-            'bio'   => (!empty($tr_grp['description'])) ? $tr_grp['description'] : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin felis ac aliquam rhoncus. Ut in purus in orci faucibus porta. Cras sollicitudin,',
-            'image' => (!empty($tr_grp['image']['url'])) ? $tr_grp['image']['url'] : get_template_directory_uri() . '/assets/images/Hero.webp',
+    if (!empty($trainers_raw) && is_array($trainers_raw)) {
+        foreach ($trainers_raw as $tr) {
+            $trainers[] = array(
+                'name'  => (!empty($tr['name'])) ? $tr['name'] : 'Empty',
+                'role'  => (!empty($tr['role'])) ? $tr['role'] : 'Development Trainer',
+                'bio'   => (!empty($tr['description'])) ? $tr['description'] : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin felis ac aliquam rhoncus. Ut in purus in orci faucibus porta. Cras sollicitudin,',
+                'image' => (!empty($tr['image']['url'])) ? $tr['image']['url'] : ((is_string($tr['image']) && !empty($tr['image'])) ? $tr['image'] : ''),
+            );
+        }
+    }
+    if (empty($trainers)) {
+        for ($i = 1; $i <= 3; $i++) {
+            $tr_grp = get_field("dev_trainer_{$i}", $post_id);
+            if (!empty($tr_grp['name']) || !empty($tr_grp['image'])) {
+                $trainers[] = array(
+                    'name'  => (!empty($tr_grp['name'])) ? $tr_grp['name'] : 'Empty',
+                    'role'  => (!empty($tr_grp['role'])) ? $tr_grp['role'] : 'Development Trainer',
+                    'bio'   => (!empty($tr_grp['description'])) ? $tr_grp['description'] : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    'image' => (!empty($tr_grp['image']['url'])) ? $tr_grp['image']['url'] : '',
+                );
+            }
+        }
+    }
+    if (empty($trainers)) {
+        $trainers = array(
+            array(
+                'name'  => 'Empty',
+                'role'  => 'Development Trainer',
+                'bio'   => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin felis ac aliquam rhoncus. Ut in purus in orci faucibus porta. Cras sollicitudin,',
+                'image' => '',
+            ),
         );
     }
+    $trainer_count = count($trainers);
 
-    $pt_title = get_field('dev_pt_title', $post_id) ?: 'CURSUL ESTE PENTRU TINE';
+    $pt_title = get_field('dev_pt_title', $post_id) ?: 'LOREM IPSUM DOLOR SIT AMET';
     $pt_items = get_field('dev_pt_items', $post_id);
     if (empty($pt_items) || !is_array($pt_items)) {
         $pt_items = array(
-            array('item_text' => 'Daca Esti Dispus sa Aloci un Weekend Pentru Tine'),
-            array('item_text' => 'Daca Esti Dispus sa Aloci un Weekend Pentru Tine'),
-            array('item_text' => 'Daca Esti Dispus sa Aloci un Weekend Pentru Tine'),
-            array('item_text' => 'Daca Esti Dispus sa Aloci un Weekend Pentru Tine'),
+            array('item_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
+            array('item_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
+            array('item_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
+            array('item_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
         );
     }
 
@@ -86,24 +158,24 @@ while ( have_posts() ) : the_post();
     $dt3 = get_field('dev_detaliu_3', $post_id);
     $detalii = array(
         array(
-            'title' => (!empty($dt1['title'])) ? $dt1['title'] : 'Investitie',
-            'val'   => (!empty($dt1['value'])) ? $dt1['value'] : '250 RON',
+            'title' => (!empty($dt1['title'])) ? $dt1['title'] : 'Empty',
+            'val'   => (!empty($dt1['value'])) ? $dt1['value'] : 'Empty',
             'wide'  => false,
         ),
         array(
-            'title' => (!empty($dt2['title'])) ? $dt2['title'] : 'Locatie',
-            'val'   => (!empty($dt2['value'])) ? $dt2['value'] : 'Constanta',
+            'title' => (!empty($dt2['title'])) ? $dt2['title'] : 'Empty',
+            'val'   => (!empty($dt2['value'])) ? $dt2['value'] : 'Empty',
             'wide'  => false,
         ),
         array(
-            'title' => (!empty($dt3['title'])) ? $dt3['title'] : 'Program',
-            'val'   => (!empty($dt3['value'])) ? $dt3['value'] : 'Sambata si Duminica',
+            'title' => (!empty($dt3['title'])) ? $dt3['title'] : 'Empty',
+            'val'   => (!empty($dt3['value'])) ? $dt3['value'] : 'Empty',
             'wide'  => true,
         ),
     );
 
     $inscriere_title = get_field('dev_inscriere_title', $post_id) ?: 'Inscriere';
-    $session_short_title = $hero_subtitle ?: 'Modul 1 Dezvoltare';
+    $session_short_title = $hero_subtitle ?: 'Empty';
     $sessions_data = get_post_meta($post_id, '_dev_sessions', true);
     if (empty($sessions_data) || !is_array($sessions_data)) {
         $sessions_data = array(
@@ -160,6 +232,7 @@ while ( have_posts() ) : the_post();
         <a href="#dev-inscriere" class="dev-hero-btn"><?php echo esc_html($hero_btn_text); ?></a>
     </section>
 
+    <?php if ($show_obiective) : ?>
     <section class="dev-obiective" data-ms="obiective">
         <h2 class="dev-obiective-title" data-reveal><?php echo esc_html($obiective_title); ?></h2>
 
@@ -190,7 +263,9 @@ while ( have_posts() ) : the_post();
             <?php endforeach; ?>
         </div>
     </section>
+    <?php endif; ?>
 
+    <?php if ($show_galerie) : ?>
     <section class="dev-galerie" data-ms="galerie">
         <div class="dev-galerie-head">
             <h2 class="dev-galerie-title" data-reveal><?php echo esc_html($galerie_title); ?></h2>
@@ -234,7 +309,11 @@ while ( have_posts() ) : the_post();
         </div>
 
         <div class="dev-galerie-rule"></div>
+    </section>
+    <?php endif; ?>
 
+    <?php if ($show_about) : ?>
+    <section class="dev-about" data-ms="about">
         <div class="dev-concept-row">
             <div class="dev-concept-img" data-reveal>
                 <img src="<?php echo esc_url($about_1['image']); ?>" alt="<?php echo esc_attr($about_1['title']); ?>" loading="lazy">
@@ -255,7 +334,9 @@ while ( have_posts() ) : the_post();
             </div>
         </div>
     </section>
+    <?php endif; ?>
 
+    <?php if ($show_principii) : ?>
     <section class="dev-principii" data-ms="principii">
         <div class="dev-principii-bg">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/symbol-development.webp" alt="" loading="lazy">
@@ -288,11 +369,13 @@ while ( have_posts() ) : the_post();
             </div>
         </div>
     </section>
+    <?php endif; ?>
 
+    <?php if ($show_traineri) : ?>
     <section class="dev-traineri" data-ms="traineri">
         <h2 class="dev-traineri-title" data-reveal><?php echo esc_html($traineri_title); ?></h2>
 
-        <div class="dev-traineri-row">
+        <div class="dev-traineri-row" data-count="<?php echo esc_attr($trainer_count); ?>">
             <?php foreach ($trainers as $idx => $trainer) : ?>
                 <div class="dev-trainer" data-exp="0">
                     <div class="dev-tr-tribal">
@@ -300,10 +383,13 @@ while ( have_posts() ) : the_post();
                         <div class="dev-tr-glow"></div>
                     </div>
 
+                    <?php if (!empty($trainer['image'])) : ?>
                     <div class="dev-tr-photo">
                         <img src="<?php echo esc_url($trainer['image']); ?>" alt="<?php echo esc_attr($trainer['name']); ?>" loading="lazy">
-                        <div class="dev-tr-photo-fade"></div>
                     </div>
+                    <?php endif; ?>
+
+                    <div class="dev-tr-photo-fade"></div>
 
                     <div class="dev-tr-text">
                         <div class="dev-tr-head">
@@ -323,7 +409,9 @@ while ( have_posts() ) : the_post();
     </section>
 
     <div class="dev-divider-rule"></div>
+    <?php endif; ?>
 
+    <?php if ($show_pentru_tine) : ?>
     <section class="dev-pentru-tine" data-ms="pentru-tine">
         <h2 class="dev-pt-title" data-reveal><?php echo esc_html($pt_title); ?></h2>
         <div class="dev-pt-rule"></div>
@@ -337,7 +425,9 @@ while ( have_posts() ) : the_post();
     </section>
 
     <div class="dev-divider-rule mid-rule"></div>
+    <?php endif; ?>
 
+    <?php if ($show_detalii) : ?>
     <section class="dev-detalii" data-ms="detalii">
         <?php foreach ($detalii as $dt) : ?>
             <div class="dev-detaliu<?php echo $dt['wide'] ? ' wide' : ''; ?>" data-reveal>
@@ -348,7 +438,9 @@ while ( have_posts() ) : the_post();
     </section>
 
     <div class="dev-divider-rule"></div>
+    <?php endif; ?>
 
+    <?php if ($show_inscriere) : ?>
     <section class="dev-inscriere" id="dev-inscriere" data-ms="inscriere">
         <h2 class="dev-inscriere-title" data-reveal><?php echo esc_html($inscriere_title); ?></h2>
 
@@ -425,7 +517,7 @@ while ( have_posts() ) : the_post();
                         <input type="text" id="dev-in-city" class="dev-in-input" placeholder="Constanta">
                     </div>
 
-                    <button type="button" class="dev-in-submit">Start Now</button>
+                    <button type="button" class="dev-in-submit" disabled>Start Now</button>
                 </form>
 
                 <div class="dev-in-done" data-visible="false">
@@ -448,6 +540,7 @@ while ( have_posts() ) : the_post();
     <script type="application/json" id="dev-sessions-data">
         <?php echo wp_json_encode($sessions_data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>
     </script>
+    <?php endif; ?>
 
 </main>
 

@@ -46,8 +46,8 @@ function journey_theme_scripts() {
       wp_enqueue_style('theme-single-journey', get_template_directory_uri() . '/assets/css/single-journey.css', array('mindshows-style'), '2.0.0');
   } 
   elseif (is_singular('development') || is_post_type_archive('development')) {
-      wp_enqueue_style('theme-single-development', get_template_directory_uri() . '/assets/css/single-development.css', array('mindshows-style'), '2.0.0');
-      wp_enqueue_script('development-js', get_template_directory_uri() . '/assets/js/development.js', array(), '1.0.0', true);
+      wp_enqueue_style('theme-single-development', get_template_directory_uri() . '/assets/css/single-development.css', array('mindshows-style'), '2.1.0');
+      wp_enqueue_script('development-js', get_template_directory_uri() . '/assets/js/development.js', array(), '2.1.0', true);
       wp_localize_script('development-js', 'devAjax', array(
           'url'   => admin_url('admin-ajax.php'),
           'nonce' => wp_create_nonce('dev_enrollment_nonce'),
