@@ -10,6 +10,126 @@ $hero_bg_img_alt  = ($hero_bg_img && !empty($hero_bg_img['alt'])) ? $hero_bg_img
 $hero_title       = (function_exists('get_field') && get_field('devpage_hero_title')) ? get_field('devpage_hero_title') : 'DEVELOPMENT';
 $hero_description = (function_exists('get_field') && get_field('devpage_hero_description')) ? get_field('devpage_hero_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
 $hero_btn_text    = (function_exists('get_field') && get_field('devpage_hero_button_text')) ? get_field('devpage_hero_button_text') : 'Start Now';
+
+$show_learn = function_exists('get_field') ? get_field('devpage_show_learn') : null;
+$show_dirs  = function_exists('get_field') ? get_field('devpage_show_dirs') : null;
+$show_tree  = function_exists('get_field') ? get_field('devpage_show_tree') : null;
+
+if ($show_learn === null) $show_learn = true;
+if ($show_dirs === null)  $show_dirs = true;
+if ($show_tree === null)  $show_tree = true;
+
+$learn_bg_img      = function_exists('get_field') ? get_field('devpage_learn_bg_image') : null;
+$learn_bg_img_url  = ($learn_bg_img && isset($learn_bg_img['url'])) ? $learn_bg_img['url'] : get_template_directory_uri() . '/assets/images/bg-development-learn.webp';
+$learn_title       = (function_exists('get_field') && get_field('devpage_learn_title')) ? get_field('devpage_learn_title') : 'CHANGING THE WAY WE LEARN';
+$learn_description = (function_exists('get_field') && get_field('devpage_learn_description')) ? get_field('devpage_learn_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
+
+$learn_cards_raw = function_exists('get_field') ? get_field('devpage_learn_cards') : null;
+$learn_cards     = array();
+if (!empty($learn_cards_raw) && is_array($learn_cards_raw)) {
+    foreach ($learn_cards_raw as $card) {
+        if (empty($card['title']) && empty($card['description'])) {
+            continue;
+        }
+        $learn_cards[] = array(
+            'title'       => !empty($card['title']) ? $card['title'] : '',
+            'description' => !empty($card['description']) ? $card['description'] : '',
+        );
+    }
+}
+if (empty($learn_cards)) {
+    for ($i = 0; $i < 4; $i++) {
+        $learn_cards[] = array(
+            'title'       => 'Sistem Cursuri',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
+        );
+    }
+}
+$learn_card_count = count($learn_cards);
+
+$dir_cards_raw = function_exists('get_field') ? get_field('devpage_dir_cards') : null;
+$dir_cards_raw = is_array($dir_cards_raw) ? array_values($dir_cards_raw) : array();
+$dir_cards     = array();
+for ($i = 0; $i < 3; $i++) {
+    $card = (isset($dir_cards_raw[$i]) && is_array($dir_cards_raw[$i])) ? $dir_cards_raw[$i] : array();
+
+    if (empty($card['title']) && empty($card['subtitle']) && empty($card['description'])) {
+        $dir_cards[] = array(
+            'title'       => 'Directie ' . ($i + 1),
+            'subtitle'    => 'Changing the Way We Learn',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        );
+        continue;
+    }
+
+    $dir_cards[] = array(
+        'title'       => !empty($card['title']) ? $card['title'] : '',
+        'subtitle'    => !empty($card['subtitle']) ? $card['subtitle'] : '',
+        'description' => !empty($card['description']) ? $card['description'] : '',
+    );
+}
+
+$tree_title       = (function_exists('get_field') && get_field('devpage_tree_title')) ? get_field('devpage_tree_title') : 'SISTEMUL MIND SHOWS';
+$tree_description = (function_exists('get_field') && get_field('devpage_tree_description')) ? get_field('devpage_tree_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
+
+$fp_id    = (int) get_option('page_on_front');
+$tree_sec = ($fp_id && function_exists('get_field')) ? get_field('development_section', $fp_id) : null;
+
+$tree_root_title = ($tree_sec && isset($tree_sec['root_title']) && $tree_sec['root_title'] !== '') ? $tree_sec['root_title'] : 'TRIAL';
+$tree_root_desc  = ($tree_sec && isset($tree_sec['root_desc']) && $tree_sec['root_desc'] !== '') ? $tree_sec['root_desc'] : 'Descoperă seria de MAIN QUESTS gratuit, fără niciun angajament.';
+
+$tree_branch_defaults = array(
+    array(
+        'title' => 'DEZVOLTARE PERSONALĂ CONȘTIENTĂ',
+        'nodes' => array(
+            array( 'title' => 'Primul pas în dezvoltare', 'desc' => 'Autocunoaștere și principii de creștere' ),
+            array( 'title' => 'Dincolo de gânduri', 'desc' => 'Ce se întamplă, de fapt, în mintea noastră' ),
+            array( 'title' => 'Cu și despre emoții', 'desc' => 'Identificare și reglarea emoțională' ),
+            array( 'title' => 'Principii și valori', 'desc' => 'Identificarea și ierarhizarea valorilor de viață' ),
+        ),
+    ),
+    array(
+        'title' => 'LEADERSHIP',
+        'nodes' => array(
+            array( 'title' => '', 'desc' => 'Ce este leadershipul și ce tip de lider vreau să devin?' ),
+            array( 'title' => '', 'desc' => 'Cum mă comport și cum vorbesc ca un lider?' ),
+            array( 'title' => '', 'desc' => 'Cum ajut și cum inspir oamenii ca un lider?' ),
+            array( 'title' => '', 'desc' => 'Când sunt lider și când sunt team player?' ),
+        ),
+    ),
+    array(
+        'title' => 'COMUNICARE',
+        'nodes' => array(
+            array( 'title' => 'Bazele comunicării', 'desc' => 'Tipuri de comunicare, factori și mijloace de comunicare' ),
+            array( 'title' => '', 'desc' => 'Tehnici pentru comunicarea eficientă' ),
+            array( 'title' => '', 'desc' => 'Perspective, asertivitate și gestionarea conflictelor' ),
+            array( 'title' => '', 'desc' => 'Comunicarea cu grupuri, public, audiență' ),
+        ),
+    ),
+);
+
+$tree_branches = array();
+foreach ($tree_branch_defaults as $b => $branch_default) {
+    $branch = ($tree_sec && isset($tree_sec['branch' . $b]) && is_array($tree_sec['branch' . $b])) ? $tree_sec['branch' . $b] : null;
+
+    $nodes = array();
+    if ($branch && !empty($branch['nodes']) && is_array($branch['nodes'])) {
+        foreach ($branch['nodes'] as $node) {
+            $node_title = isset($node['title']) ? trim($node['title']) : '';
+            $node_desc  = isset($node['desc']) ? trim($node['desc']) : '';
+            if ($node_title === '' && $node_desc === '') {
+                continue;
+            }
+            $node_url = (!empty($node['link']) && get_post_status($node['link']) === 'publish') ? get_permalink($node['link']) : '';
+            $nodes[]  = array('title' => $node_title, 'desc' => $node_desc, 'url' => $node_url ? $node_url : '');
+        }
+    }
+
+    $tree_branches[] = array(
+        'title' => ($branch && !empty($branch['title'])) ? $branch['title'] : $branch_default['title'],
+        'nodes' => !empty($nodes) ? $nodes : $branch_default['nodes'],
+    );
+}
 ?>
 
 <main class="page-development">
@@ -26,6 +146,138 @@ $hero_btn_text    = (function_exists('get_field') && get_field('devpage_hero_but
             <a href="#devpage-inscriere" class="devpage-hero-btn"><?php echo esc_html($hero_btn_text); ?></a>
         </div>
     </section>
+
+    <?php if ($show_learn) : ?>
+    <section class="devpage-learn">
+        <div class="devpage-learn-bg" aria-hidden="true">
+            <img src="<?php echo esc_url($learn_bg_img_url); ?>" alt="" class="devpage-learn-photo" loading="lazy" decoding="async" />
+            <div class="devpage-learn-photo-fade"></div>
+        </div>
+
+        <div class="devpage-learn-inner">
+            <header class="devpage-heading">
+                <h2 class="devpage-heading-title"><?php echo esc_html($learn_title); ?></h2>
+                <div class="devpage-heading-desc"><?php echo wp_kses_post($learn_description); ?></div>
+            </header>
+
+            <ol class="devpage-learn-path" data-count="<?php echo esc_attr($learn_card_count); ?>">
+                <?php foreach ($learn_cards as $idx => $card) :
+                    $desc_id = 'devpage-learn-desc-' . ($idx + 1);
+                ?>
+                    <li class="devpage-learn-step" data-reveal>
+                        <div class="devpage-learn-card" data-state="closed">
+                            <div class="devpage-learn-card-bg" aria-hidden="true"></div>
+                            <?php if ($card['title'] !== '') : ?>
+                                <h3 class="devpage-learn-card-title"><?php echo esc_html($card['title']); ?></h3>
+                            <?php endif; ?>
+                            <p class="devpage-learn-card-desc" id="<?php echo esc_attr($desc_id); ?>"><?php echo esc_html($card['description']); ?></p>
+                            <button type="button" class="devpage-learn-card-toggle" aria-expanded="false" aria-controls="<?php echo esc_attr($desc_id); ?>" aria-label="<?php echo esc_attr($card['title'] !== '' ? 'Detalii: ' . $card['title'] : 'Detalii'); ?>">
+                                <span class="devpage-learn-card-icon"></span>
+                            </button>
+                        </div>
+                        <?php if ($idx < $learn_card_count - 1) : ?>
+                            <span class="devpage-learn-connector" aria-hidden="true">
+                                <svg class="devpage-learn-chevron" width="20" height="11" viewBox="0 0 20 11" fill="none"><path d="M2 2l8 7 8-7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                        <?php endif; ?>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <?php if ($show_dirs) : ?>
+    <section class="devpage-dirs">
+        <ul class="devpage-dirs-track">
+            <?php foreach ($dir_cards as $idx => $card) :
+                $dir_desc_id = 'devpage-dir-desc-' . ($idx + 1);
+            ?>
+                <li class="devpage-dirs-item" data-reveal>
+                    <article class="devpage-dir-card" data-expanded="false">
+                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/symbol-development.webp'); ?>" alt="" class="devpage-dir-card-bg" loading="lazy" decoding="async" />
+                        <div class="devpage-dir-card-overlay" aria-hidden="true"></div>
+                        <button type="button" class="devpage-dir-card-close" aria-label="Închide">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        </button>
+                        <div class="devpage-dir-card-content">
+                            <?php if ($card['title'] !== '') : ?>
+                                <h3 class="devpage-dir-card-title"><?php echo esc_html($card['title']); ?></h3>
+                            <?php endif; ?>
+                            <?php if ($card['subtitle'] !== '') : ?>
+                                <p class="devpage-dir-card-subtitle"><?php echo esc_html($card['subtitle']); ?></p>
+                            <?php endif; ?>
+                            <?php if ($card['description'] !== '') : ?>
+                                <div class="devpage-dir-card-reveal">
+                                    <div class="devpage-dir-card-reveal-inner">
+                                        <div class="devpage-dir-card-desc" id="<?php echo esc_attr($dir_desc_id); ?>"><?php echo wp_kses_post($card['description']); ?></div>
+                                    </div>
+                                </div>
+                                <button type="button" class="devpage-dir-card-more" aria-expanded="false" aria-controls="<?php echo esc_attr($dir_desc_id); ?>">View More</button>
+                            <?php endif; ?>
+                        </div>
+                    </article>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </section>
+    <?php endif; ?>
+
+    <?php if ($show_tree) : ?>
+    <section class="devpage-tree">
+        <div class="devpage-tree-inner">
+            <header class="devpage-heading">
+                <h2 class="devpage-heading-title"><?php echo esc_html($tree_title); ?></h2>
+                <div class="devpage-heading-desc"><?php echo wp_kses_post($tree_description); ?></div>
+            </header>
+
+            <div class="devpage-tree-diagram">
+                <svg class="devpage-tree-lines" aria-hidden="true" focusable="false">
+                    <?php foreach ($tree_branches as $branch) : ?>
+                        <line x1="0" y1="0" x2="0" y2="0" />
+                    <?php endforeach; ?>
+                </svg>
+
+                <div class="devpage-tree-root" data-reveal>
+                    <p class="devpage-tree-root-title"><?php echo esc_html($tree_root_title); ?></p>
+                    <p class="devpage-tree-root-desc"><?php echo esc_html($tree_root_desc); ?></p>
+                </div>
+
+                <ol class="devpage-tree-branches">
+                    <?php foreach ($tree_branches as $branch) : ?>
+                        <li class="devpage-tree-branch" data-reveal>
+                            <h3 class="devpage-tree-branch-title"><?php echo esc_html($branch['title']); ?></h3>
+                            <ul class="devpage-tree-nodes">
+                                <?php foreach ($branch['nodes'] as $node) :
+                                    $node_url = !empty($node['url']) ? $node['url'] : '';
+                                ?>
+                                    <li class="devpage-tree-node">
+                                        <?php if ($node_url !== '') : ?>
+                                            <a href="<?php echo esc_url($node_url); ?>" class="devpage-tree-node-card">
+                                        <?php else : ?>
+                                            <div class="devpage-tree-node-card">
+                                        <?php endif; ?>
+                                            <?php if ($node['title'] !== '') : ?>
+                                                <p class="devpage-tree-node-title"><?php echo esc_html($node['title']); ?></p>
+                                            <?php endif; ?>
+                                            <?php if ($node['desc'] !== '') : ?>
+                                                <p class="devpage-tree-node-desc"><?php echo esc_html($node['desc']); ?></p>
+                                            <?php endif; ?>
+                                        <?php if ($node_url !== '') : ?>
+                                            </a>
+                                        <?php else : ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
 
 </main>
 

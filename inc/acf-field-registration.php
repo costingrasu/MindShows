@@ -169,6 +169,7 @@ function mindshows_register_acf_fields() {
                                 'sub_fields' => array(
                                     array('key' => 'field_fp_b0_node_t', 'label' => 'Title', 'name' => 'title', 'type' => 'text'),
                                     array('key' => 'field_fp_b0_node_d', 'label' => 'Description', 'name' => 'desc', 'type' => 'textarea'),
+                                    array('key' => 'field_fp_b0_node_link', 'label' => 'Development Page', 'name' => 'link', 'type' => 'post_object', 'post_type' => array('development'), 'return_format' => 'id', 'allow_null' => 1, 'ui' => 1),
                                 ),
                             ),
                         ),
@@ -192,6 +193,7 @@ function mindshows_register_acf_fields() {
                                 'sub_fields' => array(
                                     array('key' => 'field_fp_b1_node_t', 'label' => 'Title', 'name' => 'title', 'type' => 'text'),
                                     array('key' => 'field_fp_b1_node_d', 'label' => 'Description', 'name' => 'desc', 'type' => 'textarea'),
+                                    array('key' => 'field_fp_b1_node_link', 'label' => 'Development Page', 'name' => 'link', 'type' => 'post_object', 'post_type' => array('development'), 'return_format' => 'id', 'allow_null' => 1, 'ui' => 1),
                                 ),
                             ),
                         ),
@@ -215,6 +217,7 @@ function mindshows_register_acf_fields() {
                                 'sub_fields' => array(
                                     array('key' => 'field_fp_b2_node_t', 'label' => 'Title', 'name' => 'title', 'type' => 'text'),
                                     array('key' => 'field_fp_b2_node_d', 'label' => 'Description', 'name' => 'desc', 'type' => 'textarea'),
+                                    array('key' => 'field_fp_b2_node_link', 'label' => 'Development Page', 'name' => 'link', 'type' => 'post_object', 'post_type' => array('development'), 'return_format' => 'id', 'allow_null' => 1, 'ui' => 1),
                                 ),
                             ),
                         ),
@@ -295,13 +298,33 @@ function mindshows_register_acf_fields() {
     ));
 
     acf_add_local_field_group(array(
-        'key' => 'group_devpage_fields',
-        'title' => 'Development Page Fields',
+        'key' => 'group_devpage_visibility',
+        'title' => 'Development Page: 00 Section Visibility',
         'fields' => array(
-            array('key' => 'field_devpage_hero_bg', 'label' => 'Hero Background Image', 'name' => 'devpage_hero_bg_image', 'type' => 'image', 'return_format' => 'array'),
-            array('key' => 'field_devpage_hero_title', 'label' => 'Hero Title', 'name' => 'devpage_hero_title', 'type' => 'text', 'default_value' => 'DEVELOPMENT'),
-            array('key' => 'field_devpage_hero_desc', 'label' => 'Hero Description', 'name' => 'devpage_hero_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
-            array('key' => 'field_devpage_hero_btn_t', 'label' => 'Hero Button Text', 'name' => 'devpage_hero_button_text', 'type' => 'text', 'default_value' => 'Start Now'),
+            array(
+                'key' => 'field_devpage_show_learn',
+                'label' => 'Show Changing the Way We Learn?',
+                'name' => 'devpage_show_learn',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
+            array(
+                'key' => 'field_devpage_show_dirs',
+                'label' => 'Show Direction Cards?',
+                'name' => 'devpage_show_dirs',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
+            array(
+                'key' => 'field_devpage_show_tree',
+                'label' => 'Show Development Tree?',
+                'name' => 'devpage_show_tree',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
         ),
         'location' => array(
             array(
@@ -313,6 +336,59 @@ function mindshows_register_acf_fields() {
             ),
         ),
         'menu_order' => 0,
+    ));
+
+    acf_add_local_field_group(array(
+        'key' => 'group_devpage_fields',
+        'title' => 'Development Page Fields',
+        'fields' => array(
+            array('key' => 'field_devpage_hero_bg', 'label' => 'Hero Background Image', 'name' => 'devpage_hero_bg_image', 'type' => 'image', 'return_format' => 'array'),
+            array('key' => 'field_devpage_hero_title', 'label' => 'Hero Title', 'name' => 'devpage_hero_title', 'type' => 'text', 'default_value' => 'DEVELOPMENT'),
+            array('key' => 'field_devpage_hero_desc', 'label' => 'Hero Description', 'name' => 'devpage_hero_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+            array('key' => 'field_devpage_hero_btn_t', 'label' => 'Hero Button Text', 'name' => 'devpage_hero_button_text', 'type' => 'text', 'default_value' => 'Start Now'),
+            array('key' => 'field_devpage_learn_title', 'label' => 'Learn Section Title', 'name' => 'devpage_learn_title', 'type' => 'text', 'default_value' => 'CHANGING THE WAY WE LEARN'),
+            array('key' => 'field_devpage_learn_desc', 'label' => 'Learn Section Description', 'name' => 'devpage_learn_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+            array('key' => 'field_devpage_learn_bg', 'label' => 'Learn Section Background Image', 'name' => 'devpage_learn_bg_image', 'type' => 'image', 'return_format' => 'array'),
+            array(
+                'key' => 'field_devpage_learn_cards',
+                'label' => 'Learn Section Cards',
+                'name' => 'devpage_learn_cards',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Adaugă card',
+                'sub_fields' => array(
+                    array('key' => 'field_devpage_learn_card_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text', 'default_value' => 'Sistem Cursuri'),
+                    array('key' => 'field_devpage_learn_card_desc', 'label' => 'Description', 'name' => 'description', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna'),
+                ),
+            ),
+            array(
+                'key' => 'field_devpage_dir_cards',
+                'label' => 'Direction Cards',
+                'name' => 'devpage_dir_cards',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'instructions' => 'Exact 3 carduri. Un card lăsat gol afișează conținutul implicit.',
+                'min' => 3,
+                'max' => 3,
+                'sub_fields' => array(
+                    array('key' => 'field_devpage_dir_card_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text', 'placeholder' => 'Directie 1'),
+                    array('key' => 'field_devpage_dir_card_subtitle', 'label' => 'Subtitle', 'name' => 'subtitle', 'type' => 'text', 'placeholder' => 'Changing the Way We Learn'),
+                    array('key' => 'field_devpage_dir_card_desc', 'label' => 'Description', 'name' => 'description', 'type' => 'textarea', 'rows' => 4, 'placeholder' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
+                ),
+            ),
+            array('key' => 'field_devpage_tree_title', 'label' => 'Tree Section Title', 'name' => 'devpage_tree_title', 'type' => 'text', 'default_value' => 'SISTEMUL MIND SHOWS'),
+            array('key' => 'field_devpage_tree_desc', 'label' => 'Tree Section Description', 'name' => 'devpage_tree_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'development.php',
+                ),
+            ),
+        ),
+        'menu_order' => 1,
         'position' => 'normal',
         'style' => 'default',
         'label_placement' => 'top',

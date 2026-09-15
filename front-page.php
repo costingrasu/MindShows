@@ -102,8 +102,14 @@ function render_branch_nodes( $branch, $default_nodes ) {
         $node_num   = $idx + 1;
         $node_title = ( isset( $node['title'] ) && trim( $node['title'] ) !== '' ) ? trim( $node['title'] ) : '';
         $node_desc  = isset( $node['desc'] ) ? trim( $node['desc'] ) : '';
+        $node_url   = ( ! empty( $node['link'] ) && get_post_status( $node['link'] ) === 'publish' ) ? get_permalink( $node['link'] ) : '';
+        $node_label = trim( $node_title . ' ' . $node_desc );
         ?>
+        <?php if ( $node_url ) : ?>
+        <a href="<?php echo esc_url( $node_url ); ?>" class="branch-node-container"<?php if ( $node_label !== '' ) : ?> aria-label="<?php echo esc_attr( $node_label ); ?>"<?php endif; ?>>
+        <?php else : ?>
         <div class="branch-node-container">
+        <?php endif; ?>
             <div class="branch-node">
                 <span class="node-number"><?php echo $node_num; ?></span>
                 <div class="node-hidden-content">
@@ -115,7 +121,11 @@ function render_branch_nodes( $branch, $default_nodes ) {
                     <?php endif; ?>
                 </div>
             </div>
+        <?php if ( $node_url ) : ?>
+        </a>
+        <?php else : ?>
         </div>
+        <?php endif; ?>
         <?php
     }
 }

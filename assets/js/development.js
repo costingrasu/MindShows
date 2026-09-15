@@ -8,13 +8,16 @@
         initTrainers();
         initDevelopmentCalendar();
         initEnrollmentForm();
+        initLearnPath();
+        initDirectionCards();
+        initDevTree();
     });
 
     function initScrollReveal() {
         document.documentElement.setAttribute('data-rv', '');
 
         var sections = document.querySelectorAll(
-            '.dev-obiective, .dev-galerie, .dev-about, .dev-principii, .dev-traineri, .dev-pentru-tine, .dev-detalii, .dev-inscriere'
+            '.dev-obiective, .dev-galerie, .dev-about, .dev-principii, .dev-traineri, .dev-pentru-tine, .dev-detalii, .dev-inscriere, .devpage-learn, .devpage-dirs, .devpage-tree'
         );
 
         var elements = document.querySelectorAll('[data-reveal]');
@@ -54,6 +57,177 @@
         } else {
             sections.forEach(function (sec) { sec.classList.add('in-view'); });
             elements.forEach(function (el) { el.setAttribute('data-inview', '1'); });
+        }
+    }
+
+    function initLearnPath() {
+        var path = document.querySelector('.devpage-learn-path');
+        if (!path) return;
+
+        var easing = 'cubic-bezier(.22, .61, .36, 1)';
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        function measure(card) {
+            var cs = window.getComputedStyle(card);
+            var h = card.offsetHeight + 'px';
+            return {
+                height: h,
+                minHeight: h,
+                marginLeft: cs.marginLeft,
+                marginRight: cs.marginRight,
+                paddingTop: cs.paddingTop
+            };
+        }
+
+        function setState(card, state) {
+            var from = measure(card);
+            if (card._devpageMorph) {
+                card._devpageMorph.cancel();
+                card._devpageMorph = null;
+            }
+
+            card.setAttribute('data-state', state);
+            var toggle = card.querySelector('.devpage-learn-card-toggle');
+            if (toggle) toggle.setAttribute('aria-expanded', state === 'open' ? 'true' : 'false');
+
+            if (reduceMotion.matches || typeof card.animate !== 'function') {
+                if (state === 'closing') card.setAttribute('data-state', 'closed');
+                return;
+            }
+
+            var morph = card.animate([from, measure(card)], { duration: 400, easing: easing });
+            card._devpageMorph = morph;
+            morph.onfinish = function () {
+                card._devpageMorph = null;
+                if (card.getAttribute('data-state') === 'closing') card.setAttribute('data-state', 'closed');
+            };
+
+            if (state === 'open') {
+                card.querySelectorAll('.devpage-learn-card-title, .devpage-learn-card-desc').forEach(function (el) {
+                    el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, delay: 80, easing: 'ease-out', fill: 'backwards' });
+                });
+            }
+        }
+
+        path.addEventListener('click', function (e) {
+            var card = e.target.closest('.devpage-learn-card');
+            if (!card) return;
+
+            var isOpen = card.getAttribute('data-state') === 'open';
+            if (!isOpen) {
+                path.querySelectorAll('.devpage-learn-card[data-state="open"]').forEach(function (other) {
+                    if (other !== card) setState(other, 'closing');
+                });
+            }
+            setState(card, isOpen ? 'closing' : 'open');
+        });
+    }
+
+    function initDirectionCards() {
+        var track = document.querySelector('.devpage-dirs-track');
+        if (!track) return;
+
+        function setExpanded(card, expanded) {
+            card.setAttribute('data-expanded', expanded ? 'true' : 'false');
+            var more = card.querySelector('.devpage-dir-card-more');
+            if (more) more.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        }
+
+        track.addEventListener('click', function (e) {
+            var more = e.target.closest('.devpage-dir-card-more');
+            var close = e.target.closest('.devpage-dir-card-close');
+            if (!more && !close) return;
+
+            var card = e.target.closest('.devpage-dir-card');
+            if (!card) return;
+
+            if (more) {
+                track.querySelectorAll('.devpage-dir-card[data-expanded="true"]').forEach(function (other) {
+                    if (other !== card) setExpanded(other, false);
+                });
+                setExpanded(card, true);
+                var closeBtn = card.querySelector('.devpage-dir-card-close');
+                if (closeBtn) closeBtn.focus();
+            } else {
+                setExpanded(card, false);
+                var moreBtn = card.querySelector('.devpage-dir-card-more');
+                if (moreBtn) moreBtn.focus();
+            }
+        });
+    }
+
+    function initDevTree() {
+        var diagram = document.querySelector('.devpage-tree-diagram');
+        if (!diagram) return;
+
+        var svg = diagram.querySelector('.devpage-tree-lines');
+        var root = diagram.querySelector('.devpage-tree-root');
+        var branches = diagram.querySelectorAll('.devpage-tree-branch');
+        if (!svg || !root || !branches.length) return;
+
+        var lines = svg.querySelectorAll('line');
+
+        function position(el) {
+            var x = 0;
+            var y = 0;
+            var node = el;
+            while (node && node !== diagram) {
+                x += node.offsetLeft;
+                y += node.offsetTop;
+                node = node.offsetParent;
+            }
+            return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
+        }
+
+        function draw() {
+            var vertical = window.getComputedStyle(diagram).flexDirection === 'column';
+            var r = position(root);
+            var x1 = vertical ? r.x + r.w / 2 : r.x + r.w;
+            var y1 = vertical ? r.y + r.h : r.y + r.h / 2;
+
+            svg.setAttribute('viewBox', '0 0 ' + diagram.offsetWidth + ' ' + diagram.offsetHeight);
+
+            branches.forEach(function (branch, i) {
+                var track = branch.querySelector('.devpage-tree-nodes');
+                if (track) {
+                    if (track.scrollWidth > track.clientWidth) {
+                        var label = branch.querySelector('.devpage-tree-branch-title');
+                        track.setAttribute('tabindex', '0');
+                        if (label) track.setAttribute('aria-label', label.textContent);
+                    } else {
+                        track.removeAttribute('tabindex');
+                        track.removeAttribute('aria-label');
+                    }
+                }
+
+                var line = lines[i];
+                if (!line) return;
+
+                var target = vertical ? branch.querySelector('.devpage-tree-branch-title') : branch.querySelector('.devpage-tree-node');
+                if (!target) return;
+
+                var t = position(target);
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', vertical ? t.x + t.w / 2 : t.x);
+                line.setAttribute('y2', vertical ? t.y : t.y + t.h / 2);
+            });
+        }
+
+        draw();
+
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(draw);
+        }
+
+        if ('ResizeObserver' in window) {
+            var observer = new ResizeObserver(draw);
+            observer.observe(diagram);
+            branches.forEach(function (branch) {
+                observer.observe(branch);
+            });
+        } else {
+            window.addEventListener('resize', draw);
         }
     }
 

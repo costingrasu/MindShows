@@ -1072,6 +1072,21 @@
     min-height: 65px;
 }
 
+a.branch-node-container {
+    color: inherit;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a.branch-node-container:focus-visible {
+    outline: none;
+}
+
+a.branch-node-container:focus-visible .branch-node {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 3px;
+}
+
 .branch-node {
     display: flex;
     justify-content: center;
@@ -1124,7 +1139,8 @@
     line-height: 1.45;
 }
 
-.branch-node-container:hover .branch-node {
+.branch-node-container:hover .branch-node,
+.branch-node-container:focus-visible .branch-node {
     width: 148px;
     height: auto;
     min-height: 80px;
@@ -1134,12 +1150,14 @@
     z-index: 10;
 }
 
-.branch-node-container:hover .node-number {
+.branch-node-container:hover .node-number,
+.branch-node-container:focus-visible .node-number {
     opacity: 0;
     visibility: hidden;
 }
 
-.branch-node-container:hover .node-hidden-content {
+.branch-node-container:hover .node-hidden-content,
+.branch-node-container:focus-visible .node-hidden-content {
     position: relative;
     opacity: 1;
     visibility: visible;
