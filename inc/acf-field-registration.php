@@ -294,6 +294,32 @@ function mindshows_register_acf_fields() {
         'active' => true,
     ));
 
+    acf_add_local_field_group(array(
+        'key' => 'group_devpage_fields',
+        'title' => 'Development Page Fields',
+        'fields' => array(
+            array('key' => 'field_devpage_hero_bg', 'label' => 'Hero Background Image', 'name' => 'devpage_hero_bg_image', 'type' => 'image', 'return_format' => 'array'),
+            array('key' => 'field_devpage_hero_title', 'label' => 'Hero Title', 'name' => 'devpage_hero_title', 'type' => 'text', 'default_value' => 'DEVELOPMENT'),
+            array('key' => 'field_devpage_hero_desc', 'label' => 'Hero Description', 'name' => 'devpage_hero_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+            array('key' => 'field_devpage_hero_btn_t', 'label' => 'Hero Button Text', 'name' => 'devpage_hero_button_text', 'type' => 'text', 'default_value' => 'Start Now'),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'development.php',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
+    ));
+
     $lt_kp_defaults = array(
         1 => array('Location', 'Costinești'),
         2 => array('Outdoor', 'Open-air arena'),

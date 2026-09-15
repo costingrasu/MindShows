@@ -1,0 +1,181 @@
+.page-development {
+    width: 100%;
+    background-color: #0E0E0E;
+    position: relative;
+}
+
+.page-development * {
+    box-sizing: border-box;
+}
+
+@keyframes devpageRise {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes devpageFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.devpage-hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 80px;
+    padding-bottom: 97px;
+    overflow: hidden;
+}
+
+.devpage-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.devpage-hero-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.devpage-hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(177.04deg, rgba(0, 0, 0, 0) 67.63%, #0E0E0E 93.03%);
+}
+
+.devpage-hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 999px;
+    padding: 0 20px;
+}
+
+.devpage-hero-title {
+    margin: 0;
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: clamp(37px, 5.5px + 8.4vw, 113px);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    text-align: center;
+    color: #FFFFFF;
+    animation: devpageRise .9s cubic-bezier(.22, .61, .36, 1) backwards;
+}
+
+.devpage-hero-desc {
+    margin: 0;
+    width: 100%;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: clamp(14px, 11.5px + 0.66vw, 20px);
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.55);
+    animation: devpageRise .9s cubic-bezier(.22, .61, .36, 1) .12s backwards;
+}
+
+.page-development .devpage-hero-btn,
+.devpage-hero-btn {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex: none;
+    padding: 6px 29px;
+    min-width: 165px;
+    min-height: 37px;
+    background-color: transparent;
+    border: 1px solid #FFFFFF;
+    border-radius: 51px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    text-align: center;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .12s ease;
+    animation: devpageRise .9s cubic-bezier(.22, .61, .36, 1) .24s backwards;
+}
+
+.devpage-hero-btn::after {
+    content: '';
+    position: absolute;
+    inset: -6px 0;
+}
+
+.devpage-hero-btn:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 3px;
+}
+
+.devpage-hero-btn:active {
+    transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    .page-development .devpage-hero-btn:hover,
+    .devpage-hero-btn:hover {
+        background-color: #FFFFFF;
+        border-color: #FFFFFF;
+        color: #0E0E0E;
+    }
+}
+
+@media (max-width: 1024px) {
+    .devpage-hero {
+        padding-top: 74px;
+    }
+
+    .devpage-hero-scrim {
+        background: linear-gradient(179.94deg, rgba(0, 0, 0, 0) 54.96%, rgba(14, 14, 14, 0.55) 96.23%);
+    }
+
+    .devpage-hero-content {
+        padding: 0 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .page-development .devpage-hero-title,
+    .page-development .devpage-hero-desc,
+    .page-development .devpage-hero-btn {
+        animation: devpageFade .2s ease backwards;
+    }
+
+    .devpage-hero-btn:active {
+        transform: none;
+    }
+}

@@ -15,7 +15,7 @@ function mindshows_register_development_cpts() {
         'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
         'menu_icon'          => 'dashicons-lightbulb',
         'rewrite'            => array('slug' => 'development', 'with_front' => false),
-        'has_archive'        => 'development',
+        'has_archive'        => false,
         'show_in_rest'       => true,
     );
     register_post_type('development', $dev_args);
@@ -33,9 +33,9 @@ function mindshows_register_development_cpts() {
 add_action('init', 'mindshows_register_development_cpts', 5);
 
 function mindshows_dev_check_flush_rewrites() {
-    if (get_option('mindshows_dev_flushed_v1') !== '1') {
+    if (get_option('mindshows_dev_flushed_v2') !== '1') {
         flush_rewrite_rules(false);
-        update_option('mindshows_dev_flushed_v1', '1');
+        update_option('mindshows_dev_flushed_v2', '1');
     }
 }
 add_action('init', 'mindshows_dev_check_flush_rewrites', 99);
