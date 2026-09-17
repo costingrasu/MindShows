@@ -67,13 +67,11 @@ $dev_r_title_1   = ($dev_sec && isset($dev_sec['right_title_1']) && $dev_sec['ri
 $dev_r_desc_1    = ($dev_sec && isset($dev_sec['right_desc_1']) && $dev_sec['right_desc_1'] !== '') ? $dev_sec['right_desc_1'] : 'Traninguri experiențiale, gamificate și livrate cu metode moderne potrivite pentru tineri și echipe care vor să treacă la următorul nivel.';
 $dev_r_title_2   = ($dev_sec && isset($dev_sec['right_title_2']) && $dev_sec['right_title_2'] !== '') ? $dev_sec['right_title_2'] : (function_exists('get_field') ? get_field('right_title_2') : 'MAIN QUEST');
 $dev_r_desc_2    = ($dev_sec && isset($dev_sec['right_desc_2']) && $dev_sec['right_desc_2'] !== '') ? $dev_sec['right_desc_2'] : (function_exists('get_field') ? get_field('right_desc_2') : 'Seria de traininguri principale, de o zi (8 ore) - un „must have” al abilităților și dezvoltării personale.');
-$dev_root_title  = ($dev_sec && isset($dev_sec['root_title']) && $dev_sec['root_title'] !== '') ? $dev_sec['root_title'] : 'TRIAL';
-$dev_root_desc   = ($dev_sec && isset($dev_sec['root_desc']) && $dev_sec['root_desc'] !== '') ? $dev_sec['root_desc'] : 'Descoperă seria de MAIN QUESTS gratuit, fără niciun angajament.';
+$dev_tree        = mindshows_get_development_tree();
+$dev_root_title  = $dev_tree['root_title'];
+$dev_root_desc   = $dev_tree['root_desc'];
 
 $dev_cards       = ($dev_sec && !empty($dev_sec['cards'])) ? $dev_sec['cards'] : null;
-$dev_branch0     = ($dev_sec && isset($dev_sec['branch0'])) ? $dev_sec['branch0'] : (function_exists('get_field') ? get_field('branch0') : null);
-$dev_branch1     = ($dev_sec && isset($dev_sec['branch1'])) ? $dev_sec['branch1'] : (function_exists('get_field') ? get_field('branch1') : null);
-$dev_branch2     = ($dev_sec && isset($dev_sec['branch2'])) ? $dev_sec['branch2'] : (function_exists('get_field') ? get_field('branch2') : null);
 
 $irl_sub  = ($irl_sec && isset($irl_sec['subtitle']) && $irl_sec['subtitle'] !== '') ? $irl_sec['subtitle'] : 'Changing the Way We Play';
 $irl_desc = ($irl_sec && isset($irl_sec['description']) && $irl_sec['description'] !== '') ? $irl_sec['description'] : 'Imaginează-ți un joc video scos din ecran și adus în lumea reală. Aducem jocurile video și atmosfera de film în realitate prin experiențe imersive, roluri, obiective, strategie și competiție. Intră într-o lume construită de la 0, ia decizii, colaborează, concurează și trăiește o experiență construită cu reguli clare, atmosferă și miză.';
@@ -81,28 +79,12 @@ $irl_desc = ($irl_sec && isset($irl_sec['description']) && $irl_sec['description
 $journeys_sub  = ($journeys_sec && isset($journeys_sec['subtitle']) && $journeys_sec['subtitle'] !== '') ? $journeys_sec['subtitle'] : 'Reshaping the Way We Travel';
 $journeys_desc = ($journeys_sec && isset($journeys_sec['description']) && $journeys_sec['description'] !== '') ? $journeys_sec['description'] : 'Creăm universuri narative pentru experiențe educaționale, tabere și călătorii tematice. Construim povești, echipe, misiuni, provocări, artefacte, indicii și sisteme de joc care fac o drumeție, un team building sau o tabără să pară scris ca o poveste, fiecare element fiind integrat într-o singură viziune.';
 
-function render_branch_nodes( $branch, $default_nodes ) {
-    $nodes_to_render = array();
-
-    if ( $branch && ! empty( $branch['nodes'] ) && is_array( $branch['nodes'] ) ) {
-        $nodes_to_render = $branch['nodes'];
-    } elseif ( $branch ) {
-        for ( $i = 1; $i <= 10; $i++ ) {
-            if ( isset( $branch['node_' . $i] ) && is_array( $branch['node_' . $i] ) ) {
-                $nodes_to_render[] = $branch['node_' . $i];
-            }
-        }
-    }
-
-    if ( empty( $nodes_to_render ) ) {
-        $nodes_to_render = $default_nodes;
-    }
-
-    foreach ( $nodes_to_render as $idx => $node ) {
+function render_branch_nodes( $nodes ) {
+    foreach ( $nodes as $idx => $node ) {
         $node_num   = $idx + 1;
-        $node_title = ( isset( $node['title'] ) && trim( $node['title'] ) !== '' ) ? trim( $node['title'] ) : '';
-        $node_desc  = isset( $node['desc'] ) ? trim( $node['desc'] ) : '';
-        $node_url   = ( ! empty( $node['link'] ) && get_post_status( $node['link'] ) === 'publish' ) ? get_permalink( $node['link'] ) : '';
+        $node_title = $node['title'];
+        $node_desc  = $node['desc'];
+        $node_url   = $node['url'];
         $node_label = trim( $node_title . ' ' . $node_desc );
         ?>
         <?php if ( $node_url ) : ?>
@@ -414,54 +396,14 @@ function render_branch_nodes( $branch, $default_nodes ) {
                     </div>
                     
                     <div class="dev-tree-branches">
-                        <?php 
-                        $b0_header = ($dev_branch0 && !empty($dev_branch0['title'])) ? $dev_branch0['title'] : 'DEZVOLTARE PERSONALĂ CONȘTIENTĂ';
-                        $b0_defaults = array(
-                            array( 'title' => 'Primul pas în dezvoltare', 'desc' => 'Autocunoaștere și principii de creștere' ),
-                            array( 'title' => 'Dincolo de gânduri', 'desc' => 'Ce se întamplă, de fapt, în mintea noastră' ),
-                            array( 'title' => 'Cu și despre emoții', 'desc' => 'Identificare și reglarea emoțională' ),
-                            array( 'title' => 'Principii și valori', 'desc' => 'Identificarea și ierarhizarea valorilor de viață' ),
-                        );
-                        ?>
+                        <?php foreach ( $dev_tree['branches'] as $branch ) : ?>
                         <div class="dev-tree-branch">
-                            <div class="branch-header"><?php echo esc_html($b0_header); ?></div>
+                            <div class="branch-header"><?php echo esc_html( $branch['title'] ); ?></div>
                             <div class="branch-nodes">
-                                <?php render_branch_nodes( $dev_branch0, $b0_defaults ); ?>
+                                <?php render_branch_nodes( $branch['nodes'] ); ?>
                             </div>
                         </div>
-                        
-                        <?php 
-                        $b1_header = ($dev_branch1 && !empty($dev_branch1['title'])) ? $dev_branch1['title'] : 'LEADERSHIP';
-                        $b1_defaults = array(
-                            array( 'title' => '', 'desc' => 'Ce este leadershipul și ce tip de lider vreau să devin?' ),
-                            array( 'title' => '', 'desc' => 'Cum mă comport și cum vorbesc ca un lider?' ),
-                            array( 'title' => '', 'desc' => 'Cum ajut și cum inspir oamenii ca un lider?' ),
-                            array( 'title' => '', 'desc' => 'Când sunt lider și când sunt team player?' ),
-                        );
-                        ?>
-                        <div class="dev-tree-branch">
-                            <div class="branch-header"><?php echo esc_html($b1_header); ?></div>
-                            <div class="branch-nodes">
-                                <?php render_branch_nodes( $dev_branch1, $b1_defaults ); ?>
-                            </div>
-                        </div>
-
-                        <?php 
-                        $b2_header = ($dev_branch2 && !empty($dev_branch2['title'])) ? $dev_branch2['title'] : 'COMUNICARE';
-                        $b2_defaults = array(
-                            array( 'title' => 'Bazele comunicării', 'desc' => 'Tipuri de comunicare, factori și mijloace de comunicare' ),
-                            array( 'title' => '', 'desc' => 'Tehnici pentru comunicarea eficientă' ),
-                            array( 'title' => '', 'desc' => 'Perspective, asertivitate și gestionarea conflictelor' ),
-                            array( 'title' => '', 'desc' => 'Comunicarea cu grupuri, public, audiență' ),
-                        );
-                        ?>
-                        <div class="dev-tree-branch">
-                            <div class="branch-header"><?php echo esc_html($b2_header); ?></div>
-                            <div class="branch-nodes">
-                                <?php render_branch_nodes( $dev_branch2, $b2_defaults ); ?>
-                            </div>
-                        </div>
-
+                        <?php endforeach; ?>
                     </div>
                 </div>
 

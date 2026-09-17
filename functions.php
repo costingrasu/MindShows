@@ -99,6 +99,7 @@ add_action('acf/init', 'mindshows_register_acf_fields');
 
 require_once get_template_directory() . '/inc/acf-development-fields.php';
 require_once get_template_directory() . '/inc/development-sessions.php';
+require_once get_template_directory() . '/inc/development-tree.php';
 
 function lt_get_slot_duration() {
     static $cached_duration = null;

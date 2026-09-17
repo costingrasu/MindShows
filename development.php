@@ -72,64 +72,10 @@ for ($i = 0; $i < 3; $i++) {
 $tree_title       = (function_exists('get_field') && get_field('devpage_tree_title')) ? get_field('devpage_tree_title') : 'SISTEMUL MIND SHOWS';
 $tree_description = (function_exists('get_field') && get_field('devpage_tree_description')) ? get_field('devpage_tree_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
 
-$fp_id    = (int) get_option('page_on_front');
-$tree_sec = ($fp_id && function_exists('get_field')) ? get_field('development_section', $fp_id) : null;
-
-$tree_root_title = ($tree_sec && isset($tree_sec['root_title']) && $tree_sec['root_title'] !== '') ? $tree_sec['root_title'] : 'TRIAL';
-$tree_root_desc  = ($tree_sec && isset($tree_sec['root_desc']) && $tree_sec['root_desc'] !== '') ? $tree_sec['root_desc'] : 'Descoperă seria de MAIN QUESTS gratuit, fără niciun angajament.';
-
-$tree_branch_defaults = array(
-    array(
-        'title' => 'DEZVOLTARE PERSONALĂ CONȘTIENTĂ',
-        'nodes' => array(
-            array( 'title' => 'Primul pas în dezvoltare', 'desc' => 'Autocunoaștere și principii de creștere' ),
-            array( 'title' => 'Dincolo de gânduri', 'desc' => 'Ce se întamplă, de fapt, în mintea noastră' ),
-            array( 'title' => 'Cu și despre emoții', 'desc' => 'Identificare și reglarea emoțională' ),
-            array( 'title' => 'Principii și valori', 'desc' => 'Identificarea și ierarhizarea valorilor de viață' ),
-        ),
-    ),
-    array(
-        'title' => 'LEADERSHIP',
-        'nodes' => array(
-            array( 'title' => '', 'desc' => 'Ce este leadershipul și ce tip de lider vreau să devin?' ),
-            array( 'title' => '', 'desc' => 'Cum mă comport și cum vorbesc ca un lider?' ),
-            array( 'title' => '', 'desc' => 'Cum ajut și cum inspir oamenii ca un lider?' ),
-            array( 'title' => '', 'desc' => 'Când sunt lider și când sunt team player?' ),
-        ),
-    ),
-    array(
-        'title' => 'COMUNICARE',
-        'nodes' => array(
-            array( 'title' => 'Bazele comunicării', 'desc' => 'Tipuri de comunicare, factori și mijloace de comunicare' ),
-            array( 'title' => '', 'desc' => 'Tehnici pentru comunicarea eficientă' ),
-            array( 'title' => '', 'desc' => 'Perspective, asertivitate și gestionarea conflictelor' ),
-            array( 'title' => '', 'desc' => 'Comunicarea cu grupuri, public, audiență' ),
-        ),
-    ),
-);
-
-$tree_branches = array();
-foreach ($tree_branch_defaults as $b => $branch_default) {
-    $branch = ($tree_sec && isset($tree_sec['branch' . $b]) && is_array($tree_sec['branch' . $b])) ? $tree_sec['branch' . $b] : null;
-
-    $nodes = array();
-    if ($branch && !empty($branch['nodes']) && is_array($branch['nodes'])) {
-        foreach ($branch['nodes'] as $node) {
-            $node_title = isset($node['title']) ? trim($node['title']) : '';
-            $node_desc  = isset($node['desc']) ? trim($node['desc']) : '';
-            if ($node_title === '' && $node_desc === '') {
-                continue;
-            }
-            $node_url = (!empty($node['link']) && get_post_status($node['link']) === 'publish') ? get_permalink($node['link']) : '';
-            $nodes[]  = array('title' => $node_title, 'desc' => $node_desc, 'url' => $node_url ? $node_url : '');
-        }
-    }
-
-    $tree_branches[] = array(
-        'title' => ($branch && !empty($branch['title'])) ? $branch['title'] : $branch_default['title'],
-        'nodes' => !empty($nodes) ? $nodes : $branch_default['nodes'],
-    );
-}
+$tree            = mindshows_get_development_tree(get_the_ID());
+$tree_root_title = $tree['root_title'];
+$tree_root_desc  = $tree['root_desc'];
+$tree_branches   = $tree['branches'];
 ?>
 
 <main class="page-development">
