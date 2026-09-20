@@ -17,7 +17,7 @@
         document.documentElement.setAttribute('data-rv', '');
 
         var sections = document.querySelectorAll(
-            '.dev-obiective, .dev-galerie, .dev-about, .dev-principii, .dev-traineri, .dev-pentru-tine, .dev-detalii, .dev-inscriere, .devpage-learn, .devpage-dirs, .devpage-tree'
+            '.dev-obiective, .dev-galerie, .dev-about, .dev-principii, .dev-traineri, .dev-pentru-tine, .dev-detalii, .dev-inscriere, .devpage-learn, .devpage-dirs, .devpage-tree, .devpage-book'
         );
 
         var elements = document.querySelectorAll('[data-reveal]');

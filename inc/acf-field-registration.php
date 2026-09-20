@@ -251,6 +251,14 @@ function mindshows_register_acf_fields() {
                 'default_value' => 1,
                 'ui' => 0,
             ),
+            array(
+                'key' => 'field_devpage_show_book',
+                'label' => 'Show Book a Demo?',
+                'name' => 'devpage_show_book',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
         ),
         'location' => array(
             array(
@@ -304,6 +312,10 @@ function mindshows_register_acf_fields() {
             ),
             array('key' => 'field_devpage_tree_title', 'label' => 'Tree Section Title', 'name' => 'devpage_tree_title', 'type' => 'text', 'default_value' => 'SISTEMUL MIND SHOWS'),
             array('key' => 'field_devpage_tree_desc', 'label' => 'Tree Section Description', 'name' => 'devpage_tree_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+            array('key' => 'field_devpage_book_img', 'label' => 'Book a Demo Image', 'name' => 'devpage_book_image', 'type' => 'image', 'return_format' => 'array'),
+            array('key' => 'field_devpage_book_title', 'label' => 'Book a Demo Title', 'name' => 'devpage_book_title', 'type' => 'text', 'default_value' => 'BOOK A FREE DEMO TODAY'),
+            array('key' => 'field_devpage_book_desc', 'label' => 'Book a Demo Description', 'name' => 'devpage_book_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+            array('key' => 'field_devpage_book_btn_t', 'label' => 'Book a Demo Button Text', 'name' => 'devpage_book_button_text', 'type' => 'text', 'default_value' => 'Book Now'),
         ),
         'location' => array(
             array(

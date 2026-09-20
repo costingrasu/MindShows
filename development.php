@@ -14,10 +14,12 @@ $hero_btn_text    = (function_exists('get_field') && get_field('devpage_hero_but
 $show_learn = function_exists('get_field') ? get_field('devpage_show_learn') : null;
 $show_dirs  = function_exists('get_field') ? get_field('devpage_show_dirs') : null;
 $show_tree  = function_exists('get_field') ? get_field('devpage_show_tree') : null;
+$show_book  = function_exists('get_field') ? get_field('devpage_show_book') : null;
 
 if ($show_learn === null) $show_learn = true;
 if ($show_dirs === null)  $show_dirs = true;
 if ($show_tree === null)  $show_tree = true;
+if ($show_book === null)  $show_book = true;
 
 $learn_bg_img      = function_exists('get_field') ? get_field('devpage_learn_bg_image') : null;
 $learn_bg_img_url  = ($learn_bg_img && isset($learn_bg_img['url'])) ? $learn_bg_img['url'] : get_template_directory_uri() . '/assets/images/bg-development-learn.webp';
@@ -72,6 +74,13 @@ for ($i = 0; $i < 3; $i++) {
 $tree_title       = (function_exists('get_field') && get_field('devpage_tree_title')) ? get_field('devpage_tree_title') : 'SISTEMUL MIND SHOWS';
 $tree_description = (function_exists('get_field') && get_field('devpage_tree_description')) ? get_field('devpage_tree_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
 
+$book_img       = function_exists('get_field') ? get_field('devpage_book_image') : null;
+$book_img_url   = ($book_img && isset($book_img['url'])) ? $book_img['url'] : get_template_directory_uri() . '/assets/images/bg-development1.webp';
+$book_img_alt   = ($book_img && !empty($book_img['alt'])) ? $book_img['alt'] : '';
+$book_title     = (function_exists('get_field') && get_field('devpage_book_title')) ? get_field('devpage_book_title') : 'BOOK A FREE DEMO TODAY';
+$book_desc      = (function_exists('get_field') && get_field('devpage_book_description')) ? get_field('devpage_book_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
+$book_btn_text  = (function_exists('get_field') && get_field('devpage_book_button_text')) ? get_field('devpage_book_button_text') : 'Book Now';
+
 $tree            = mindshows_get_development_tree(get_the_ID());
 $tree_root_title = $tree['root_title'];
 $tree_root_desc  = $tree['root_desc'];
@@ -89,7 +98,7 @@ $tree_branches   = $tree['branches'];
             <h1 class="devpage-hero-title"><?php echo esc_html($hero_title); ?></h1>
             <div class="devpage-hero-desc"><?php echo wp_kses_post($hero_description); ?></div>
 
-            <a href="#devpage-inscriere" class="devpage-hero-btn"><?php echo esc_html($hero_btn_text); ?></a>
+            <a href="#devpage-inscriere" class="devpage-btn devpage-hero-btn"><?php echo esc_html($hero_btn_text); ?></a>
         </div>
     </section>
 
@@ -220,6 +229,25 @@ $tree_branches   = $tree['branches'];
                         </li>
                     <?php endforeach; ?>
                 </ol>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <?php if ($show_book) : ?>
+    <section class="devpage-book">
+        <div class="devpage-book-inner">
+            <div class="devpage-book-media" data-reveal>
+                <img src="<?php echo esc_url($book_img_url); ?>" alt="<?php echo esc_attr($book_img_alt); ?>" class="devpage-book-image" loading="lazy" decoding="async" />
+            </div>
+
+            <div class="devpage-book-content" data-reveal>
+                <div class="devpage-book-text">
+                    <h2 class="devpage-book-title"><?php echo esc_html($book_title); ?></h2>
+                    <div class="devpage-book-desc"><?php echo wp_kses_post($book_desc); ?></div>
+                </div>
+
+                <a href="#devpage-inscriere" class="devpage-btn devpage-book-btn"><?php echo esc_html($book_btn_text); ?></a>
             </div>
         </div>
     </section>
