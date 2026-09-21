@@ -259,6 +259,14 @@ function mindshows_register_acf_fields() {
                 'default_value' => 1,
                 'ui' => 0,
             ),
+            array(
+                'key' => 'field_devpage_show_sq',
+                'label' => 'Show Side Quests?',
+                'name' => 'devpage_show_sidequests',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
         ),
         'location' => array(
             array(
@@ -316,6 +324,9 @@ function mindshows_register_acf_fields() {
             array('key' => 'field_devpage_book_title', 'label' => 'Book a Demo Title', 'name' => 'devpage_book_title', 'type' => 'text', 'default_value' => 'BOOK A FREE DEMO TODAY'),
             array('key' => 'field_devpage_book_desc', 'label' => 'Book a Demo Description', 'name' => 'devpage_book_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
             array('key' => 'field_devpage_book_btn_t', 'label' => 'Book a Demo Button Text', 'name' => 'devpage_book_button_text', 'type' => 'text', 'default_value' => 'Book Now'),
+            array('key' => 'field_devpage_sq_title', 'label' => 'Side Quests Title', 'name' => 'devpage_sq_title', 'type' => 'text', 'default_value' => 'SIDE QUESTS'),
+            array('key' => 'field_devpage_sq_desc', 'label' => 'Side Quests Description', 'name' => 'devpage_sq_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+            array('key' => 'field_devpage_sq_btn_t', 'label' => 'Side Quests Card Button Text', 'name' => 'devpage_sq_button_text', 'type' => 'text', 'default_value' => 'View More'),
         ),
         'location' => array(
             array(

@@ -12,6 +12,51 @@ function mindshows_register_development_acf_fields() {
     }
 
     acf_add_local_field_group(array(
+        'key' => 'group_dev_card',
+        'title' => 'Development: 00 Card & Tip',
+        'fields' => array(
+            array(
+                'key' => 'field_dev_quest_type',
+                'label' => 'Tip',
+                'name' => 'dev_quest_type',
+                'type' => 'radio',
+                'instructions' => 'Side Quest apare în lista de pe pagina Development.',
+                'choices' => array(
+                    'main' => 'Main Quest',
+                    'side' => 'Side Quest',
+                ),
+                'default_value' => 'main',
+                'return_format' => 'value',
+                'layout' => 'horizontal',
+            ),
+            array(
+                'key' => 'field_dev_card_image',
+                'label' => 'Card Image',
+                'name' => 'dev_card_image',
+                'type' => 'image',
+                'instructions' => 'Imaginea cardului din lista Side Quests. Fără imagine, cardul afișează doar simbolul.',
+                'return_format' => 'array',
+                'library' => 'all',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'development',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
+    ));
+
+    acf_add_local_field_group(array(
         'key' => 'group_dev_visibility',
         'title' => 'Development: 00 Section Visibility',
         'fields' => array(

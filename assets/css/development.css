@@ -1041,6 +1041,281 @@ a.devpage-tree-node-card:focus-visible {
     color: #D6D6D6;
 }
 
+.devpage-sidequests {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 69px 0;
+    overflow: hidden;
+}
+
+[data-rv] .devpage-sidequests {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .8s ease-out, transform .8s ease-out;
+}
+
+[data-rv] .devpage-sidequests.in-view {
+    opacity: 1;
+    transform: none;
+}
+
+.devpage-sq-symbol {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 0;
+    width: 100%;
+    max-width: 1240px;
+    aspect-ratio: 1240 / 1044;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.devpage-sq-symbol img {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+}
+
+.devpage-sq-symbol-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(14, 14, 14, 0) 0%, #0E0E0E 100%);
+}
+
+.devpage-sq-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.devpage-sq-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 46px;
+    width: 100%;
+    max-width: 959px;
+    margin-bottom: 46px;
+    padding: 0 20px;
+}
+
+.devpage-sq-title {
+    margin: 0;
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: clamp(48px, 22.72px + 6.74vw, 109px);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    text-align: center;
+    color: #FFFFFF;
+    overflow-wrap: anywhere;
+}
+
+.devpage-sq-desc {
+    width: 100%;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: clamp(14px, 11.5px + 0.66vw, 20px);
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.devpage-sq-track {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    --sq-gutter: max(20px, calc((100% - 1280px) / 2 + 20px));
+    gap: 47px;
+    width: 100%;
+    padding: 30px var(--sq-gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--sq-gutter);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.devpage-sq-track::-webkit-scrollbar {
+    height: 6px;
+}
+
+.devpage-sq-track::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.devpage-sq-track::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+}
+
+.devpage-sq-item {
+    display: flex;
+    flex: 0 0 min(560px, 88vw);
+    scroll-snap-align: start;
+}
+
+[data-rv] .page-development .devpage-sq-item:nth-child(2) {
+    transition-delay: 90ms;
+}
+
+[data-rv] .page-development .devpage-sq-item:nth-child(3) {
+    transition-delay: 180ms;
+}
+
+.devpage-sq-card {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-width: 0;
+    height: 347px;
+    overflow: hidden;
+    background-color: #151417;
+    border-radius: 16px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    transition: transform .5s cubic-bezier(.22, .61, .36, 1), box-shadow .4s ease;
+}
+
+.devpage-sq-card-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.devpage-sq-card-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(308.78deg, rgba(0, 255, 187, 0) 47.04%, rgba(0, 255, 187, 0.6) 86.31%), linear-gradient(178.92deg, rgba(0, 0, 0, 0) 20.3%, #1C1B1E 99.07%);
+}
+
+.devpage-sq-card-symbol {
+    position: absolute;
+    bottom: -72%;
+    left: -38%;
+    z-index: 2;
+    width: 116%;
+    aspect-ratio: 651 / 648;
+    background-image: url('../images/symbol-development.webp');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.devpage-sq-card-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 30px 27px 25px;
+}
+
+.devpage-sq-card-title {
+    margin: 0;
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 51px;
+    line-height: .86;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    overflow-wrap: anywhere;
+    transition: transform .5s cubic-bezier(.22, .61, .36, 1);
+}
+
+.devpage-sq-card-subtitle {
+    margin-top: 26px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.95);
+    overflow-wrap: anywhere;
+    transition: transform .5s cubic-bezier(.22, .61, .36, 1);
+}
+
+.devpage-sq-card-reveal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-height: 0;
+    margin-top: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height .5s cubic-bezier(.22, .61, .36, 1), opacity .5s cubic-bezier(.22, .61, .36, 1), margin-top .5s cubic-bezier(.22, .61, .36, 1);
+}
+
+.devpage-sq-card-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    margin: 0 0 22px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: #BFBFBF;
+}
+
+.page-development .devpage-sq-card-btn,
+.devpage-sq-card-btn {
+    min-width: 0;
+}
+
+.devpage-sq-card:hover .devpage-sq-card-reveal,
+.devpage-sq-card:focus-within .devpage-sq-card-reveal {
+    max-height: 220px;
+    margin-top: 22px;
+    opacity: 1;
+}
+
+.devpage-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #4A4A4A;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
+
+    .devpage-sq-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .devpage-sq-card:hover .devpage-sq-card-title,
+    .devpage-sq-card:hover .devpage-sq-card-subtitle {
+        transform: translateY(-10px);
+    }
+}
+
 @media (max-width: 1024px) {
     .devpage-hero {
         padding-top: 74px;
@@ -1346,6 +1621,70 @@ a.devpage-tree-node-card:focus-visible {
     .devpage-book-title {
         font-size: 37px;
     }
+
+    .devpage-sidequests {
+        padding: 69px 0;
+    }
+
+    .devpage-sq-head {
+        margin-bottom: 46px;
+        padding: 0 16px;
+    }
+
+    .devpage-sq-track {
+        --sq-gutter: 12px;
+        gap: 47px;
+        padding: 20px var(--sq-gutter);
+    }
+
+    .devpage-sq-item {
+        flex: 0 0 min(323px, 86vw);
+    }
+
+    .devpage-sq-card {
+        height: 396px;
+    }
+
+    .devpage-sq-card-scrim {
+        background: linear-gradient(178.92deg, rgba(0, 0, 0, 0) 20.3%, #1C1B1E 99.07%);
+    }
+
+    .devpage-sq-card-symbol {
+        bottom: -63.38%;
+        left: -66.25%;
+        width: 201.5%;
+    }
+
+    .devpage-sq-card-title {
+        font-size: 37px;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .devpage-sq-card-subtitle {
+        margin-top: 15px;
+        font-size: 19px;
+    }
+
+    .devpage-sq-card-reveal {
+        max-height: none;
+        margin-top: 22px;
+        opacity: 1;
+        overflow: visible;
+    }
+
+    .devpage-sq-card-desc {
+        display: none;
+    }
+
+    .page-development .devpage-sq-card-btn,
+    .devpage-sq-card-btn {
+        min-width: 99px;
+        min-height: 26px;
+        height: 26px;
+        padding: 0 10px;
+        font-size: 16px;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1365,7 +1704,8 @@ a.devpage-tree-node-card:focus-visible {
     [data-rv] .devpage-learn,
     [data-rv] .devpage-dirs,
     [data-rv] .devpage-tree,
-    [data-rv] .devpage-book {
+    [data-rv] .devpage-book,
+    [data-rv] .devpage-sidequests {
         transform: none;
         transition: opacity .2s ease;
     }
@@ -1392,6 +1732,12 @@ a.devpage-tree-node-card:focus-visible {
     .devpage-tree-node:hover > .devpage-tree-node-card,
     .devpage-tree-node-card:focus-visible,
     a.devpage-tree-node-card:active {
+        transform: none;
+    }
+
+    .devpage-sq-card:hover,
+    .devpage-sq-card:hover .devpage-sq-card-title,
+    .devpage-sq-card:hover .devpage-sq-card-subtitle {
         transform: none;
     }
 }

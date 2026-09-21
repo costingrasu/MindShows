@@ -15,11 +15,13 @@ $show_learn = function_exists('get_field') ? get_field('devpage_show_learn') : n
 $show_dirs  = function_exists('get_field') ? get_field('devpage_show_dirs') : null;
 $show_tree  = function_exists('get_field') ? get_field('devpage_show_tree') : null;
 $show_book  = function_exists('get_field') ? get_field('devpage_show_book') : null;
+$show_sq    = function_exists('get_field') ? get_field('devpage_show_sidequests') : null;
 
 if ($show_learn === null) $show_learn = true;
 if ($show_dirs === null)  $show_dirs = true;
 if ($show_tree === null)  $show_tree = true;
 if ($show_book === null)  $show_book = true;
+if ($show_sq === null)    $show_sq = true;
 
 $learn_bg_img      = function_exists('get_field') ? get_field('devpage_learn_bg_image') : null;
 $learn_bg_img_url  = ($learn_bg_img && isset($learn_bg_img['url'])) ? $learn_bg_img['url'] : get_template_directory_uri() . '/assets/images/bg-development-learn.webp';
@@ -80,6 +82,41 @@ $book_img_alt   = ($book_img && !empty($book_img['alt'])) ? $book_img['alt'] : '
 $book_title     = (function_exists('get_field') && get_field('devpage_book_title')) ? get_field('devpage_book_title') : 'BOOK A FREE DEMO TODAY';
 $book_desc      = (function_exists('get_field') && get_field('devpage_book_description')) ? get_field('devpage_book_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
 $book_btn_text  = (function_exists('get_field') && get_field('devpage_book_button_text')) ? get_field('devpage_book_button_text') : 'Book Now';
+
+$sq_title       = (function_exists('get_field') && get_field('devpage_sq_title')) ? get_field('devpage_sq_title') : 'SIDE QUESTS';
+$sq_description = (function_exists('get_field') && get_field('devpage_sq_description')) ? get_field('devpage_sq_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
+$sq_btn_text    = (function_exists('get_field') && get_field('devpage_sq_button_text')) ? get_field('devpage_sq_button_text') : 'View More';
+
+$sq_cards = array();
+if ($show_sq) {
+    $sq_query = new WP_Query(array(
+        'post_type'      => 'development',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+        'meta_query'     => array(
+            array('key' => 'dev_quest_type', 'value' => 'side'),
+        ),
+    ));
+
+    if ($sq_query->have_posts()) {
+        while ($sq_query->have_posts()) {
+            $sq_query->the_post();
+            $sq_id  = get_the_ID();
+            $sq_img = function_exists('get_field') ? get_field('dev_card_image', $sq_id) : null;
+            $sq_sub = function_exists('get_field') ? get_field('dev_hero_subtitle', $sq_id) : '';
+            $sq_dsc = function_exists('get_field') ? get_field('dev_hero_description', $sq_id) : '';
+
+            $sq_cards[] = array(
+                'title'       => get_the_title(),
+                'permalink'   => get_permalink(),
+                'image_url'   => ($sq_img && isset($sq_img['sizes']['large'])) ? $sq_img['sizes']['large'] : (($sq_img && isset($sq_img['url'])) ? $sq_img['url'] : ''),
+                'subtitle'    => $sq_sub ? $sq_sub : '',
+                'description' => $sq_dsc ? trim(strip_tags($sq_dsc)) : '',
+            );
+        }
+    }
+    wp_reset_postdata();
+}
 
 $tree            = mindshows_get_development_tree(get_the_ID());
 $tree_root_title = $tree['root_title'];
@@ -251,6 +288,51 @@ $tree_branches   = $tree['branches'];
             </div>
         </div>
     </section>
+    <?php endif; ?>
+
+    <?php if ($show_sq && !empty($sq_cards)) : ?>
+    <section class="devpage-sidequests">
+        <div class="devpage-sq-symbol" aria-hidden="true">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/symbol-development.webp'); ?>" alt="" loading="lazy" decoding="async" />
+            <div class="devpage-sq-symbol-fade"></div>
+        </div>
+
+        <div class="devpage-sq-inner">
+            <header class="devpage-sq-head">
+                <h2 class="devpage-sq-title"><?php echo esc_html($sq_title); ?></h2>
+                <div class="devpage-sq-desc"><?php echo wp_kses_post($sq_description); ?></div>
+            </header>
+
+            <div class="devpage-sq-track">
+                <?php foreach ($sq_cards as $card) : ?>
+                    <div class="devpage-sq-item" data-reveal>
+                    <article class="devpage-sq-card">
+                        <?php if ($card['image_url'] !== '') : ?>
+                            <img src="<?php echo esc_url($card['image_url']); ?>" alt="" class="devpage-sq-card-photo" loading="lazy" decoding="async" />
+                        <?php endif; ?>
+                        <div class="devpage-sq-card-scrim" aria-hidden="true"></div>
+                        <div class="devpage-sq-card-symbol" aria-hidden="true"></div>
+
+                        <div class="devpage-sq-card-content">
+                            <h3 class="devpage-sq-card-title"><?php echo esc_html($card['title']); ?></h3>
+                            <?php if ($card['subtitle'] !== '') : ?>
+                                <span class="devpage-sq-card-subtitle"><?php echo esc_html($card['subtitle']); ?></span>
+                            <?php endif; ?>
+
+                            <div class="devpage-sq-card-reveal">
+                                <?php if ($card['description'] !== '') : ?>
+                                    <p class="devpage-sq-card-desc"><?php echo esc_html($card['description']); ?></p>
+                                <?php endif; ?>
+                                <a href="<?php echo esc_url($card['permalink']); ?>" class="devpage-btn devpage-sq-card-btn"<?php if ($card['title'] !== '') : ?> aria-label="<?php echo esc_attr($sq_btn_text . ': ' . $card['title']); ?>"<?php endif; ?>><?php echo esc_html($sq_btn_text); ?></a>
+                            </div>
+                        </div>
+                    </article>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+    <div class="devpage-divider" aria-hidden="true"></div>
     <?php endif; ?>
 
 </main>
