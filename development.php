@@ -140,6 +140,7 @@ $tree_branches   = $tree['branches'];
     </section>
 
     <?php if ($show_learn) : ?>
+    <div class="devpage-divider" data-reveal aria-hidden="true"></div>
     <section class="devpage-learn">
         <div class="devpage-learn-bg" aria-hidden="true">
             <img src="<?php echo esc_url($learn_bg_img_url); ?>" alt="" class="devpage-learn-photo" loading="lazy" decoding="async" />
@@ -180,6 +181,7 @@ $tree_branches   = $tree['branches'];
     <?php endif; ?>
 
     <?php if ($show_dirs) : ?>
+    <div class="devpage-divider" data-reveal aria-hidden="true"></div>
     <section class="devpage-dirs">
         <ul class="devpage-dirs-track">
             <?php foreach ($dir_cards as $idx => $card) :
@@ -216,6 +218,7 @@ $tree_branches   = $tree['branches'];
     <?php endif; ?>
 
     <?php if ($show_tree) : ?>
+    <div class="devpage-divider" data-reveal aria-hidden="true"></div>
     <section class="devpage-tree">
         <div class="devpage-tree-inner">
             <header class="devpage-heading">
@@ -272,6 +275,7 @@ $tree_branches   = $tree['branches'];
     <?php endif; ?>
 
     <?php if ($show_book) : ?>
+    <div class="devpage-divider" data-reveal aria-hidden="true"></div>
     <section class="devpage-book">
         <div class="devpage-book-inner">
             <div class="devpage-book-media" data-reveal>
@@ -291,6 +295,7 @@ $tree_branches   = $tree['branches'];
     <?php endif; ?>
 
     <?php if ($show_sq && !empty($sq_cards)) : ?>
+    <div class="devpage-divider" data-reveal aria-hidden="true"></div>
     <section class="devpage-sidequests">
         <div class="devpage-sq-symbol" aria-hidden="true">
             <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/symbol-development.webp'); ?>" alt="" loading="lazy" decoding="async" />
@@ -332,7 +337,6 @@ $tree_branches   = $tree['branches'];
             </div>
         </div>
     </section>
-    <div class="devpage-divider" aria-hidden="true"></div>
     <?php endif; ?>
 
 </main>
