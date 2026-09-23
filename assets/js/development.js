@@ -725,7 +725,6 @@
                 }
 
                 if (pendingTime && pendingTime === time) {
-                    node.setAttribute('data-preselected', '1');
                     applySessionToForm(sess, true);
                     pendingTime = null;
                 }

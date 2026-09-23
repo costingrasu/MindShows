@@ -1421,12 +1421,6 @@
     align-items: center;
     width: 100%;
     gap: 20px;
-    border: 1px solid transparent;
-    border-radius: 12px;
-}
-
-.dev-cal-event-bar[data-preselected="1"] .dev-cal-event-inner {
-    border-color: #00FFBB;
 }
 
 .dev-cal-event-meta {
