@@ -267,6 +267,14 @@ function mindshows_register_acf_fields() {
                 'default_value' => 1,
                 'ui' => 0,
             ),
+            array(
+                'key' => 'field_devpage_show_ins',
+                'label' => 'Show Inscriere?',
+                'name' => 'devpage_show_inscriere',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 0,
+            ),
         ),
         'location' => array(
             array(
@@ -327,6 +335,15 @@ function mindshows_register_acf_fields() {
             array('key' => 'field_devpage_sq_title', 'label' => 'Side Quests Title', 'name' => 'devpage_sq_title', 'type' => 'text', 'default_value' => 'SIDE QUESTS'),
             array('key' => 'field_devpage_sq_desc', 'label' => 'Side Quests Description', 'name' => 'devpage_sq_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
             array('key' => 'field_devpage_sq_btn_t', 'label' => 'Side Quests Card Button Text', 'name' => 'devpage_sq_button_text', 'type' => 'text', 'default_value' => 'View More'),
+            array('key' => 'field_devpage_ins_title', 'label' => 'Inscriere Title', 'name' => 'devpage_ins_title', 'type' => 'text', 'default_value' => 'INSCRIERE'),
+            array('key' => 'field_devpage_ins_desc', 'label' => 'Inscriere Description', 'name' => 'devpage_ins_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Alege data si orasul care ti se potrivesc. Te ducem direct la cursul respectiv, cu data deja selectata.'),
+            array('key' => 'field_devpage_ins_main_l', 'label' => 'Inscriere: eticheta Main Quest', 'name' => 'devpage_ins_main_label', 'type' => 'text', 'default_value' => 'Main Quest'),
+            array('key' => 'field_devpage_ins_side_l', 'label' => 'Inscriere: eticheta Side Quests', 'name' => 'devpage_ins_side_label', 'type' => 'text', 'default_value' => 'Side Quests'),
+            array('key' => 'field_devpage_ins_feat', 'label' => 'Inscriere: curs evidentiat', 'name' => 'devpage_ins_featured_course', 'type' => 'post_object', 'post_type' => array('development'), 'return_format' => 'id', 'allow_null' => 1, 'ui' => 1),
+            array('key' => 'field_devpage_ins_feat_b', 'label' => 'Inscriere: eticheta curs evidentiat', 'name' => 'devpage_ins_featured_badge', 'type' => 'text', 'default_value' => 'GRATUIT'),
+            array('key' => 'field_devpage_ins_btn_t', 'label' => 'Inscriere Button Text', 'name' => 'devpage_ins_button_text', 'type' => 'text', 'default_value' => 'Inscrie-te'),
+            array('key' => 'field_devpage_ins_empty_t', 'label' => 'Inscriere: titlu cand nu sunt rezultate', 'name' => 'devpage_ins_empty_title', 'type' => 'text', 'default_value' => 'Nicio sesiune programata'),
+            array('key' => 'field_devpage_ins_empty_x', 'label' => 'Inscriere: mesaj cand nu sunt rezultate', 'name' => 'devpage_ins_empty_text', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Incearca alt oras sau alt tip de curs. Datele noi apar aici imediat ce sunt programate.'),
         ),
         'location' => array(
             array(

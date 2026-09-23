@@ -175,6 +175,9 @@ while ( have_posts() ) : the_post();
     );
 
     $inscriere_title = get_field('dev_inscriere_title', $post_id) ?: 'Inscriere';
+    $has_dates       = function_exists('mindshows_dev_has_upcoming') ? mindshows_dev_has_upcoming($post_id) : true;
+    $empty_title     = get_field('dev_inscriere_empty_title', $post_id) ?: 'Nicio data disponibila momentan';
+    $empty_text      = get_field('dev_inscriere_empty_text', $post_id) ?: 'Programul pentru acest curs se actualizeaza in curand. Scrie-ne si te anuntam imediat ce apar date noi.';
     $session_short_title = $hero_subtitle ?: 'Empty';
     $sessions_data = get_post_meta($post_id, '_dev_sessions', true);
     if (empty($sessions_data) || !is_array($sessions_data)) {
@@ -441,10 +444,11 @@ while ( have_posts() ) : the_post();
     <?php endif; ?>
 
     <?php if ($show_inscriere) : ?>
-    <section class="dev-inscriere" id="dev-inscriere" data-ms="inscriere">
+    <section class="dev-inscriere" id="dev-inscriere" data-ms="inscriere" data-empty="<?php echo $has_dates ? '0' : '1'; ?>">
         <h2 class="dev-inscriere-title" data-reveal><?php echo esc_html($inscriere_title); ?></h2>
 
-        <div class="dev-inscriere-row">
+        <div class="dev-inscriere-shell">
+        <div class="dev-inscriere-row"<?php if (!$has_dates) : ?> inert aria-hidden="true"<?php endif; ?>>
             <div class="dev-cal" data-reveal>
                 <div class="dev-cal-cities"></div>
                 <div class="dev-cal-divider"></div>
@@ -479,15 +483,19 @@ while ( have_posts() ) : the_post();
 
                 <div class="dev-cal-divider" style="margin-top:13px;"></div>
 
-                <div class="dev-cal-event-bar" style="display:none;">
-                    <div class="dev-cal-event-inner">
-                        <div class="dev-cal-event-meta">
-                            <div class="dev-cal-event-time">9:00 - 17:00</div>
-                            <div class="dev-cal-event-title"><?php echo esc_html($session_short_title); ?></div>
+                <div class="dev-cal-event-bars" style="display:none;"></div>
+
+                <template class="dev-cal-event-tpl">
+                    <div class="dev-cal-event-bar">
+                        <div class="dev-cal-event-inner">
+                            <div class="dev-cal-event-meta">
+                                <div class="dev-cal-event-time">9:00 - 17:00</div>
+                                <div class="dev-cal-event-title"><?php echo esc_html($session_short_title); ?></div>
+                            </div>
+                            <button type="button" class="dev-cal-signup-btn">Sign Up</button>
                         </div>
-                        <button type="button" class="dev-cal-signup-btn">Sign Up</button>
                     </div>
-                </div>
+                </template>
             </div>
 
             <div class="dev-in-col" id="dev-inscriere-form">
@@ -534,6 +542,13 @@ while ( have_posts() ) : the_post();
                     <button type="button" class="dev-in-reset-btn">Inca o inscriere</button>
                 </div>
             </div>
+        </div>
+        <?php if (!$has_dates) : ?>
+        <div class="dev-inscriere-empty" role="status">
+            <div class="dev-inscriere-empty-title"><?php echo esc_html($empty_title); ?></div>
+            <p class="dev-inscriere-empty-text"><?php echo esc_html($empty_text); ?></p>
+        </div>
+        <?php endif; ?>
         </div>
     </section>
 

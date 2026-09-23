@@ -189,6 +189,10 @@ function mindshows_dev_save_all_sessions_handler() {
 
     update_post_meta($post_id, '_dev_sessions', $data);
 
+    if (function_exists('mindshows_dev_flush_schedule_cache')) {
+        mindshows_dev_flush_schedule_cache($post_id);
+    }
+
     wp_send_json_success(array('message' => 'Sessions saved successfully'));
 }
 add_action('wp_ajax_dev_save_all_sessions', 'mindshows_dev_save_all_sessions_handler');

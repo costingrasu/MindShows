@@ -118,6 +118,45 @@ if ($show_sq) {
     wp_reset_postdata();
 }
 
+$show_ins = function_exists('get_field') ? get_field('devpage_show_inscriere') : null;
+if ($show_ins === null) $show_ins = true;
+
+$ins_title      = (function_exists('get_field') && get_field('devpage_ins_title')) ? get_field('devpage_ins_title') : 'INSCRIERE';
+$ins_desc       = (function_exists('get_field') && get_field('devpage_ins_description')) ? get_field('devpage_ins_description') : 'Alege data si orasul care ti se potrivesc. Te ducem direct la cursul respectiv, cu data deja selectata.';
+$ins_main_label = (function_exists('get_field') && get_field('devpage_ins_main_label')) ? get_field('devpage_ins_main_label') : 'Main Quest';
+$ins_side_label = (function_exists('get_field') && get_field('devpage_ins_side_label')) ? get_field('devpage_ins_side_label') : 'Side Quests';
+$ins_feat_id    = function_exists('get_field') ? (int) get_field('devpage_ins_featured_course') : 0;
+$ins_feat_badge = (function_exists('get_field') && get_field('devpage_ins_featured_badge')) ? get_field('devpage_ins_featured_badge') : 'GRATUIT';
+$ins_btn_text   = (function_exists('get_field') && get_field('devpage_ins_button_text')) ? get_field('devpage_ins_button_text') : 'Inscrie-te';
+$ins_empty_ttl  = (function_exists('get_field') && get_field('devpage_ins_empty_title')) ? get_field('devpage_ins_empty_title') : 'Nicio sesiune programata';
+$ins_empty_txt  = (function_exists('get_field') && get_field('devpage_ins_empty_text')) ? get_field('devpage_ins_empty_text') : 'Incearca alt oras sau alt tip de curs. Datele noi apar aici imediat ce sunt programate.';
+
+$ins_schedule = function_exists('mindshows_get_development_schedule') ? mindshows_get_development_schedule() : array('rows' => array(), 'cities' => array());
+$ins_rows     = isset($ins_schedule['rows']) ? $ins_schedule['rows'] : array();
+$ins_cities   = isset($ins_schedule['cities']) ? $ins_schedule['cities'] : array();
+$ins_courses  = function_exists('mindshows_dev_all_courses') ? mindshows_dev_all_courses() : array();
+
+$ins_featured = null;
+if ($ins_feat_id) {
+    foreach ($ins_rows as $r) {
+        if ($r['post_id'] === $ins_feat_id) {
+            $ins_featured = $r;
+            break;
+        }
+    }
+    if ($ins_featured === null && get_post_status($ins_feat_id) === 'publish') {
+        $ins_featured = array(
+            'post_id'    => $ins_feat_id,
+            'post_title' => get_the_title($ins_feat_id),
+            'permalink'  => get_permalink($ins_feat_id),
+            'city'       => '',
+            'label'      => '',
+            'time'       => '',
+            'date_start' => '',
+        );
+    }
+}
+
 $tree            = mindshows_get_development_tree(get_the_ID());
 $tree_root_title = $tree['root_title'];
 $tree_root_desc  = $tree['root_desc'];
@@ -335,6 +374,101 @@ $tree_branches   = $tree['branches'];
                     </div>
                 <?php endforeach; ?>
             </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <?php if ($show_ins) : ?>
+    <div class="devpage-divider" data-reveal aria-hidden="true"></div>
+    <section class="devpage-inscriere" id="devpage-inscriere">
+        <div class="devpage-ins-inner">
+
+            <header class="devpage-ins-head" data-reveal>
+                <h2 class="devpage-ins-title"><?php echo esc_html($ins_title); ?></h2>
+                <div class="devpage-ins-desc"><?php echo esc_html($ins_desc); ?></div>
+            </header>
+
+            <div class="devpage-ins-controls" data-reveal>
+                <div class="devpage-ins-quests" role="group" aria-label="Filtreaza dupa tip">
+                    <button type="button" class="devpage-ins-quest" data-quest-filter="all" aria-pressed="true">Toate</button>
+                    <button type="button" class="devpage-ins-quest" data-quest-filter="main" aria-pressed="false"><?php echo esc_html($ins_main_label); ?></button>
+                    <button type="button" class="devpage-ins-quest" data-quest-filter="side" aria-pressed="false"><?php echo esc_html($ins_side_label); ?></button>
+                </div>
+
+                <div class="devpage-ins-loc">
+                    <label class="devpage-ins-loc-label" for="devpage-ins-city">Locatie</label>
+                    <select id="devpage-ins-city" class="devpage-ins-select">
+                        <option value="all">Toate locatiile</option>
+                        <?php foreach ($ins_cities as $ins_city) : ?>
+                        <option value="<?php echo esc_attr($ins_city); ?>"><?php echo esc_html($ins_city); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+
+            <?php if ($ins_featured) : ?>
+            <div class="devpage-ins-featured-wrap" data-reveal>
+                <a class="devpage-ins-featured" href="<?php echo esc_url(mindshows_dev_slot_link($ins_featured)); ?>">
+                    <span class="devpage-ins-symbol" aria-hidden="true"></span>
+                    <span class="devpage-ins-featured-body">
+                        <span class="devpage-ins-featured-top">
+                            <span class="devpage-ins-featured-title"><?php echo esc_html($ins_featured['post_title']); ?></span>
+                            <?php if ($ins_feat_badge) : ?>
+                            <span class="devpage-ins-badge"><?php echo esc_html($ins_feat_badge); ?></span>
+                            <?php endif; ?>
+                        </span>
+                        <?php if (!empty($ins_featured['label'])) : ?>
+                        <span class="devpage-ins-featured-meta"><?php echo wp_kses($ins_featured['label'], array()); ?> &middot; <?php echo esc_html($ins_featured['city']); ?> &middot; <?php echo esc_html($ins_featured['time']); ?></span>
+                        <?php endif; ?>
+                    </span>
+                    <span class="devpage-ins-featured-cta"><?php echo esc_html($ins_btn_text); ?></span>
+                </a>
+            </div>
+            <?php endif; ?>
+
+            <?php if (!empty($ins_rows)) : ?>
+            <div class="devpage-ins-meta" data-reveal>
+                <span class="devpage-ins-count"><?php echo count($ins_rows) === 1 ? '1 SESIUNE' : esc_html(count($ins_rows)) . ' SESIUNI'; ?></span>
+                <span class="devpage-ins-sorted">sortate dupa data</span>
+            </div>
+
+            <ul class="devpage-ins-list">
+                <?php foreach ($ins_rows as $ins_row) : ?>
+                <li class="devpage-ins-item" data-reveal data-quest="<?php echo esc_attr($ins_row['quest']); ?>" data-city="<?php echo esc_attr($ins_row['city']); ?>">
+                    <a class="devpage-ins-row" href="<?php echo esc_url(mindshows_dev_slot_link($ins_row)); ?>" aria-label="<?php echo esc_attr($ins_btn_text . ': ' . $ins_row['post_title'] . ', ' . wp_strip_all_tags(html_entity_decode($ins_row['label'])) . ', ' . $ins_row['city']); ?>">
+                        <span class="devpage-ins-symbol" aria-hidden="true"></span>
+                        <span class="devpage-ins-when">
+                            <span class="devpage-ins-date"><?php echo wp_kses($ins_row['label'], array()); ?></span>
+                            <span class="devpage-ins-city"><?php echo esc_html($ins_row['city']); ?></span>
+                        </span>
+                        <span class="devpage-ins-main">
+                            <span class="devpage-ins-row-title"><?php echo esc_html($ins_row['post_title']); ?></span>
+                            <span class="devpage-ins-time"><?php echo esc_html($ins_row['time']); ?></span>
+                        </span>
+                        <span class="devpage-ins-cta"><?php echo esc_html($ins_btn_text); ?></span>
+                    </a>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
+
+            <div class="devpage-ins-empty"<?php if (!empty($ins_rows)) : ?> hidden<?php endif; ?>>
+                <div class="devpage-ins-empty-title"><?php echo esc_html($ins_empty_ttl); ?></div>
+                <p class="devpage-ins-empty-text"><?php echo esc_html($ins_empty_txt); ?></p>
+                <?php if (!empty($ins_rows)) : ?>
+                <button type="button" class="devpage-ins-reset">Reseteaza filtrele</button>
+                <?php endif; ?>
+
+                <?php if (!empty($ins_courses)) : ?>
+                <div class="devpage-ins-chips-label">TOATE CURSURILE</div>
+                <ul class="devpage-ins-chips">
+                    <?php foreach ($ins_courses as $ins_course) : ?>
+                    <li><a class="devpage-ins-chip" href="<?php echo esc_url($ins_course['permalink']); ?>"><?php echo esc_html($ins_course['title']); ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+                <?php endif; ?>
+            </div>
+
         </div>
     </section>
     <?php endif; ?>

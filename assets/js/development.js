@@ -11,13 +11,80 @@
         initLearnPath();
         initDirectionCards();
         initDevTree();
+        initInscriereFilters();
     });
+
+    function initInscriereFilters() {
+        var section = document.querySelector('.devpage-inscriere');
+        if (!section) return;
+
+        var items = Array.prototype.slice.call(section.querySelectorAll('.devpage-ins-item'));
+        var quests = Array.prototype.slice.call(section.querySelectorAll('.devpage-ins-quest'));
+        var select = section.querySelector('.devpage-ins-select');
+        var empty = section.querySelector('.devpage-ins-empty');
+        var reset = section.querySelector('.devpage-ins-reset');
+        var count = section.querySelector('.devpage-ins-count');
+        var list = section.querySelector('.devpage-ins-list');
+
+        if (!items.length) return;
+
+        var quest = 'all';
+        var city = 'all';
+
+        function apply() {
+            var shown = 0;
+
+            items.forEach(function (item) {
+                var okQuest = (quest === 'all') || (item.getAttribute('data-quest') === quest);
+                var okCity = (city === 'all') || (item.getAttribute('data-city') === city);
+                var show = okQuest && okCity;
+
+                item.hidden = !show;
+                if (show) shown++;
+            });
+
+            if (empty) empty.hidden = (shown !== 0);
+            if (list) list.hidden = (shown === 0);
+            if (count) count.textContent = (shown === 1) ? '1 SESIUNE' : shown + ' SESIUNI';
+        }
+
+        quests.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                quest = btn.getAttribute('data-quest-filter');
+                quests.forEach(function (b) {
+                    b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+                });
+                apply();
+            });
+        });
+
+        if (select) {
+            select.addEventListener('change', function () {
+                city = select.value;
+                apply();
+            });
+        }
+
+        if (reset) {
+            reset.addEventListener('click', function () {
+                quest = 'all';
+                city = 'all';
+                quests.forEach(function (b) {
+                    b.setAttribute('aria-pressed', b.getAttribute('data-quest-filter') === 'all' ? 'true' : 'false');
+                });
+                if (select) select.value = 'all';
+                apply();
+            });
+        }
+
+        apply();
+    }
 
     function initScrollReveal() {
         document.documentElement.setAttribute('data-rv', '');
 
         var sections = document.querySelectorAll(
-            '.dev-obiective, .dev-galerie, .dev-about, .dev-principii, .dev-traineri, .dev-pentru-tine, .dev-detalii, .dev-inscriere, .devpage-learn, .devpage-dirs, .devpage-tree, .devpage-book, .devpage-sidequests'
+            '.dev-obiective, .dev-galerie, .dev-about, .dev-principii, .dev-traineri, .dev-pentru-tine, .dev-detalii, .dev-inscriere, .devpage-learn, .devpage-dirs, .devpage-tree, .devpage-book, .devpage-sidequests, .devpage-inscriere'
         );
 
         var elements = document.querySelectorAll('[data-reveal]');
@@ -389,6 +456,7 @@
     function initDevelopmentCalendar() {
         var calEl = document.querySelector('.dev-cal');
         if (!calEl) return;
+        if (calEl.closest('.dev-inscriere[data-empty="1"]')) return;
         var sessionsPayload = {
             locations: ['Constanta', 'Bucuresti'],
             sessions: {
@@ -422,8 +490,36 @@
         var now = new Date();
         var currentYear = now.getFullYear();
         var currentMonth = now.getMonth();
-        var selectedSessionIndex = null;
-        var selectedSessionData = null;
+        var selectedDay = null;
+        var pendingTime = null;
+
+        try {
+            var msParams = new URLSearchParams(window.location.search);
+            var wantCity = msParams.get('ms_city');
+            var wantDate = msParams.get('ms_date');
+            var wantTime = msParams.get('ms_time');
+
+            if (wantCity && wantDate && /^\d{4}-\d{2}-\d{2}$/.test(wantDate)) {
+                var dParts = wantDate.split('-');
+                var wantY = parseInt(dParts[0], 10);
+                var wantM = parseInt(dParts[1], 10) - 1;
+                var wantD = parseInt(dParts[2], 10);
+
+                var pool = (sessionsPayload.sessions && sessionsPayload.sessions[wantCity]) || [];
+                var hit = pool.some(function (sess) {
+                    return sess.year === wantY && sess.month === wantM && sess.days && sess.days.indexOf(wantD) !== -1;
+                });
+
+                if (hit) {
+                    activeCity = wantCity;
+                    currentYear = wantY;
+                    currentMonth = wantM;
+                    selectedDay = wantD;
+                    pendingTime = wantTime;
+                }
+            }
+        } catch (err) {
+        }
 
         var monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -435,10 +531,8 @@
         var citiesWrap = calEl.querySelector('.dev-cal-cities');
         var monthLabel = calEl.querySelector('.dev-cal-month-label');
         var daysGrid = calEl.querySelector('.dev-cal-days-grid');
-        var eventBar = calEl.querySelector('.dev-cal-event-bar');
-        var eventTime = calEl.querySelector('.dev-cal-event-time');
-        var eventTitle = calEl.querySelector('.dev-cal-event-title');
-        var eventSignUpBtn = calEl.querySelector('.dev-cal-signup-btn');
+        var eventBars = calEl.querySelector('.dev-cal-event-bars');
+        var eventTpl = calEl.querySelector('.dev-cal-event-tpl');
         var prevMonthBtn = calEl.querySelector('.dev-cal-prev-btn');
         var nextMonthBtn = calEl.querySelector('.dev-cal-next-btn');
         var formDateDisplay = document.querySelector('.dev-in-date-display');
@@ -457,8 +551,7 @@
 
                 btn.addEventListener('click', function () {
                     activeCity = city;
-                    selectedSessionIndex = null;
-                    selectedSessionData = null;
+                    selectedDay = null;
 
                     var form = document.querySelector('.dev-in-form');
                     if (form) {
@@ -532,6 +625,16 @@
 
             var activeSessions = getSessionsForActiveCityAndMonth();
 
+            var selectedRunDays = {};
+            if (selectedDay !== null) {
+                var selectedDayMatches = activeSessions.filter(function (s) {
+                    return s.days && s.days.indexOf(selectedDay) !== -1;
+                });
+                if (selectedDayMatches.length) {
+                    selectedDayMatches[0].days.forEach(function (d) { selectedRunDays[d] = true; });
+                }
+            }
+
             for (var i = 0; i < totalCells; i++) {
                 var dayNum = i - startOffset + 1;
                 var cell = document.createElement('div');
@@ -544,15 +647,15 @@
                 } else {
                     cell.textContent = String(dayNum);
 
-                    var matchedSessionIdx = -1;
-                    activeSessions.forEach(function (s, sIdx) {
+                    var matches = [];
+                    activeSessions.forEach(function (s) {
                         if (s.days && s.days.indexOf(dayNum) !== -1) {
-                            matchedSessionIdx = sIdx;
+                            matches.push(s);
                         }
                     });
 
-                    if (matchedSessionIdx !== -1) {
-                        var session = activeSessions[matchedSessionIdx];
+                    if (matches.length) {
+                        var session = matches[0];
                         var posInSession = session.days.indexOf(dayNum);
                         var edge = 'm';
 
@@ -564,37 +667,18 @@
                             edge = 'r';
                         }
 
-                        var isSelected = (selectedSessionIndex === matchedSessionIdx);
+                        var isSelected = !!selectedRunDays[dayNum];
                         cell.setAttribute('data-mark', isSelected ? 'sel' : 'on');
                         cell.setAttribute('data-edge', edge);
 
-                        (function (sIndex, sObj) {
+                        (function (clickedDay) {
                             cell.addEventListener('click', function () {
-                                selectedSessionIndex = sIndex;
-                                selectedSessionData = sObj;
-
-                                var form = document.querySelector('.dev-in-form');
-                                if (form) {
-                                    var nIn = form.querySelector('#dev-in-name');
-                                    var pIn = form.querySelector('#dev-in-phone');
-                                    var eIn = form.querySelector('#dev-in-email');
-                                    var cIn = form.querySelector('#dev-in-city');
-                                    if (nIn) { nIn.value = ''; nIn.classList.remove('error'); }
-                                    if (pIn) { pIn.value = ''; pIn.classList.remove('error'); }
-                                    if (eIn) { eIn.value = ''; eIn.classList.remove('error'); }
-                                    if (cIn) { cIn.value = ''; }
-                                }
-
-                                if (formDateDisplay) {
-                                    formDateDisplay.textContent = 'Selecteaza o data din calendar';
-                                    formDateDisplay.removeAttribute('data-selected-date');
-                                    formDateDisplay.removeAttribute('data-selected-time');
-                                    formDateDisplay.classList.remove('error');
-                                }
-
+                                selectedDay = clickedDay;
+                                pendingTime = null;
+                                clearFormFields();
                                 renderGrid();
                             });
-                        })(matchedSessionIdx, session);
+                        })(dayNum);
                     } else {
                         cell.setAttribute('data-mark', 'off');
                         cell.setAttribute('data-edge', 'n');
@@ -604,14 +688,98 @@
                 daysGrid.appendChild(cell);
             }
 
-            if (eventBar) {
-                if (selectedSessionData) {
-                    eventBar.style.display = 'flex';
-                    if (eventTime) eventTime.textContent = selectedSessionData.time || '9:00 - 17:00';
-                    if (eventTitle) eventTitle.textContent = selectedSessionData.title || 'Modul 1 Dezvoltare';
-                } else {
-                    eventBar.style.display = 'none';
+            renderEventBars(activeSessions);
+        }
+
+        function renderEventBars(activeSessions) {
+            if (!eventBars || !eventTpl) return;
+
+            eventBars.innerHTML = '';
+
+            var daySessions = (selectedDay === null) ? [] : activeSessions.filter(function (s) {
+                return s.days && s.days.indexOf(selectedDay) !== -1;
+            });
+
+            if (!daySessions.length) {
+                eventBars.style.display = 'none';
+                return;
+            }
+
+            eventBars.style.display = 'flex';
+
+            daySessions.forEach(function (sess) {
+                var node = eventTpl.content.firstElementChild.cloneNode(true);
+                var time = sess.time || '9:00 - 17:00';
+                var timeEl = node.querySelector('.dev-cal-event-time');
+                var titleEl = node.querySelector('.dev-cal-event-title');
+                var btn = node.querySelector('.dev-cal-signup-btn');
+
+                node.setAttribute('data-time', time);
+                if (timeEl) timeEl.textContent = time;
+                if (titleEl && sess.title) titleEl.textContent = sess.title;
+
+                if (btn) {
+                    btn.addEventListener('click', function () {
+                        applySessionToForm(sess);
+                    });
                 }
+
+                if (pendingTime && pendingTime === time) {
+                    node.setAttribute('data-preselected', '1');
+                    applySessionToForm(sess, true);
+                    pendingTime = null;
+                }
+
+                eventBars.appendChild(node);
+            });
+        }
+
+        function clearFormFields() {
+            var form = document.querySelector('.dev-in-form');
+            if (form) {
+                var nIn = form.querySelector('#dev-in-name');
+                var pIn = form.querySelector('#dev-in-phone');
+                var eIn = form.querySelector('#dev-in-email');
+                var cIn = form.querySelector('#dev-in-city');
+                if (nIn) { nIn.value = ''; nIn.classList.remove('error'); }
+                if (pIn) { pIn.value = ''; pIn.classList.remove('error'); }
+                if (eIn) { eIn.value = ''; eIn.classList.remove('error'); }
+                if (cIn) { cIn.value = ''; }
+            }
+
+            if (formDateDisplay) {
+                formDateDisplay.textContent = 'Selecteaza o data din calendar';
+                formDateDisplay.removeAttribute('data-selected-date');
+                formDateDisplay.removeAttribute('data-selected-time');
+                formDateDisplay.classList.remove('error');
+            }
+        }
+
+        function applySessionToForm(sess, skipScroll) {
+            var formattedDate = formatSessionDateRange(sess);
+            var formattedTime = sess.time || '9:00 - 17:00';
+
+            if (formDateDisplay) {
+                formDateDisplay.textContent = formattedDate;
+                formDateDisplay.setAttribute('data-selected-date', formattedDate);
+                formDateDisplay.setAttribute('data-selected-time', formattedTime);
+                formDateDisplay.classList.remove('error');
+            }
+
+            var form = document.querySelector('.dev-in-form');
+            if (form) {
+                var submitBtn = form.querySelector('.dev-in-submit');
+                if (submitBtn) {
+                    var probe = form.querySelector('#dev-in-name');
+                    if (probe) probe.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            }
+
+            if (skipScroll) return;
+
+            var formSection = document.getElementById('dev-inscriere-form') || document.getElementById('dev-inscriere');
+            if (formSection) {
+                formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
@@ -622,8 +790,7 @@
                     currentMonth = 11;
                     currentYear--;
                 }
-                selectedSessionIndex = null;
-                selectedSessionData = null;
+                selectedDay = null;
                 renderGrid();
             });
         }
@@ -635,30 +802,8 @@
                     currentMonth = 0;
                     currentYear++;
                 }
-                selectedSessionIndex = null;
-                selectedSessionData = null;
+                selectedDay = null;
                 renderGrid();
-            });
-        }
-
-        if (eventSignUpBtn) {
-            eventSignUpBtn.addEventListener('click', function () {
-                if (selectedSessionData) {
-                    var formattedDate = formatSessionDateRange(selectedSessionData);
-                    var formattedTime = selectedSessionData.time || '9:00 - 17:00';
-
-                    if (formDateDisplay) {
-                        formDateDisplay.textContent = formattedDate;
-                        formDateDisplay.setAttribute('data-selected-date', formattedDate);
-                        formDateDisplay.setAttribute('data-selected-time', formattedTime);
-                        formDateDisplay.classList.remove('error');
-                    }
-
-                    var formSection = document.getElementById('dev-inscriere-form') || document.getElementById('dev-inscriere');
-                    if (formSection) {
-                        formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }
             });
         }
 

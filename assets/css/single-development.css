@@ -1154,6 +1154,51 @@
     color: #FFFFFF;
 }
 
+.dev-inscriere-shell {
+    position: relative;
+    width: 100%;
+}
+
+.dev-inscriere[data-empty="1"] .dev-inscriere-row {
+    filter: blur(7px);
+    opacity: 0.45;
+    pointer-events: none;
+    user-select: none;
+}
+
+.dev-inscriere-empty {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.dev-inscriere-empty-title {
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: clamp(26px, 18.54px + 1.99vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+}
+
+.dev-inscriere-empty-text {
+    margin: 0;
+    max-width: 520px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: clamp(14px, 12.34px + 0.44vw, 18px);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.62);
+}
+
 .dev-inscriere-row {
     display: flex;
     flex-direction: row;
@@ -1354,6 +1399,12 @@
     border-radius: 25px;
 }
 
+.dev-cal-event-bars {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .dev-cal-event-bar {
     display: flex;
     flex-direction: column;
@@ -1370,6 +1421,12 @@
     align-items: center;
     width: 100%;
     gap: 20px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+}
+
+.dev-cal-event-bar[data-preselected="1"] .dev-cal-event-inner {
+    border-color: #00FFBB;
 }
 
 .dev-cal-event-meta {

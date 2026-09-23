@@ -622,6 +622,21 @@ function mindshows_register_development_acf_fields() {
                 'type' => 'text',
                 'default_value' => 'Inscriere',
             ),
+            array(
+                'key' => 'field_dev_in_empty_title',
+                'label' => 'Titlu cand nu sunt date disponibile',
+                'name' => 'dev_inscriere_empty_title',
+                'type' => 'text',
+                'default_value' => 'Nicio data disponibila momentan',
+            ),
+            array(
+                'key' => 'field_dev_in_empty_text',
+                'label' => 'Mesaj cand nu sunt date disponibile',
+                'name' => 'dev_inscriere_empty_text',
+                'type' => 'textarea',
+                'rows' => 3,
+                'default_value' => 'Programul pentru acest curs se actualizeaza in curand. Scrie-ne si te anuntam imediat ce apar date noi.',
+            ),
         ),
         'location' => array(
             array(
