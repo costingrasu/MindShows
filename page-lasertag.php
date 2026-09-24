@@ -15,7 +15,7 @@ $pkg_sec     = function_exists('get_field') ? get_field('lt_packages_section') :
 $disc_sec    = function_exists('get_field') ? get_field('lt_discounts_section') : null;
 $booking_sec = function_exists('get_field') ? get_field('lt_booking_section') : null;
 
-$hero_bg_img = ($hero_sec && !empty($hero_sec['bg_image']['url'])) ? $hero_sec['bg_image']['url'] : $theme_uri . '/assets/images/Hero.webp';
+$hero_bg_img = mindshows_lasertag_hero_url($hero_sec);
 $hero_eyebrow= ($hero_sec && !empty($hero_sec['eyebrow'])) ? $hero_sec['eyebrow'] : 'MIND SHOWS';
 $hero_title  = ($hero_sec && !empty($hero_sec['title'])) ? $hero_sec['title'] : 'Laser Tag';
 $hero_sub    = ($hero_sec && !empty($hero_sec['subtitle'])) ? $hero_sec['subtitle'] : 'Experiece out outdoor las tag arena in Costinești, where real-life gaming modes meets the pulse of summer, located in LUN.R camping right next to Nibiru.';

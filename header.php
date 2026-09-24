@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="<?php echo get_template_directory_uri(); ?>/assets/fonts/Brother-1816-ExtraBold.ttf" as="font" type="font/ttf" crossorigin>
-    <?php if (is_front_page()) : ?>
+    <?php if (mindshows_is_home_view()) : ?>
     <link rel="preload" href="<?php echo get_template_directory_uri(); ?>/assets/images/bg-development.webp" as="image">
     <?php endif; ?>
     <?php wp_head(); ?>

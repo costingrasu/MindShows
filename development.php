@@ -5,7 +5,7 @@ Template Name: Development Page
 get_header();
 
 $hero_bg_img      = function_exists('get_field') ? get_field('devpage_hero_bg_image') : null;
-$hero_bg_img_url  = ($hero_bg_img && isset($hero_bg_img['url'])) ? $hero_bg_img['url'] : get_template_directory_uri() . '/assets/images/bg-development.webp';
+$hero_bg_img_url  = mindshows_dev_hero_url();
 $hero_bg_img_alt  = ($hero_bg_img && !empty($hero_bg_img['alt'])) ? $hero_bg_img['alt'] : '';
 $hero_title       = (function_exists('get_field') && get_field('devpage_hero_title')) ? get_field('devpage_hero_title') : 'DEVELOPMENT';
 $hero_description = (function_exists('get_field') && get_field('devpage_hero_description')) ? get_field('devpage_hero_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';

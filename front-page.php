@@ -293,7 +293,7 @@ function render_branch_nodes( $nodes ) {
     <section class="home-development-section fade-up-element">
         <div class="development-left slide-right-element">
             <div class="development-bg-wrapper">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/bg-development1.webp" class="development-bg-image" alt="Development Graphic" loading="lazy">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/bg-development1.webp" class="development-bg-image" alt="" loading="lazy">
             </div>
             <div class="development-left-content">
                 <h2 class="development-title">DEVELOPMENT</h2>

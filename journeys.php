@@ -25,7 +25,7 @@ $card_btn_text    = (function_exists('get_field') && get_field('journeys_card_bu
 <main class="page-journeys">
     <section class="journeys-hero hero-fade-up">
         <div class="journeys-hero-bg">
-            <img src="<?php echo esc_url($hero_bg_img_url); ?>" alt="<?php echo esc_attr($hero_title); ?>" class="journeys-bg-img" />
+            <img src="<?php echo esc_url($hero_bg_img_url); ?>" alt="<?php echo esc_attr($hero_title); ?>" class="journeys-bg-img" fetchpriority="high" />
         </div>
 
         <div class="journeys-hero-content">

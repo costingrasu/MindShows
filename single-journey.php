@@ -366,10 +366,10 @@ while ( have_posts() ) : the_post();
     <?php if ($show_banner) : ?>
         <?php if($bg_desktop_url): ?>
         <div class="journey-banner-wrapper">
-            <img src="<?php echo esc_url($bg_desktop_url); ?>" alt="Journey Banner Desktop" class="banner-img-desktop" loading="lazy" />
+            <img src="<?php echo esc_url($bg_desktop_url); ?>" alt="<?php echo esc_attr(mindshows_img_alt($banner_desktop, get_the_title())); ?>" class="banner-img-desktop" loading="lazy" />
             
             <?php if($bg_mobile_url): ?>
-                <img src="<?php echo esc_url($bg_mobile_url); ?>" alt="Journey Banner Mobile" class="banner-img-mobile" loading="lazy" />
+                <img src="<?php echo esc_url($bg_mobile_url); ?>" alt="<?php echo esc_attr(mindshows_img_alt($banner_mobile ?: $banner_desktop, get_the_title())); ?>" class="banner-img-mobile" loading="lazy" />
             <?php endif; ?>
         </div>
         <?php endif; ?>
@@ -451,7 +451,7 @@ while ( have_posts() ) : the_post();
             <div class="gallery-track">
                 <?php foreach( $gal_images as $index => $image ): ?>
                     <div class="gallery-slide" data-index="<?php echo $index; ?>">
-                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" loading="lazy" />
+                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr(mindshows_img_alt($image, get_the_title())); ?>" loading="lazy" />
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -591,13 +591,13 @@ while ( have_posts() ) : the_post();
                     <?php if($excursii_main_image): 
                         $main_img_url = is_array($excursii_main_image) ? $excursii_main_image['url'] : (is_string($excursii_main_image) ? $excursii_main_image : wp_get_attachment_image_url($excursii_main_image, 'full'));
                     ?>
-                        <img src="<?php echo esc_url($main_img_url); ?>" alt="Excursii Decor Desktop" class="excursii-main-img excursii-img-desktop" loading="lazy" />
+                        <img src="<?php echo esc_url($main_img_url); ?>" alt="<?php echo esc_attr(mindshows_img_alt($excursii_main_image)); ?>" class="excursii-main-img excursii-img-desktop" loading="lazy" />
                     <?php endif; ?>
                     
                     <?php if($excursii_mobile_image): 
                         $mob_img_url = is_array($excursii_mobile_image) ? $excursii_mobile_image['url'] : (is_string($excursii_mobile_image) ? $excursii_mobile_image : wp_get_attachment_image_url($excursii_mobile_image, 'full'));
                     ?>
-                        <img src="<?php echo esc_url($mob_img_url); ?>" alt="Excursii Decor Mobile" class="excursii-main-img excursii-img-mobile" loading="lazy" />
+                        <img src="<?php echo esc_url($mob_img_url); ?>" alt="<?php echo esc_attr(mindshows_img_alt($excursii_mobile_image)); ?>" class="excursii-main-img excursii-img-mobile" loading="lazy" />
                     <?php endif; ?>
 
                 </div>
@@ -638,7 +638,7 @@ while ( have_posts() ) : the_post();
             <div class="program-track">
                 <?php foreach( $prog_images as $index => $image ): ?>
                     <div class="program-slide" data-index="<?php echo $index; ?>">
-                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" loading="lazy" />
+                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr(mindshows_img_alt($image, get_the_title())); ?>" loading="lazy" />
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -677,7 +677,7 @@ while ( have_posts() ) : the_post();
 
             <div class="dispo-container">
                 <div class="dispo-image-wrapper">
-                    <img src="<?php echo esc_url($dispo_img_url); ?>" alt="Disponibilitate Image" loading="lazy">
+                    <img src="<?php echo esc_url($dispo_img_url); ?>" alt="<?php echo esc_attr(mindshows_img_alt($dispo_image_data)); ?>" loading="lazy">
                 </div>
 
                 <div class="dispo-list-wrapper">
