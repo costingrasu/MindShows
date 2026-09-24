@@ -759,7 +759,7 @@
             var formattedTime = sess.time || '9:00 - 17:00';
 
             if (formDateDisplay) {
-                formDateDisplay.textContent = formattedDate;
+                formDateDisplay.textContent = formattedDate + ', ' + formattedTime;
                 formDateDisplay.setAttribute('data-selected-date', formattedDate);
                 formDateDisplay.setAttribute('data-selected-time', formattedTime);
                 formDateDisplay.classList.remove('error');
