@@ -5,10 +5,7 @@ get_header();
 while ( have_posts() ) : the_post();
     $post_id = get_the_ID();
 
-    $hero_title = get_field('dev_hero_title', $post_id) ?: get_the_title();
-    $hero_subtitle = get_field('dev_hero_subtitle', $post_id) ?: 'Empty subtitle';
-    $hero_desc = get_field('dev_hero_description', $post_id) ?: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sapien libero, ultrices eget nunc mattis, finibus maximus enim. Suspendisse neque augue, rutrum eu sollicitudin cursus, maximus in velit.';
-    $hero_btn_text = get_field('dev_hero_button_text', $post_id) ?: 'Inscriere';
+    $sections = mindshows_single_sections_data($post_id, 'development');
 
     $show_obiective   = get_field('dev_show_obiective', $post_id);
     $show_galerie     = get_field('dev_show_galerie', $post_id);
@@ -38,61 +35,6 @@ while ( have_posts() ) : the_post();
             'icon'  => (!empty($ob_grp['icon']['url'])) ? $ob_grp['icon']['url'] : '',
         );
     }
-
-    $galerie_title = get_field('dev_galerie_title', $post_id) ?: 'Galerie';
-    $galerie_desc = get_field('dev_galerie_description', $post_id) ?: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sapien libero, ultrices eget nunc mattis, finibus maximus enim. Suspendisse neque augue, rutrum eu sollicitudin cursus, maximus in velit.';
-    $galerie_images = get_field('dev_galerie_images', $post_id);
-    if (empty($galerie_images) || !is_array($galerie_images)) {
-        $galerie_images = array(
-            array('url' => get_template_directory_uri() . '/assets/images/bg-development.webp', 'alt' => 'Galerie Slide 1'),
-            array('url' => get_template_directory_uri() . '/assets/images/bg-development1.webp', 'alt' => 'Galerie Slide 2'),
-            array('url' => get_template_directory_uri() . '/assets/images/bg-irlGaming.webp', 'alt' => 'Galerie Slide 3'),
-            array('url' => get_template_directory_uri() . '/assets/images/bg-journeys.webp', 'alt' => 'Galerie Slide 4'),
-            array('url' => get_template_directory_uri() . '/assets/images/bg-team.webp', 'alt' => 'Galerie Slide 5'),
-        );
-    }
-
-    $ab1 = get_field('dev_about_1', $post_id);
-    $ab1_img = '';
-    if (!empty($ab1['image'])) {
-        if (is_array($ab1['image']) && !empty($ab1['image']['url'])) {
-            $ab1_img = $ab1['image']['url'];
-        } elseif (is_numeric($ab1['image'])) {
-            $ab1_img = wp_get_attachment_image_url($ab1['image'], 'full');
-        } elseif (is_string($ab1['image'])) {
-            $ab1_img = $ab1['image'];
-        }
-    }
-    if (empty($ab1_img)) {
-        $ab1_img = get_template_directory_uri() . '/assets/images/bg-development.webp';
-    }
-
-    $about_1 = array(
-        'title' => (!empty($ab1['title'])) ? $ab1['title'] : 'Concept',
-        'desc'  => (!empty($ab1['description'])) ? $ab1['description'] : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sapien libero, ultrices eget nunc mattis, finibus maximus enim. Suspendisse neque augue, rutrum eu sollicitudin cursus, maximus in velit.',
-        'image' => $ab1_img,
-    );
-
-    $ab2 = get_field('dev_about_2', $post_id);
-    $ab2_img = '';
-    if (!empty($ab2['image'])) {
-        if (is_array($ab2['image']) && !empty($ab2['image']['url'])) {
-            $ab2_img = $ab2['image']['url'];
-        } elseif (is_numeric($ab2['image'])) {
-            $ab2_img = wp_get_attachment_image_url($ab2['image'], 'full');
-        } elseif (is_string($ab2['image'])) {
-            $ab2_img = $ab2['image'];
-        }
-    }
-    if (empty($ab2_img)) {
-        $ab2_img = get_template_directory_uri() . '/assets/images/bg-development1.webp';
-    }
-
-    $about_2 = array(
-        'title' => (!empty($ab2['title'])) ? $ab2['title'] : 'Concept',
-        'desc'  => (!empty($ab2['description'])) ? $ab2['description'] : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sapien libero, ultrices eget nunc mattis, finibus maximus enim. Suspendisse neque augue, rutrum eu sollicitudin cursus, maximus in velit.',
-        'image' => $ab2_img,
-    );
 
     $principii_title = get_field('dev_principii_title', $post_id) ?: 'Principii';
     $principii = array();
@@ -142,43 +84,11 @@ while ( have_posts() ) : the_post();
     }
     $trainer_count = count($trainers);
 
-    $pt_title = get_field('dev_pt_title', $post_id) ?: 'LOREM IPSUM DOLOR SIT AMET';
-    $pt_items = get_field('dev_pt_items', $post_id);
-    if (empty($pt_items) || !is_array($pt_items)) {
-        $pt_items = array(
-            array('item_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
-            array('item_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
-            array('item_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
-            array('item_text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
-        );
-    }
-
-    $dt1 = get_field('dev_detaliu_1', $post_id);
-    $dt2 = get_field('dev_detaliu_2', $post_id);
-    $dt3 = get_field('dev_detaliu_3', $post_id);
-    $detalii = array(
-        array(
-            'title' => (!empty($dt1['title'])) ? $dt1['title'] : 'Empty',
-            'val'   => (!empty($dt1['value'])) ? $dt1['value'] : 'Empty',
-            'wide'  => false,
-        ),
-        array(
-            'title' => (!empty($dt2['title'])) ? $dt2['title'] : 'Empty',
-            'val'   => (!empty($dt2['value'])) ? $dt2['value'] : 'Empty',
-            'wide'  => false,
-        ),
-        array(
-            'title' => (!empty($dt3['title'])) ? $dt3['title'] : 'Empty',
-            'val'   => (!empty($dt3['value'])) ? $dt3['value'] : 'Empty',
-            'wide'  => true,
-        ),
-    );
-
     $inscriere_title = get_field('dev_inscriere_title', $post_id) ?: 'Inscriere';
     $has_dates       = function_exists('mindshows_dev_has_upcoming') ? mindshows_dev_has_upcoming($post_id) : true;
     $empty_title     = get_field('dev_inscriere_empty_title', $post_id) ?: 'Nicio data disponibila momentan';
     $empty_text      = get_field('dev_inscriere_empty_text', $post_id) ?: 'Programul pentru acest curs se actualizeaza in curand. Scrie-ne si te anuntam imediat ce apar date noi.';
-    $session_short_title = $hero_subtitle ?: 'Empty';
+    $session_short_title = $sections['hero']['badge'] ?: 'Empty';
     $sessions_data = get_post_meta($post_id, '_dev_sessions', true);
     if (empty($sessions_data) || !is_array($sessions_data)) {
         $sessions_data = array(
@@ -223,17 +133,7 @@ while ( have_posts() ) : the_post();
 
 <main class="dev-single-main">
 
-    <section class="dev-hero" data-ms="hero">
-        <h1 class="dev-hero-title"><?php echo esc_html($hero_title); ?></h1>
-
-        <div class="dev-hero-badge">
-            <span class="dev-hero-badge-text"><?php echo esc_html($hero_subtitle); ?></span>
-        </div>
-
-        <p class="dev-hero-copy"><?php echo wp_kses_post($hero_desc); ?></p>
-
-        <a href="#dev-inscriere" class="dev-hero-btn"><?php echo esc_html($hero_btn_text); ?></a>
-    </section>
+    <?php get_template_part('template-parts/single/hero', null, $sections['hero']); ?>
 
     <?php if ($show_obiective) : ?>
     <section class="dev-obiective" data-ms="obiective">
@@ -269,74 +169,11 @@ while ( have_posts() ) : the_post();
     <?php endif; ?>
 
     <?php if ($show_galerie) : ?>
-    <section class="dev-galerie" data-ms="galerie">
-        <div class="dev-galerie-head">
-            <h2 class="dev-galerie-title" data-reveal><?php echo esc_html($galerie_title); ?></h2>
-            <p class="dev-galerie-copy" data-reveal><?php echo wp_kses_post($galerie_desc); ?></p>
-
-            <div class="dev-carousel">
-                <div class="dev-slides-box">
-                    <div class="dev-slide-list">
-                        <?php 
-                        $pos_names = array('c', 'mr', 'fr', 'fl', 'ml');
-                        foreach ($galerie_images as $idx => $img) : 
-                            $pos = isset($pos_names[$idx]) ? $pos_names[$idx] : 'fr';
-                            $img_url = is_array($img) ? $img['url'] : $img;
-                            $img_alt = (is_array($img) && !empty($img['alt'])) ? $img['alt'] : 'Galerie Slide ' . ($idx + 1);
-                        ?>
-                            <div class="dev-slide" data-pos="<?php echo esc_attr($pos); ?>">
-                                <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($img_alt); ?>" loading="lazy">
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-
-                <div class="dev-slides-nav">
-                    <button type="button" class="dev-arrow dev-arrow-prev" aria-label="Previous slide">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M15 3L7.5 12L15 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                    <div class="dev-dots-wrap">
-                        <?php foreach ($galerie_images as $idx => $img) : ?>
-                            <button type="button" class="dev-dot" data-state="<?php echo $idx === 0 ? 'on' : 'off'; ?>" aria-label="Go to slide <?php echo $idx + 1; ?>"></button>
-                        <?php endforeach; ?>
-                    </div>
-                    <button type="button" class="dev-arrow dev-arrow-next" aria-label="Next slide">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M9 3L16.5 12L9 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="dev-galerie-rule"></div>
-    </section>
+    <?php get_template_part('template-parts/single/galerie', null, $sections['galerie']); ?>
     <?php endif; ?>
 
     <?php if ($show_about) : ?>
-    <section class="dev-about" data-ms="about">
-        <div class="dev-concept-row">
-            <div class="dev-concept-img" data-reveal>
-                <img src="<?php echo esc_url($about_1['image']); ?>" alt="<?php echo esc_attr($about_1['title']); ?>" loading="lazy">
-            </div>
-            <div class="dev-concept-text" data-reveal>
-                <h3 class="dev-concept-title"><?php echo esc_html($about_1['title']); ?></h3>
-                <p class="dev-concept-copy"><?php echo wp_kses_post($about_1['desc']); ?></p>
-            </div>
-        </div>
-
-        <div class="dev-concept-row reverse">
-            <div class="dev-concept-img" data-reveal>
-                <img src="<?php echo esc_url($about_2['image']); ?>" alt="<?php echo esc_attr($about_2['title']); ?>" loading="lazy">
-            </div>
-            <div class="dev-concept-text" data-reveal>
-                <h3 class="dev-concept-title"><?php echo esc_html($about_2['title']); ?></h3>
-                <p class="dev-concept-copy"><?php echo wp_kses_post($about_2['desc']); ?></p>
-            </div>
-        </div>
-    </section>
+    <?php get_template_part('template-parts/single/about', null, array('rows' => $sections['about'])); ?>
     <?php endif; ?>
 
     <?php if ($show_principii) : ?>
@@ -415,30 +252,13 @@ while ( have_posts() ) : the_post();
     <?php endif; ?>
 
     <?php if ($show_pentru_tine) : ?>
-    <section class="dev-pentru-tine" data-ms="pentru-tine">
-        <h2 class="dev-pt-title" data-reveal><?php echo esc_html($pt_title); ?></h2>
-        <div class="dev-pt-rule"></div>
-        <ul class="dev-pt-copy" data-reveal>
-            <?php foreach ($pt_items as $item) : 
-                $item_text = is_array($item) ? $item['item_text'] : $item;
-            ?>
-                <li class="dev-pt-item"><?php echo esc_html($item_text); ?></li>
-            <?php endforeach; ?>
-        </ul>
-    </section>
+    <?php get_template_part('template-parts/single/pentru-tine', null, $sections['pentru_tine']); ?>
 
     <div class="dev-divider-rule mid-rule"></div>
     <?php endif; ?>
 
     <?php if ($show_detalii) : ?>
-    <section class="dev-detalii" data-ms="detalii">
-        <?php foreach ($detalii as $dt) : ?>
-            <div class="dev-detaliu<?php echo $dt['wide'] ? ' wide' : ''; ?>" data-reveal>
-                <div class="dev-detaliu-title"><?php echo esc_html($dt['title']); ?></div>
-                <div class="dev-detaliu-val"><?php echo esc_html($dt['val']); ?></div>
-            </div>
-        <?php endforeach; ?>
-    </section>
+    <?php get_template_part('template-parts/single/detalii', null, array('items' => $sections['detalii'])); ?>
 
     <div class="dev-divider-rule"></div>
     <?php endif; ?>

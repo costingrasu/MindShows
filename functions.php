@@ -58,6 +58,11 @@ function journey_theme_scripts() {
       wp_enqueue_style('theme-development-page', get_template_directory_uri() . '/assets/css/development.css', array('mindshows-style'), '2.9.3');
       wp_enqueue_script('development-js', get_template_directory_uri() . '/assets/js/development.js', array(), '2.9.2', true);
   }
+  elseif (is_singular('irl_gaming')) {
+      wp_enqueue_style('theme-single-development', get_template_directory_uri() . '/assets/css/single-development.css', array('mindshows-style'), '2.9.0');
+      wp_enqueue_style('theme-single-irl-gaming', get_template_directory_uri() . '/assets/css/single-irl-gaming.css', array('theme-single-development'), '1.0.0');
+      wp_enqueue_script('development-js', get_template_directory_uri() . '/assets/js/development.js', array(), '2.9.2', true);
+  }
   elseif (is_page()) {
       wp_enqueue_style('theme-page', get_template_directory_uri() . '/assets/css/page.css', array('mindshows-style'), '2.0.0');
   }
@@ -102,6 +107,8 @@ require_once get_template_directory() . '/inc/acf-development-fields.php';
 require_once get_template_directory() . '/inc/development-sessions.php';
 require_once get_template_directory() . '/inc/development-tree.php';
 require_once get_template_directory() . '/inc/development-schedule.php';
+require_once get_template_directory() . '/inc/single-sections.php';
+require_once get_template_directory() . '/inc/irl-gaming.php';
 require_once get_template_directory() . '/inc/seo.php';
 
 function lt_get_slot_duration() {
@@ -743,7 +750,7 @@ function mindshows_seo_fallback() {
         $description = mindshows_dev_seo_description();
     } elseif (is_singular('journey')) {
         $description = get_field('hero_description') ?: get_the_excerpt();
-    } elseif (is_singular('development')) {
+    } elseif (is_singular(array('development', 'irl_gaming'))) {
         $description = mindshows_dev_seo_description();
     } else {
         $description = get_the_excerpt() ?: get_bloginfo('description');
@@ -762,7 +769,9 @@ function mindshows_seo_fallback() {
         echo '<meta property="og:description" content="' . esc_attr($description) . '" />' . "\n";
     }
     $og_image = get_field('hero_background_image');
-    if (is_array($og_image) && !empty($og_image['url'])) {
+    if (is_singular(array('development', 'irl_gaming'))) {
+        echo '<meta property="og:image" content="' . esc_url(mindshows_dev_seo_image()) . '" />' . "\n";
+    } elseif (is_array($og_image) && !empty($og_image['url'])) {
         echo '<meta property="og:image" content="' . esc_url($og_image['url']) . '" />' . "\n";
     } elseif (has_post_thumbnail()) {
         echo '<meta property="og:image" content="' . esc_url(get_the_post_thumbnail_url(null, 'large')) . '" />' . "\n";

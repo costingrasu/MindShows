@@ -1,0 +1,184 @@
+.irl-single-main {
+    background: #0E0E0E;
+}
+
+.irl-single-main .dev-hero {
+    justify-content: flex-start;
+    gap: 29px;
+    min-height: 627px;
+    padding: 206px 20px 30px;
+    background: #0E0E0E;
+}
+
+.irl-single-main .dev-hero::before,
+.irl-single-main .dev-hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.irl-single-main .dev-hero-bg {
+    z-index: -2;
+    object-fit: cover;
+    animation: msFade 1.2s ease both;
+}
+
+.irl-single-main .dev-hero::before {
+    content: '';
+    z-index: -1;
+    background: radial-gradient(80.31% 62.5% at 50% 103.5%, rgba(219, 18, 95, 0.88) 19.71%, rgba(0, 0, 0, 0) 100%),
+        linear-gradient(188.04deg, #0E0E0E 14%, rgba(14, 14, 14, 0.75) 28%, rgba(14, 14, 14, 0.35) 45%, rgba(14, 14, 14, 0) 70%),
+        linear-gradient(0deg, #0E0E0E 0%, rgba(14, 14, 14, 0) 22%);
+}
+
+.dev-single-main.irl-single-main .dev-hero-btn:hover {
+    background: #FF005C !important;
+    border-color: #FF005C !important;
+    color: #FFFFFF !important;
+}
+
+.irl-single-main .dev-galerie {
+    background: none;
+}
+
+.irl-single-main .dev-slide {
+    background: none;
+}
+
+.irl-single-main .dev-dot[data-state="on"] {
+    background: #FFFFFF;
+}
+
+.irl-single-main .dev-about {
+    gap: 93px;
+    padding: 63px 0;
+}
+
+.irl-single-main .dev-concept-img {
+    background: none;
+    border-radius: 0;
+}
+
+.irl-single-main .dev-concept-img img {
+    object-fit: contain;
+}
+
+.irl-single-main .dev-detalii {
+    align-items: flex-end;
+    gap: 33px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background: none;
+}
+
+.irl-single-main .dev-detaliu {
+    max-width: none;
+}
+
+.irl-single-main .dev-detaliu-val {
+    color: #FF005C;
+}
+
+.irl-single-main .dev-pentru-tine {
+    gap: 23px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 60px 50px;
+    background: none;
+}
+
+.irl-single-main .dev-pt-title {
+    max-width: 640px;
+}
+
+@media (max-width: 1024px) {
+
+    .irl-single-main .dev-hero {
+        min-height: 627px !important;
+        padding: 206px 15px 30px !important;
+        gap: 29px !important;
+    }
+
+    .irl-single-main .dev-hero-title {
+        font-size: 60px !important;
+        max-width: 100% !important;
+    }
+
+    .irl-single-main .dev-hero-copy {
+        font-size: 16px !important;
+        max-width: min(355px, 100%) !important;
+    }
+
+    .irl-single-main .dev-hero-btn {
+        height: 47px !important;
+        font-size: 23px !important;
+    }
+
+    .irl-single-main .dev-galerie-title {
+        font-size: 37px !important;
+    }
+
+    .irl-single-main .dev-about {
+        gap: 26px !important;
+        padding: 40px 10px !important;
+    }
+
+    .irl-single-main .dev-concept-row,
+    .irl-single-main .dev-concept-row.reverse {
+        gap: 19px !important;
+    }
+
+    .irl-single-main .dev-concept-img {
+        height: auto !important;
+        aspect-ratio: 375 / 240 !important;
+        border-radius: 0 !important;
+    }
+
+    .irl-single-main .dev-concept-img img {
+        object-fit: contain !important;
+    }
+
+    .irl-single-main .dev-concept-title {
+        font-size: 31px !important;
+    }
+
+    .irl-single-main .dev-concept-copy {
+        text-align: center !important;
+        text-align-last: auto !important;
+    }
+
+    .irl-single-main .dev-detalii {
+        align-items: center !important;
+    }
+
+    .irl-single-main .dev-pentru-tine {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 24px !important;
+        padding: 40px 15px !important;
+    }
+
+    .irl-single-main .dev-pt-title {
+        flex: none !important;
+        justify-content: center !important;
+        min-width: 0 !important;
+        max-width: min(355px, 100%) !important;
+        font-size: 37px !important;
+        text-align: center !important;
+    }
+
+    .irl-single-main .dev-pt-rule {
+        display: none !important;
+    }
+
+    .irl-single-main .dev-pt-copy {
+        flex: none !important;
+        min-width: 0 !important;
+        max-width: min(355px, 100%) !important;
+        font-size: 14px !important;
+    }
+}

@@ -55,7 +55,7 @@ function mindshows_lasertag_hero_url($hero_sec = null) {
     if ($hero_sec === null && function_exists('get_field')) {
         $hero_sec = get_field('lt_hero_section');
     }
-    return (is_array($hero_sec) && !empty($hero_sec['bg_image']['url'])) ? $hero_sec['bg_image']['url'] : get_template_directory_uri() . '/assets/images/Hero.webp';
+    return mindshows_acf_image_url(is_array($hero_sec) ? ($hero_sec['bg_image'] ?? '') : '', get_template_directory_uri() . '/assets/images/Hero.webp');
 }
 
 function mindshows_preload_lasertag_hero() {
@@ -67,7 +67,7 @@ function mindshows_preload_lasertag_hero() {
 add_action('wp_head', 'mindshows_preload_lasertag_hero', 2);
 
 function mindshows_dev_is_seo_context() {
-    return is_page_template('development.php') || is_singular('development');
+    return is_page_template('development.php') || is_singular(array('development', 'irl_gaming'));
 }
 
 function mindshows_dev_seo_is_placeholder($text) {
@@ -107,9 +107,12 @@ function mindshows_dev_seo_description($post_id = 0) {
     $candidates = array();
 
     if (function_exists('get_field')) {
-        if (get_post_type($post_id) === 'development') {
+        $type = get_post_type($post_id);
+        if ($type === 'development') {
             $candidates[] = get_field('dev_hero_description', $post_id);
             $candidates[] = get_field('dev_hero_subtitle', $post_id);
+        } elseif ($type === 'irl_gaming') {
+            $candidates[] = get_field('dev_hero_description', $post_id);
         } else {
             $candidates[] = get_field('devpage_hero_description', $post_id);
         }
@@ -133,7 +136,7 @@ function mindshows_dev_hero_url($post_id = 0) {
     if (function_exists('get_field')) {
         $hero = $post_id ? get_field('devpage_hero_bg_image', $post_id) : get_field('devpage_hero_bg_image');
     }
-    return (is_array($hero) && !empty($hero['url'])) ? $hero['url'] : get_template_directory_uri() . '/assets/images/bg-development.webp';
+    return mindshows_acf_image_url($hero, get_template_directory_uri() . '/assets/images/bg-development.webp');
 }
 
 function mindshows_dev_seo_image($post_id = 0) {
@@ -150,6 +153,17 @@ function mindshows_dev_seo_image_uncached($post_id) {
 
     if (!function_exists('get_field')) {
         return $fallback;
+    }
+
+    if (get_post_type($post_id) === 'irl_gaming') {
+        $hero = get_field('irl_hero_bg_image', $post_id);
+        if (is_array($hero) && !empty($hero['sizes']['large'])) {
+            return $hero['sizes']['large'];
+        }
+        if (!$hero && has_post_thumbnail($post_id)) {
+            return get_the_post_thumbnail_url($post_id, 'large');
+        }
+        return mindshows_irl_hero_url($post_id);
     }
 
     if (get_post_type($post_id) === 'development') {
@@ -326,9 +340,13 @@ function mindshows_dev_structured_data() {
 add_action('wp_head', 'mindshows_dev_structured_data', 5);
 
 function mindshows_dev_preload_hero() {
-    if (!is_page_template('development.php')) {
+    if (is_page_template('development.php')) {
+        $url = mindshows_dev_hero_url();
+    } elseif (is_singular('irl_gaming')) {
+        $url = mindshows_irl_hero_url();
+    } else {
         return;
     }
-    echo '<link rel="preload" as="image" href="' . esc_url(mindshows_dev_hero_url()) . '" fetchpriority="high">' . "\n";
+    echo '<link rel="preload" as="image" href="' . esc_url($url) . '" fetchpriority="high">' . "\n";
 }
 add_action('wp_head', 'mindshows_dev_preload_hero', 2);

@@ -139,7 +139,7 @@ function mindshows_register_development_acf_fields() {
 
     acf_add_local_field_group(array(
         'key' => 'group_dev_hero',
-        'title' => 'Development: 01 Hero Section',
+        'title' => '01 Hero Section',
         'fields' => array(
             array(
                 'key' => 'field_dev_hero_title',
@@ -179,6 +179,13 @@ function mindshows_register_development_acf_fields() {
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'development',
+                ),
+            ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'irl_gaming',
                 ),
             ),
         ),
@@ -247,7 +254,7 @@ function mindshows_register_development_acf_fields() {
 
     acf_add_local_field_group(array(
         'key' => 'group_dev_galerie',
-        'title' => 'Development: 03 Galerie Section',
+        'title' => '03 Galerie Section',
         'fields' => array(
             array(
                 'key' => 'field_dev_galerie_title',
@@ -282,13 +289,20 @@ function mindshows_register_development_acf_fields() {
                     'value' => 'development',
                 ),
             ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'irl_gaming',
+                ),
+            ),
         ),
         'menu_order' => 3,
     ));
 
     acf_add_local_field_group(array(
         'key' => 'group_dev_about',
-        'title' => 'Development: 04 Concept Rows',
+        'title' => '04 Concept Rows',
         'fields' => array(
             array(
                 'key' => 'field_dev_about_1',
@@ -359,6 +373,13 @@ function mindshows_register_development_acf_fields() {
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'development',
+                ),
+            ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'irl_gaming',
                 ),
             ),
         ),
@@ -486,7 +507,7 @@ function mindshows_register_development_acf_fields() {
 
     acf_add_local_field_group(array(
         'key' => 'group_dev_pentru_tine',
-        'title' => 'Development: 07 Cursul Este Pentru Tine',
+        'title' => '07 Pentru Tine Section',
         'fields' => array(
             array(
                 'key' => 'field_dev_pt_title',
@@ -521,13 +542,20 @@ function mindshows_register_development_acf_fields() {
                     'value' => 'development',
                 ),
             ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'irl_gaming',
+                ),
+            ),
         ),
         'menu_order' => 7,
     ));
 
     acf_add_local_field_group(array(
         'key' => 'group_dev_detalii',
-        'title' => 'Development: 08 Detalii Section',
+        'title' => '08 Detalii Section',
         'fields' => array(
             array(
                 'key' => 'field_dev_detaliu_1',
@@ -605,6 +633,13 @@ function mindshows_register_development_acf_fields() {
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'development',
+                ),
+            ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'irl_gaming',
                 ),
             ),
         ),
