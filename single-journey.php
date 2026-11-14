@@ -70,8 +70,11 @@ while ( have_posts() ) : the_post();
     $banner_desktop = function_exists('get_field') ? get_field('banner_image_desktop') : null;
     $banner_mobile  = function_exists('get_field') ? get_field('banner_image_mobile') : null;
 
-    $bg_desktop_url = $banner_desktop ? $banner_desktop['url'] : '';
+    $bg_desktop_url = $banner_desktop ? $banner_desktop['url'] : ($banner_mobile ? $banner_mobile['url'] : '');
     $bg_mobile_url  = $banner_mobile ? $banner_mobile['url'] : $bg_desktop_url;
+    $banner_text       = trim((string) get_field('banner_text'));
+    $banner_text_color = sanitize_hex_color((string) get_field('banner_text_color')) ?: '#4B2A89';
+    $banner_bg_color   = sanitize_hex_color((string) get_field('banner_bg_color')) ?: '#000000';
 
     $obiective_title_text = function_exists('get_field') ? get_field('obiective_section_title') : '';
     $display_obiective_title = $obiective_title_text ? $obiective_title_text : 'Title';
@@ -365,12 +368,17 @@ while ( have_posts() ) : the_post();
 
     <?php if ($show_banner) : ?>
         <?php if($bg_desktop_url): ?>
-        <div class="journey-banner-wrapper">
+        <div class="journey-banner-wrapper<?php echo $banner_text ? ' has-text' : ''; ?>" style="background-color: <?php echo esc_attr($banner_bg_color); ?>;">
+            <div class="journey-banner-inner">
+            <?php if($banner_text): ?>
+                <h2 class="journey-banner-text" style="color: <?php echo esc_attr($banner_text_color); ?>;"><?php echo esc_html($banner_text); ?></h2>
+            <?php endif; ?>
             <img src="<?php echo esc_url($bg_desktop_url); ?>" alt="<?php echo esc_attr(mindshows_img_alt($banner_desktop, get_the_title())); ?>" class="banner-img-desktop" loading="lazy" />
             
             <?php if($bg_mobile_url): ?>
                 <img src="<?php echo esc_url($bg_mobile_url); ?>" alt="<?php echo esc_attr(mindshows_img_alt($banner_mobile ?: $banner_desktop, get_the_title())); ?>" class="banner-img-mobile" loading="lazy" />
             <?php endif; ?>
+            </div>
         </div>
         <?php endif; ?>
     <?php endif; ?>

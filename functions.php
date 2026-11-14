@@ -44,7 +44,7 @@ function journey_theme_scripts() {
       wp_enqueue_style('theme-journeys', get_template_directory_uri() . '/assets/css/journeys.css', array('mindshows-style'), '2.0.0');
   } 
   elseif (is_singular('journey') || is_page_template('single-journey.php')) {
-      wp_enqueue_style('theme-single-journey', get_template_directory_uri() . '/assets/css/single-journey.css', array('mindshows-style'), '2.0.0');
+      wp_enqueue_style('theme-single-journey', get_template_directory_uri() . '/assets/css/single-journey.css', array('mindshows-style'), '2.1.0');
   } 
   elseif (is_singular('development')) {
       wp_enqueue_style('theme-single-development', get_template_directory_uri() . '/assets/css/single-development.css', array('mindshows-style'), '2.9.0');

@@ -220,7 +220,10 @@
     box-sizing: border-box;
     display: flex;
     justify-content: center;
-    background-color: #000;
+}
+
+.journey-banner-inner {
+    width: 100%;
 }
 
 .journey-banner-wrapper img {
@@ -233,6 +236,42 @@
 
 .banner-img-mobile {
     display: none !important;
+}
+
+.journey-banner-wrapper.has-text {
+    padding: 0;
+    overflow: hidden;
+}
+
+.has-text .journey-banner-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+}
+
+.has-text .journey-banner-inner > * {
+    grid-area: 1 / 1;
+}
+
+.has-text .banner-img-desktop {
+    width: 66.72%;
+    justify-self: end;
+    align-self: end;
+}
+
+.journey-banner-text {
+    z-index: 1;
+    align-self: center;
+    max-width: min(830px, 64.85%);
+    margin: 0;
+    padding: 24px 0 24px clamp(24px, 7.8vw, 100px);
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-size: clamp(28px, 3.67vw, 47px);
+    line-height: 145%;
+    letter-spacing: -0.04em;
 }
 
 .obiective-section {
@@ -2012,6 +2051,10 @@ span.wpcf7-not-valid-tip {
         font-size: 20px;
         width: 100%;
     }
+
+    .has-text .banner-img-desktop {
+        margin-right: calc((1280px - 100vw) / 2);
+    }
 }
 
 @media (min-width: 800px) {
@@ -2300,6 +2343,23 @@ span.wpcf7-not-valid-tip {
 
     .banner-img-mobile {
         display: block !important;
+    }
+
+    .journey-banner-wrapper.has-text {
+        padding: 36px 0 0;
+    }
+
+    .has-text .journey-banner-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 17px;
+    }
+
+    .journey-banner-text {
+        max-width: none;
+        padding: 0 10px;
+        font-size: clamp(24px, 8.5vw, 36px);
+        text-align: center;
     }
 
     .contact-section-wrapper {
