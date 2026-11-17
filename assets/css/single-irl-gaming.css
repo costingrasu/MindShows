@@ -94,6 +94,313 @@
     max-width: 640px;
 }
 
+.irl-single-main .irl-booking {
+    gap: 49px;
+    padding: 50px 20px;
+    background: #121212;
+    scroll-margin-top: 80px;
+}
+
+.irl-single-main .irl-booking .dev-inscriere-title {
+    min-height: 0;
+    font-size: clamp(48px, 8.5vw, 109px);
+}
+
+.irl-bk-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(24px, 5.6vw, 72px);
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.irl-bk-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    flex: 0 1 514px;
+    min-width: 0;
+}
+
+.irl-bk-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+    min-height: 321px;
+    padding: 14px 20px;
+    border: 0;
+    border-radius: 14px;
+    background: #121212;
+    color: #FFFFFF;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    opacity: 0.46;
+    transition: opacity .3s ease;
+}
+
+.irl-bk-card::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -54.37%;
+    right: 37.16%;
+    bottom: -70.71%;
+    left: -63.04%;
+    background: url('../images/symbol-irlGaming.webp') center / cover no-repeat;
+    -webkit-mask-image: linear-gradient(90deg, #000 70%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 70%, transparent 100%);
+}
+
+.irl-bk-card[aria-pressed="true"] {
+    opacity: 1;
+}
+
+.irl-bk-card[aria-pressed="false"]:hover {
+    opacity: 0.75;
+}
+
+.irl-bk-card:focus-visible {
+    outline: 2px solid #F53893;
+    outline-offset: 3px;
+}
+
+.irl-bk-card-title,
+.irl-bk-card-sub,
+.irl-bk-card-desc {
+    display: block;
+}
+
+.irl-bk-card-title {
+    font-family: 'Brother 1816 Bold', 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: clamp(36px, 4.3vw, 55px);
+    line-height: 86%;
+    letter-spacing: -0.06em;
+}
+
+.irl-bk-card-sub {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: clamp(20px, 2.3vw, 29px);
+    line-height: 100%;
+    letter-spacing: -0.05em;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.irl-bk-card-desc {
+    margin-top: 24px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: clamp(15px, 1.6vw, 20px);
+    line-height: 145%;
+    letter-spacing: -0.005em;
+    color: #C7CAC8;
+    opacity: 0.76;
+}
+
+.irl-bk-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 0 1 574px;
+    min-width: 0;
+}
+
+.irl-bk-head {
+    display: none;
+    align-items: center;
+    gap: 12px;
+}
+
+.irl-bk-back {
+    position: relative;
+    flex: none;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.irl-bk-back::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid #BDBDBD;
+    border-bottom: 2px solid #BDBDBD;
+    transform: rotate(45deg);
+}
+
+.irl-bk-back:focus-visible {
+    outline: 2px solid #F53893;
+    border-radius: 50%;
+}
+
+.irl-bk-head-title {
+    display: none;
+    font-family: 'Brother 1816 Bold', 'Brother 1816', 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+}
+
+.irl-booking[data-step="cal"] .irl-bk-head-title[data-only-step="cal"],
+.irl-booking[data-step="form"] .irl-bk-head-title[data-only-step="form"],
+.irl-booking[data-mode="public"][data-step="form"] .irl-bk-head {
+    display: flex;
+}
+
+.irl-booking[data-mode="private"] .irl-bk-cal-wrap,
+.irl-booking[data-mode="public"][data-step="form"] .irl-bk-cal-wrap,
+.irl-booking[data-mode="public"]:not([data-step="form"]) .irl-bk-form-wrap,
+.irl-booking[data-mode="public"] [data-only="private"],
+.irl-booking[data-mode="private"] [data-only="public"] {
+    display: none;
+}
+
+.irl-booking .dev-cal {
+    flex: none;
+    max-width: none;
+    min-width: 0;
+}
+
+.irl-booking:not(.irl-bk-multi-loc) .dev-cal-cities {
+    display: none;
+}
+
+.irl-booking .dev-city-btn[data-state="on"] {
+    background: #F53893;
+    color: #FFFFFF;
+}
+
+.irl-booking [data-day][data-mark="on"] {
+    background: rgba(245, 56, 147, 0.42);
+}
+
+.irl-booking [data-day][data-mark="sel"] {
+    background: #F53893;
+    color: #161418;
+}
+
+.irl-booking .dev-cal-signup-btn:hover,
+.irl-booking .dev-in-submit:hover {
+    background: #F53893 !important;
+    border-color: #F53893 !important;
+    color: #FFFFFF;
+}
+
+.irl-bk-cal-wrap {
+    position: relative;
+}
+
+.irl-bk-cal-wrap[data-empty="1"] .dev-cal {
+    filter: blur(7px);
+    opacity: 0.45;
+    pointer-events: none;
+    user-select: none;
+}
+
+.irl-bk-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.irl-bk-form[data-hidden="true"] {
+    display: none;
+}
+
+.irl-bk-intro {
+    margin: 0 0 4px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 145%;
+    color: #FFFFFF;
+}
+
+.irl-booking .dev-in-field-group {
+    gap: 2px;
+}
+
+.irl-booking .dev-in-label {
+    line-height: 145%;
+    color: #969696;
+}
+
+.irl-booking .dev-in-input,
+.irl-booking .dev-in-date-display {
+    height: 53px;
+    padding: 0 20px;
+    border-radius: 65px;
+}
+
+.irl-booking .dev-in-input {
+    color-scheme: dark;
+}
+
+.irl-booking .dev-in-input::placeholder {
+    color: #A9A9A9;
+}
+
+.irl-booking .dev-in-input:focus {
+    border-color: #F53893;
+}
+
+.irl-booking select.dev-in-input {
+    appearance: none;
+    padding-right: 48px;
+    background: #2A2A2A url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23BDBDBD' stroke-width='2'/%3E%3C/svg%3E") right 22px center no-repeat;
+    cursor: pointer;
+}
+
+.irl-booking select.dev-in-input:has(option[value=""]:checked) {
+    color: #A9A9A9;
+}
+
+.irl-booking select.dev-in-input option {
+    color: #FFFFFF;
+    background: #2A2A2A;
+}
+
+.irl-bk-error {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 140%;
+    text-align: center;
+    color: #FF4F4F;
+}
+
+.irl-bk-error[hidden],
+.irl-booking .dev-in-done-pills[hidden],
+.irl-booking .dev-in-done-pill[hidden] {
+    display: none;
+}
+
+.irl-booking .dev-in-done-dot {
+    background: #F53893;
+    box-shadow: 0 0 12px #F53893;
+}
+
+.irl-booking .dev-in-done-tag {
+    color: #F53893;
+}
+
 @media (max-width: 1024px) {
 
     .irl-single-main .dev-hero {
@@ -180,5 +487,112 @@
         min-width: 0 !important;
         max-width: min(355px, 100%) !important;
         font-size: 14px !important;
+    }
+
+    .irl-single-main .irl-booking {
+        gap: 49px !important;
+        padding: 50px 20px !important;
+        scroll-margin-top: 74px;
+    }
+
+    .irl-single-main .irl-booking:not([data-step="cards"]) {
+        padding: 50px 5px !important;
+    }
+
+    .irl-single-main .irl-booking .dev-inscriere-title {
+        font-size: 37px !important;
+        height: auto !important;
+    }
+
+    .irl-booking:not([data-step="cards"]) .dev-inscriere-title,
+    .irl-booking[data-step="cards"] .irl-bk-panel,
+    .irl-booking:not([data-step="cards"]) .irl-bk-cards {
+        display: none !important;
+    }
+
+    .irl-bk-row {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: min(520px, 100%);
+    }
+
+    .irl-bk-cards,
+    .irl-bk-panel {
+        flex: none;
+        width: 100%;
+    }
+
+    .irl-bk-card {
+        gap: 18px;
+        min-height: 178px;
+        opacity: 1;
+    }
+
+    .irl-bk-card::before {
+        top: -56.42%;
+        right: 21.79%;
+        bottom: -68.48%;
+        left: -98.51%;
+    }
+
+    .irl-bk-card-title {
+        font-size: 37px;
+        line-height: 100%;
+    }
+
+    .irl-bk-card-sub {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 116%;
+        letter-spacing: -0.005em;
+    }
+
+    .irl-bk-card-desc {
+        margin-top: 0;
+        font-weight: 400;
+        font-size: 13px;
+    }
+
+    .irl-booking:not([data-step="cards"]) .irl-bk-head {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        min-height: 37px;
+    }
+
+    .irl-bk-back {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .irl-bk-head-title {
+        font-size: 37px;
+    }
+
+    .irl-booking [data-day],
+    .irl-booking .dev-cal-wd {
+        font-size: 20px !important;
+    }
+
+    .irl-booking .dev-cal-days-grid {
+        row-gap: 31px !important;
+    }
+
+    .irl-booking .dev-in-label {
+        font-size: 20px !important;
+    }
+
+    .irl-booking .dev-in-input,
+    .irl-booking .dev-in-date-display {
+        height: 53px !important;
+        font-size: 18px !important;
+    }
+
+    .irl-bk-intro {
+        font-size: 17px;
+        text-align: center;
     }
 }

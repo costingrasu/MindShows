@@ -1,11 +1,57 @@
 (function () {
     'use strict';
 
+    var msEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var msRules = {
+        name: { msg: 'Introdu numele complet.', test: function (v) { return v.trim().length >= 2; } },
+        phone: { msg: 'Introdu un numar de telefon valid (10-15 cifre).', test: function (v) { var digits = v.replace(/\D/g, '').length; return /^[+\d\s().\/-]+$/.test(v.trim()) && digits >= 10 && digits <= 15; } },
+        email: { msg: 'Introdu o adresa de e-mail valida.', test: function (v) { return msEmailRegex.test(v.trim()); } },
+        city: { msg: 'Introdu un oras valid.', test: function (v) { return v.trim() === '' || v.trim().length >= 2; } },
+        participants: { msg: 'Introdu un numar de participanti intre 1 si 999.', test: function (v) { var n = Number(v); return v !== '' && Math.floor(n) === n && n >= 1 && n <= 999; } },
+        date: { msg: 'Alege data de azi sau o data din viitor.', test: function (v, el) { return v !== '' && v >= (el.getAttribute('min') || ''); } },
+        location: { msg: 'Introdu locatia evenimentului.', test: function (v) { return v.trim().length >= 2; } },
+        location_type: { msg: 'Alege tipul locatiei.', test: function (v) { return v !== ''; } },
+        objective: { msg: 'Alege obiectivul evenimentului.', test: function (v) { return v !== ''; } }
+    };
+
+    function msFieldValid(el) {
+        var rule = msRules[el.name];
+        return !rule || rule.test(el.value, el);
+    }
+
+    function msShowFieldError(el, show) {
+        var group = el.closest('.dev-in-field-group');
+        var msg = group && group.querySelector('.dev-in-error-msg');
+        if (show && group && !msg) {
+            msg = document.createElement('span');
+            msg.className = 'dev-in-error-msg';
+            msg.setAttribute('role', 'alert');
+            group.appendChild(msg);
+        }
+        if (msg && show) msg.textContent = msRules[el.name].msg;
+        el.classList.toggle('error', show);
+        el.setAttribute('aria-invalid', show ? 'true' : 'false');
+    }
+
+    function msBindValidation(fields, onChange) {
+        fields.forEach(function (el) {
+            if (!el || !msRules[el.name]) return;
+            el.addEventListener('blur', function () {
+                if (el.value !== '' || el.classList.contains('error')) msShowFieldError(el, !msFieldValid(el));
+            });
+            el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', function () {
+                if (el.classList.contains('error')) msShowFieldError(el, !msFieldValid(el));
+                onChange();
+            });
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         initScrollReveal();
         initAccordions();
         init3DCarousel();
         initTrainers();
+        initIrlBooking();
         initDevelopmentCalendar();
         initEnrollmentForm();
         initLearnPath();
@@ -559,10 +605,9 @@
                         var pIn = form.querySelector('#dev-in-phone');
                         var eIn = form.querySelector('#dev-in-email');
                         var cIn = form.querySelector('#dev-in-city');
-                        if (nIn) { nIn.value = ''; nIn.classList.remove('error'); }
-                        if (pIn) { pIn.value = ''; pIn.classList.remove('error'); }
-                        if (eIn) { eIn.value = ''; eIn.classList.remove('error'); }
-                        if (cIn) { cIn.value = ''; }
+                        [nIn, pIn, eIn, cIn].forEach(function (el) {
+                            if (el) { el.value = ''; msShowFieldError(el, false); }
+                        });
                     }
 
                     if (formDateDisplay) {
@@ -740,10 +785,9 @@
                 var pIn = form.querySelector('#dev-in-phone');
                 var eIn = form.querySelector('#dev-in-email');
                 var cIn = form.querySelector('#dev-in-city');
-                if (nIn) { nIn.value = ''; nIn.classList.remove('error'); }
-                if (pIn) { pIn.value = ''; pIn.classList.remove('error'); }
-                if (eIn) { eIn.value = ''; eIn.classList.remove('error'); }
-                if (cIn) { cIn.value = ''; }
+                [nIn, pIn, eIn, cIn].forEach(function (el) {
+                    if (el) { el.value = ''; msShowFieldError(el, false); }
+                });
             }
 
             if (formDateDisplay) {
@@ -764,6 +808,15 @@
                 formDateDisplay.setAttribute('data-selected-time', formattedTime);
                 formDateDisplay.classList.remove('error');
             }
+
+            document.dispatchEvent(new CustomEvent('dev:session-selected', {
+                detail: {
+                    iso: sess.year + '-' + String(sess.month + 1).padStart(2, '0') + '-' + String(sess.days[0]).padStart(2, '0'),
+                    city: activeCity,
+                    time: formattedTime,
+                    auto: !!skipScroll
+                }
+            }));
 
             var form = document.querySelector('.dev-in-form');
             if (form) {
@@ -826,38 +879,15 @@
         var doneDatePill = document.querySelector('.dev-in-done-pill.date-pill');
         var doneTimePill = document.querySelector('.dev-in-done-pill.time-pill');
 
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var textFields = [nameInput, phoneInput, emailInput, cityInput].filter(Boolean);
 
         function checkFormValidity() {
             if (!submitBtn) return;
-            var nameOk = !!(nameInput && nameInput.value.trim());
-            var digits = phoneInput ? phoneInput.value.replace(/[^0-9]/g, '') : '';
-            var phoneOk = digits.length >= 10;
-            var emailOk = !!(emailInput && emailRegex.test(emailInput.value.trim()));
             var dateOk = !!(dateDisplay && dateDisplay.hasAttribute('data-selected-date'));
-
-            submitBtn.disabled = !(nameOk && phoneOk && emailOk && dateOk);
+            submitBtn.disabled = !(textFields.every(msFieldValid) && dateOk);
         }
 
-        if (nameInput) {
-            nameInput.addEventListener('input', function () {
-                if (nameInput.value.trim()) nameInput.classList.remove('error');
-                checkFormValidity();
-            });
-        }
-        if (phoneInput) {
-            phoneInput.addEventListener('input', function () {
-                var digits = phoneInput.value.replace(/[^0-9]/g, '');
-                if (digits.length >= 10) phoneInput.classList.remove('error');
-                checkFormValidity();
-            });
-        }
-        if (emailInput) {
-            emailInput.addEventListener('input', function () {
-                if (emailRegex.test(emailInput.value.trim())) emailInput.classList.remove('error');
-                checkFormValidity();
-            });
-        }
+        msBindValidation(textFields, checkFormValidity);
 
         if (dateDisplay && window.MutationObserver) {
             var dateObserver = new MutationObserver(function () {
@@ -883,7 +913,10 @@
             });
         }
 
+        var sending = false;
+
         function handleSubmit() {
+            if (sending) return;
             var name = nameInput ? nameInput.value.trim() : '';
             var phone = phoneInput ? phoneInput.value.trim() : '';
             var email = emailInput ? emailInput.value.trim() : '';
@@ -893,27 +926,11 @@
 
             var hasError = false;
 
-            if (!name && nameInput) {
-                nameInput.classList.add('error');
-                hasError = true;
-            } else if (nameInput) {
-                nameInput.classList.remove('error');
-            }
-
-            var phoneDigits = phone.replace(/[^0-9]/g, '');
-            if ((!phone || phoneDigits.length < 10) && phoneInput) {
-                phoneInput.classList.add('error');
-                hasError = true;
-            } else if (phoneInput) {
-                phoneInput.classList.remove('error');
-            }
-
-            if ((!email || !emailRegex.test(email)) && emailInput) {
-                emailInput.classList.add('error');
-                hasError = true;
-            } else if (emailInput) {
-                emailInput.classList.remove('error');
-            }
+            textFields.forEach(function (el) {
+                var ok = msFieldValid(el);
+                msShowFieldError(el, !ok);
+                if (!ok) hasError = true;
+            });
 
             if (!date && dateDisplay) {
                 dateDisplay.classList.add('error');
@@ -945,6 +962,7 @@
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Se trimite...';
             }
+            sending = true;
 
             fetch(ajaxUrl, {
                 method: 'POST',
@@ -968,6 +986,7 @@
                     alert('A apărut o eroare de rețea. Te rugăm să încerci din nou.');
                 })
                 .finally(function () {
+                    sending = false;
                     if (submitBtn) {
                         submitBtn.textContent = 'Start Now';
                         checkFormValidity();
@@ -977,21 +996,10 @@
 
         if (resetBtn) {
             resetBtn.addEventListener('click', function () {
-                if (nameInput) {
-                    nameInput.value = '';
-                    nameInput.classList.remove('error');
-                }
-                if (phoneInput) {
-                    phoneInput.value = '';
-                    phoneInput.classList.remove('error');
-                }
-                if (emailInput) {
-                    emailInput.value = '';
-                    emailInput.classList.remove('error');
-                }
-                if (cityInput) {
-                    cityInput.value = '';
-                }
+                textFields.forEach(function (el) {
+                    el.value = '';
+                    msShowFieldError(el, false);
+                });
                 if (dateDisplay) {
                     dateDisplay.textContent = 'Selecteaza o data din calendar';
                     dateDisplay.removeAttribute('data-selected-date');
@@ -1004,5 +1012,150 @@
                 checkFormValidity();
             });
         }
+    }
+
+    function initIrlBooking() {
+        var section = document.querySelector('.irl-booking');
+        if (!section) return;
+
+        var form = section.querySelector('.irl-bk-form');
+        var done = section.querySelector('.dev-in-done');
+        var submitBtn = form.querySelector('.irl-bk-submit');
+        var errorBox = form.querySelector('.irl-bk-error');
+        var dateDisplay = form.querySelector('.dev-in-date-display');
+        var cards = section.querySelectorAll('.irl-bk-card');
+        var submitLabel = submitBtn.textContent;
+        var pills = done.querySelector('.dev-in-done-pills');
+        var mobile = window.matchMedia('(max-width: 1024px)');
+        var dateInput = form.querySelector('[name="date"]');
+        var now = new Date();
+        var localToday = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+        if (dateInput && localToday > (dateInput.getAttribute('min') || '')) dateInput.setAttribute('min', localToday);
+
+        function mode() { return section.getAttribute('data-mode'); }
+
+        function activeFields() {
+            return Array.prototype.filter.call(form.querySelectorAll('[name]'), function (el) {
+                var scope = el.closest('[data-only]');
+                return !scope || scope.getAttribute('data-only') === mode();
+            });
+        }
+
+        function hasDate() { return dateDisplay.hasAttribute('data-selected-date') && dateDisplay.hasAttribute('data-selected-iso'); }
+
+        function checkValidity() {
+            var ok = activeFields().every(msFieldValid) && (mode() !== 'public' || hasDate());
+            submitBtn.disabled = !ok;
+            return ok;
+        }
+
+        function setState(newMode, step) {
+            section.setAttribute('data-mode', newMode);
+            section.setAttribute('data-step', step);
+            cards.forEach(function (card) {
+                card.setAttribute('aria-pressed', card.getAttribute('data-mode') === newMode ? 'true' : 'false');
+            });
+            errorBox.hidden = true;
+            checkValidity();
+            if (mobile.matches) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showDone(isDone) {
+            form.setAttribute('data-hidden', isDone ? 'true' : 'false');
+            done.setAttribute('data-visible', isDone ? 'true' : 'false');
+        }
+
+        function resetForm() {
+            form.reset();
+            form.querySelectorAll('[name]').forEach(function (el) { msShowFieldError(el, false); });
+            dateDisplay.classList.remove('error');
+            dateDisplay.textContent = 'Selecteaza o data din calendar';
+            ['data-selected-date', 'data-selected-time', 'data-selected-iso', 'data-selected-city'].forEach(function (a) {
+                dateDisplay.removeAttribute(a);
+            });
+            showDone(false);
+        }
+
+        cards.forEach(function (card) {
+            card.addEventListener('click', function () {
+                if (done.getAttribute('data-visible') === 'true') resetForm();
+                var m = card.getAttribute('data-mode');
+                setState(m, m === 'public' ? 'cal' : 'form');
+            });
+        });
+
+        section.querySelector('.irl-bk-back').addEventListener('click', function () {
+            var step = section.getAttribute('data-step');
+            setState(mode(), (step === 'form' && mode() === 'public') ? 'cal' : 'cards');
+        });
+
+        document.addEventListener('dev:session-selected', function (e) {
+            dateDisplay.setAttribute('data-selected-iso', e.detail.iso);
+            dateDisplay.setAttribute('data-selected-city', e.detail.city);
+            if (!e.detail.auto) setState('public', 'form');
+        });
+
+        msBindValidation(Array.prototype.slice.call(form.querySelectorAll('[name]')), function () {
+            errorBox.hidden = true;
+            checkValidity();
+        });
+        new MutationObserver(function () {
+            if (hasDate()) dateDisplay.classList.remove('error');
+            checkValidity();
+        }).observe(dateDisplay, { attributes: true, attributeFilter: ['data-selected-date', 'data-selected-iso'] });
+
+        var sending = false;
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (sending) return;
+            activeFields().forEach(function (el) { msShowFieldError(el, !msFieldValid(el)); });
+            if (mode() === 'public') dateDisplay.classList.toggle('error', !hasDate());
+            if (!checkValidity()) return;
+
+            var ajax = window.irlAjax || {};
+            var data = new FormData();
+            data.append('action', 'irl_submit_booking');
+            data.append('post_id', section.getAttribute('data-post-id'));
+            data.append('mode', mode());
+            activeFields().forEach(function (el) { data.append(el.name, el.value); });
+            if (mode() === 'public') {
+                data.append('date_iso', dateDisplay.getAttribute('data-selected-iso'));
+                data.append('time', dateDisplay.getAttribute('data-selected-time'));
+                data.append('city', dateDisplay.getAttribute('data-selected-city'));
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Se trimite...';
+            sending = true;
+
+            fetch(ajax.url || '/wp-admin/admin-ajax.php', { method: 'POST', body: data, credentials: 'same-origin' })
+                .then(function (r) { return r.json(); })
+                .then(function (res) {
+                    if (!res || !res.success) throw { serverMessage: res && res.data && res.data.message };
+                    pills.hidden = mode() === 'private';
+                    done.querySelector('.date-pill').textContent = res.data.date || '';
+                    var timePill = done.querySelector('.time-pill');
+                    timePill.textContent = res.data.time || '';
+                    timePill.hidden = !res.data.time;
+                    showDone(true);
+                })
+                .catch(function (err) {
+                    errorBox.textContent = (err && err.serverMessage) || 'A aparut o eroare. Te rugam sa incerci din nou.';
+                    errorBox.hidden = false;
+                })
+                .finally(function () {
+                    sending = false;
+                    submitBtn.textContent = submitLabel;
+                    checkValidity();
+                });
+        });
+
+        done.querySelector('.dev-in-reset-btn').addEventListener('click', function () {
+            resetForm();
+            setState(mode(), mode() === 'public' ? 'cal' : 'form');
+        });
+
+        checkValidity();
     }
 })();

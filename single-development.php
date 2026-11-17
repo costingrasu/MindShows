@@ -322,17 +322,17 @@ while ( have_posts() ) : the_post();
                 <form class="dev-in-form" data-reveal data-post-id="<?php echo esc_attr($post_id); ?>">
                     <div class="dev-in-field-group">
                         <label class="dev-in-label" for="dev-in-name">Nume Complet</label>
-                        <input type="text" id="dev-in-name" class="dev-in-input" placeholder="Ionut Trambiceanu" required>
+                        <input type="text" id="dev-in-name" name="name" class="dev-in-input" placeholder="Ionut Trambiceanu" autocomplete="name" maxlength="80" required>
                     </div>
 
                     <div class="dev-in-field-group">
                         <label class="dev-in-label" for="dev-in-phone">Nr. Telefon</label>
-                        <input type="tel" id="dev-in-phone" class="dev-in-input" placeholder="07..." required>
+                        <input type="tel" id="dev-in-phone" name="phone" class="dev-in-input" placeholder="07..." autocomplete="tel" inputmode="tel" maxlength="20" required>
                     </div>
 
                     <div class="dev-in-field-group">
                         <label class="dev-in-label" for="dev-in-email">E-mail</label>
-                        <input type="email" id="dev-in-email" class="dev-in-input" placeholder="JaneDoe@gmail.com" required>
+                        <input type="email" id="dev-in-email" name="email" class="dev-in-input" placeholder="JaneDoe@gmail.com" autocomplete="email" maxlength="100" required>
                     </div>
 
                     <div class="dev-in-field-group">
@@ -342,7 +342,7 @@ while ( have_posts() ) : the_post();
 
                     <div class="dev-in-field-group">
                         <label class="dev-in-label" for="dev-in-city">Oras Domiciliu</label>
-                        <input type="text" id="dev-in-city" class="dev-in-input" placeholder="Constanta">
+                        <input type="text" id="dev-in-city" name="city" class="dev-in-input" placeholder="Constanta" maxlength="60">
                     </div>
 
                     <button type="button" class="dev-in-submit" disabled>Start Now</button>

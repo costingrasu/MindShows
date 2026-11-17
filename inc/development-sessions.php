@@ -41,21 +41,20 @@ function mindshows_dev_check_flush_rewrites() {
 add_action('init', 'mindshows_dev_check_flush_rewrites', 99);
 
 function mindshows_add_dev_sessions_meta_box() {
-    add_meta_box(
-        'dev_sessions_meta_box',
-        'Development Schedule & Sessions',
-        'mindshows_render_dev_sessions_meta_box',
-        'development',
-        'normal',
-        'high'
-    );
+    add_meta_box('dev_sessions_meta_box', 'Development Schedule & Sessions', 'mindshows_render_dev_sessions_meta_box', 'development', 'normal', 'high');
+    add_meta_box('dev_sessions_meta_box', 'Program jocuri publice', 'mindshows_render_dev_sessions_meta_box', 'irl_gaming', 'normal', 'high');
 }
 add_action('add_meta_boxes', 'mindshows_add_dev_sessions_meta_box');
 
 function mindshows_render_dev_sessions_meta_box($post) {
     wp_nonce_field('dev_sessions_meta_nonce', 'dev_sessions_nonce');
 
+    $is_irl = $post->post_type === 'irl_gaming';
+    $default_title = get_the_title($post->ID) ?: ($is_irl ? '' : 'Modul 1 Dezvoltare');
     $sessions_data = get_post_meta($post->ID, '_dev_sessions', true);
+    if ($is_irl && (!is_array($sessions_data) || empty($sessions_data))) {
+        $sessions_data = array('locations' => array('Constanta'), 'sessions' => array('Constanta' => array()));
+    }
     if (!is_array($sessions_data) || empty($sessions_data)) {
         $sessions_data = array(
             'locations' => array('Constanta', 'Bucuresti'),
@@ -103,7 +102,7 @@ function mindshows_render_dev_sessions_meta_box($post) {
                 
                 <div class="dev-form-row">
                     <label>Module / Session Name</label>
-                    <input type="text" id="dev-session-title" value="<?php echo esc_attr(get_the_title($post->ID) ?: 'Modul 1 Dezvoltare'); ?>">
+                    <input type="text" id="dev-session-title" value="<?php echo esc_attr($default_title); ?>">
                 </div>
 
                 <div class="dev-form-row">
@@ -132,9 +131,9 @@ function mindshows_render_dev_sessions_meta_box($post) {
 
 function mindshows_enqueue_dev_admin_assets($hook) {
     global $post_type;
-    if (('post.php' === $hook || 'post-new.php' === $hook) && 'development' === $post_type) {
+    if (('post.php' === $hook || 'post-new.php' === $hook) && in_array($post_type, array('development', 'irl_gaming'), true)) {
         wp_enqueue_style('dev-admin-cal-css', get_template_directory_uri() . '/assets/css/admin-dev-calendar.css', array(), '1.0.0');
-        wp_enqueue_script('dev-admin-cal-js', get_template_directory_uri() . '/assets/js/admin-dev-calendar.js', array('jquery'), '1.0.0', true);
+        wp_enqueue_script('dev-admin-cal-js', get_template_directory_uri() . '/assets/js/admin-dev-calendar.js', array('jquery'), '1.0.1', true);
 
         wp_localize_script('dev-admin-cal-js', 'devAdminAjax', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -197,8 +196,56 @@ function mindshows_dev_save_all_sessions_handler() {
 }
 add_action('wp_ajax_dev_save_all_sessions', 'mindshows_dev_save_all_sessions_handler');
 
+function mindshows_booking_email($to, $subject, $heading, $intro, $rows) {
+    $table = '';
+    foreach ($rows as $label => $value) {
+        if ($value === '' || $value === null) {
+            continue;
+        }
+        $table .= '<tr><td style="padding:8px 12px;color:#6b6b6b;white-space:nowrap;vertical-align:top;">' . esc_html($label) . '</td>'
+                . '<td style="padding:8px 12px;color:#111;font-weight:600;">' . esc_html($value) . '</td></tr>';
+    }
+
+    $body = '<div style="background:#f4f4f4;padding:24px 12px;font-family:Arial,Helvetica,sans-serif;">'
+          . '<div style="max-width:600px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;">'
+          . '<div style="background:#0E0E0E;padding:20px 24px;color:#fff;font-size:20px;font-weight:700;">Mind Shows</div>'
+          . '<div style="padding:24px;">'
+          . '<h2 style="margin:0 0 12px;font-size:20px;color:#111;">' . esc_html($heading) . '</h2>'
+          . ($intro !== '' ? '<p style="margin:0 0 16px;font-size:15px;line-height:1.5;color:#333;">' . esc_html($intro) . '</p>' : '')
+          . '<table style="width:100%;border-collapse:collapse;font-size:14px;border-top:1px solid #eee;">' . $table . '</table>'
+          . '</div>'
+          . '<div style="padding:16px 24px;background:#fafafa;font-size:12px;color:#888;">Pentru orice întrebare ne poți scrie la hello@mindshows.ro.</div>'
+          . '</div></div>';
+
+    return wp_mail($to, $subject, $body, array('Content-Type: text/html; charset=UTF-8'));
+}
+
+function mindshows_booking_respond($data, $emails) {
+    if (function_exists('fastcgi_finish_request')) {
+        @header('Content-Type: application/json; charset=' . get_option('blog_charset'));
+        echo wp_json_encode(array('success' => true, 'data' => $data));
+        fastcgi_finish_request();
+        foreach ($emails as $email_args) {
+            mindshows_booking_email(...$email_args);
+        }
+        exit;
+    }
+    foreach ($emails as $email_args) {
+        mindshows_booking_email(...$email_args);
+    }
+    wp_send_json_success($data);
+}
+
+function mindshows_booking_contact_valid($name, $phone, $email, $city = '') {
+    $digits = strlen(preg_replace('/\D/', '', $phone));
+    return mb_strlen(trim($name)) >= 2
+        && preg_match('/^[+\d\s().\/-]+$/', trim($phone))
+        && $digits >= 10 && $digits <= 15
+        && is_email($email)
+        && (trim($city) === '' || mb_strlen(trim($city)) >= 2);
+}
+
 function mindshows_dev_submit_enrollment_handler() {
-    check_ajax_referer('dev_enrollment_nonce', 'nonce');
 
     $name    = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
     $phone   = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
@@ -209,8 +256,8 @@ function mindshows_dev_submit_enrollment_handler() {
     $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
     $module  = $post_id ? get_the_title($post_id) : 'Development Module';
 
-    if (empty($name) || empty($phone) || empty($email)) {
-        wp_send_json_error(array('message' => 'Te rugăm să completezi toate câmpurile obligatorii.'));
+    if (!mindshows_booking_contact_valid($name, $phone, $email, $city)) {
+        wp_send_json_error(array('message' => 'Te rugăm să completezi corect toate câmpurile obligatorii.'));
     }
 
     $post_title = $name . ' - ' . $module . ' (' . ($date ?: date('d.m.Y')) . ')';
@@ -233,31 +280,42 @@ function mindshows_dev_submit_enrollment_handler() {
     update_post_meta($enroll_post_id, 'dev_enr_module', $module);
     update_post_meta($enroll_post_id, 'dev_enr_created', current_time('mysql'));
 
-    $admin_email = get_option('admin_email');
-    $subject = 'Înscriere Nouă Curs: ' . $module . ' - ' . $name;
-    
-    $headers = array(
-        'Content-Type: text/html; charset=UTF-8',
-        'From: Mind Shows <noreply@' . parse_url(home_url(), PHP_URL_HOST) . '>',
+    $emails = array(
+        array(
+            get_option('admin_email'),
+            'Înscriere Nouă Curs: ' . $module . ' - ' . $name,
+            'Înscriere Nouă Curs Development',
+            'Trimis automat din platforma Mind Shows la ' . current_time('d.m.Y H:i') . '.',
+            array(
+                'Nume'            => $name,
+                'Telefon'         => $phone,
+                'Email'           => $email,
+                'Modul'           => $module,
+                'Data Selectată'  => $date,
+                'Interval Orar'   => $time,
+                'Oraș Domiciliu'  => $city,
+            ),
+        ),
     );
+    if (is_email($email)) {
+        $emails[] = array(
+            $email,
+            'Am primit înscrierea ta - ' . $module,
+            'Am primit înscrierea ta',
+            'Salut ' . $name . ', îți mulțumim! Te contactăm în cel mai scurt timp pentru confirmare și detalii de plată.',
+            array(
+                'Curs'          => $module,
+                'Data'          => $date,
+                'Interval Orar' => $time,
+            ),
+        );
+    }
 
-    $body = '<h2>Înscriere Nouă Curs Development</h2>' .
-            '<p><strong>Nume:</strong> ' . esc_html($name) . '</p>' .
-            '<p><strong>Telefon:</strong> ' . esc_html($phone) . '</p>' .
-            '<p><strong>Email:</strong> ' . esc_html($email) . '</p>' .
-            '<p><strong>Modul:</strong> ' . esc_html($module) . '</p>' .
-            '<p><strong>Data Selectată:</strong> ' . esc_html($date) . '</p>' .
-            '<p><strong>Interval Orar:</strong> ' . esc_html($time) . '</p>' .
-            '<p><strong>Oraș Domiciliu:</strong> ' . esc_html($city) . '</p>' .
-            '<hr><p><small>Trimis automat din platforma Mind Shows la ' . date('d.m.Y H:i') . '</small></p>';
-
-    @wp_mail($admin_email, $subject, $body, $headers);
-
-    wp_send_json_success(array(
+    mindshows_booking_respond(array(
         'message' => 'Înscrierea a fost trimisă cu succes!',
         'date'    => $date,
         'time'    => $time,
-    ));
+    ), $emails);
 }
 add_action('wp_ajax_dev_submit_enrollment', 'mindshows_dev_submit_enrollment_handler');
 add_action('wp_ajax_nopriv_dev_submit_enrollment', 'mindshows_dev_submit_enrollment_handler');

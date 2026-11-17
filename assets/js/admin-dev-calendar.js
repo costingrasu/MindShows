@@ -236,7 +236,7 @@
 
             var startH = $wrap.find('#dev-start-hour').val().trim() || '09:00';
             var endH = $wrap.find('#dev-end-hour').val().trim() || '17:00';
-            var title = $wrap.find('#dev-session-title').val().trim() || 'Modul 1 Dezvoltare';
+            var title = $wrap.find('#dev-session-title').val().trim();
 
             if (!sessionsByCity[activeCity]) {
                 sessionsByCity[activeCity] = [];
