@@ -1,0 +1,475 @@
+.page-irl-gaming .devpage-hero-scrim {
+    background: linear-gradient(182deg, rgba(14, 14, 14, 0) 63.46%, rgba(14, 14, 14, 0.55) 80.02%);
+}
+
+.page-irl-gaming .devpage-hero-title {
+    font-weight: 900;
+}
+
+.page-irl-gaming .devpage-dir-card-overlay {
+    display: none;
+}
+
+.irlpage-games {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 45px;
+    width: 100%;
+    padding: 80px 20px;
+}
+
+.irlpage-games-head {
+    max-width: 980px;
+    gap: 20px;
+}
+
+.irlpage-games-head .devpage-heading-title {
+    font-weight: 900;
+    font-size: clamp(60px, 39.7px + 5.41vw, 109px);
+}
+
+.irlpage-games-empty {
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.45;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.irlpage-games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 53px;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.irlpage-game {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 465px;
+    padding: 40px 0;
+    overflow: hidden;
+    isolation: isolate;
+    background-color: #1D1D1D;
+    border-radius: 14px;
+    transition: box-shadow .4s ease;
+}
+
+.irlpage-game-photo {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+    object-position: center right;
+}
+
+.irlpage-game-shade,
+.irlpage-game-shade::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.irlpage-game-shade {
+    z-index: -2;
+    background: linear-gradient(270.54deg, rgba(29, 29, 29, 0.1) 33.75%, #1D1D1D 91.25%);
+}
+
+.irlpage-game-shade::after {
+    content: '';
+    background: linear-gradient(250.01deg, rgba(21, 20, 23, 0) 34.5%, rgba(255, 0, 99, 0.18) 53.22%);
+    opacity: 0;
+    transition: opacity .4s ease;
+}
+
+.irlpage-game-symbol {
+    position: absolute;
+    top: -48%;
+    bottom: -52%;
+    left: -68%;
+    z-index: -1;
+    width: 111.6%;
+    background: url('../images/symbol-irlGaming.webp') center / contain no-repeat;
+    opacity: 0.24;
+    pointer-events: none;
+    transition: opacity .5s ease, transform .6s cubic-bezier(.22, .61, .36, 1);
+}
+
+.irlpage-game-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+    width: min(530px, 50%);
+    margin-left: 15.16%;
+}
+
+.irlpage-game-head {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.irlpage-game-title {
+    margin: 0;
+    font-family: 'Brother 1816 Bold', 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 37px;
+    line-height: 1;
+    letter-spacing: -0.06em;
+    color: #FFFFFF;
+    overflow-wrap: anywhere;
+}
+
+.irlpage-game-loc-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows .4s ease, opacity .4s ease;
+}
+
+.irlpage-game-location {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: #FFFFFF;
+}
+
+.irlpage-game-location > * {
+    margin-top: 20px;
+}
+
+.irlpage-game-pin {
+    flex: none;
+    width: 52px;
+    height: 52px;
+}
+
+.irlpage-game-pin circle {
+    fill: #CF1158;
+}
+
+.irlpage-game-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.irlpage-game-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+}
+
+.irlpage-game-badge {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 34px;
+    max-width: 100%;
+    margin: 0;
+    padding: 11px 18px;
+    border: 1px solid #FFFFFF;
+    border-radius: 33px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    color: #FFFFFF;
+}
+
+.page-irl-gaming .irlpage-game-btn {
+    padding: 12px 29px;
+    min-width: 0;
+    background-color: #FFFFFF;
+    color: #0A0909;
+}
+
+.irlpage-game:focus-within {
+    box-shadow: 0 4px 22.1px 4px #DB115C;
+}
+
+.irlpage-game:focus-within .irlpage-game-shade::after {
+    opacity: 1;
+}
+
+.irlpage-game:focus-within .irlpage-game-symbol {
+    opacity: 1;
+    transform: translateX(26.6%);
+}
+
+.irlpage-game:focus-within .irlpage-game-loc-wrap {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
+
+    .irlpage-game:hover {
+        box-shadow: 0 4px 22.1px 4px #DB115C;
+    }
+
+    .irlpage-game:hover .irlpage-game-shade::after {
+        opacity: 1;
+    }
+
+    .irlpage-game:hover .irlpage-game-symbol {
+        opacity: 1;
+        transform: translateX(26.6%);
+    }
+
+    .irlpage-game:hover .irlpage-game-loc-wrap {
+        grid-template-rows: 1fr;
+        opacity: 1;
+    }
+
+    .page-irl-gaming .irlpage-game-btn:hover {
+        background-color: transparent;
+        color: #FFFFFF;
+    }
+}
+
+.page-irl-gaming .devpage-book {
+    padding: 37px 14px;
+}
+
+.page-irl-gaming .devpage-book-inner {
+    gap: 0;
+    max-width: 1252px;
+}
+
+.page-irl-gaming .devpage-book-media {
+    flex: 0 1 794px;
+    aspect-ratio: 794 / 632;
+    max-height: none;
+    overflow: visible;
+    border-radius: 0;
+}
+
+.page-irl-gaming .devpage-book-image {
+    object-fit: contain;
+}
+
+.page-irl-gaming .devpage-book-content {
+    position: relative;
+    z-index: 1;
+    margin-left: clamp(-168px, -13.1vw, -40px);
+}
+
+.page-irl-gaming .devpage-book-title {
+    font-size: clamp(37px, 19.2px + 4.75vw, 80px);
+}
+
+.page-irl-gaming .devpage-book-btn {
+    padding: 12px 29px;
+    background-color: #FFFFFF;
+    color: #0A0909;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    .page-irl-gaming .devpage-book-btn:hover {
+        background-color: transparent;
+        color: #FFFFFF;
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .page-irl-gaming .devpage-hero {
+        padding-bottom: 63px;
+    }
+
+    .page-irl-gaming .devpage-hero-title {
+        font-size: 52px;
+        font-weight: 800;
+    }
+
+    .page-irl-gaming .devpage-hero-desc {
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    .page-irl-gaming .devpage-hero-btn {
+        min-width: 0;
+        min-height: 0;
+        padding: 7px 10px;
+        font-size: 16px;
+    }
+
+    .page-irl-gaming .devpage-dir-card {
+        aspect-ratio: 335 / 428;
+    }
+
+    .irlpage-games {
+        gap: 45px;
+        padding: 69px 10px;
+    }
+
+    .irlpage-games-head .devpage-heading-title {
+        font-size: 60px;
+    }
+
+    .irlpage-games-list {
+        gap: 53px;
+        max-width: 560px;
+    }
+
+    .irlpage-game {
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        padding: 0;
+    }
+
+    .irlpage-game-photo,
+    .irlpage-game-shade {
+        bottom: auto;
+        height: 465px;
+    }
+
+    .irlpage-game-shade {
+        background: linear-gradient(359deg, #1D1D1D 16.06%, rgba(29, 29, 29, 0) 99.05%);
+    }
+
+    .irlpage-game-shade::after {
+        display: none;
+    }
+
+    .irlpage-game-symbol,
+    .irlpage-game:focus-within .irlpage-game-symbol {
+        top: 29%;
+        bottom: auto;
+        left: -95%;
+        width: 202%;
+        height: auto;
+        aspect-ratio: 787 / 874;
+        background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(226, 17, 95, 0.7) 55.55%), url('../images/symbol-irlGaming.webp');
+        background-size: 100% 100%, contain;
+        opacity: 1;
+        transform: none;
+        mask: radial-gradient(closest-side, #000 60%, transparent);
+    }
+
+    .irlpage-game-content {
+        justify-content: flex-end;
+        gap: 35px;
+        width: 100%;
+        min-height: 408px;
+        margin: 210px 0 0;
+        padding: 20px 10px;
+    }
+
+    .irlpage-game-title {
+        font-size: 43px;
+        font-weight: 700;
+        letter-spacing: -0.005em;
+    }
+
+    .irlpage-game-loc-wrap {
+        grid-template-rows: 1fr;
+        opacity: 1;
+    }
+
+    .irlpage-game-location {
+        font-size: 22px;
+    }
+
+    .irlpage-game-location > * {
+        margin-top: 36px;
+    }
+
+    .irlpage-game-desc {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    .irlpage-game-badge {
+        gap: 4px 16px;
+        font-size: 14px;
+        padding: 9px 14px;
+    }
+
+    .page-irl-gaming .irlpage-game-btn {
+        min-height: 0;
+        padding: 12px 29px;
+        font-size: 19px;
+    }
+
+    .page-irl-gaming .devpage-book {
+        padding: 74px 12px 20px;
+        overflow-x: clip;
+    }
+
+    .page-irl-gaming .devpage-book-inner {
+        max-width: 375px;
+    }
+
+    .page-irl-gaming .devpage-book-media {
+        flex: none;
+        aspect-ratio: 582 / 463;
+        width: 166%;
+        max-width: none;
+        min-height: 0;
+        margin-top: -25px;
+    }
+
+    .page-irl-gaming .devpage-book-media::after {
+        display: none;
+    }
+
+    .page-irl-gaming .devpage-book-content {
+        margin: -60px 0 0;
+    }
+
+    .page-irl-gaming .devpage-book-title {
+        font-size: 37px;
+    }
+
+    .page-irl-gaming .devpage-book-btn {
+        min-width: 0;
+        min-height: 0;
+        padding: 12px 29px;
+        font-size: 19px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .irlpage-game,
+    .irlpage-game-shade::after,
+    .irlpage-game-symbol,
+    .irlpage-game-loc-wrap {
+        transition: none;
+    }
+}

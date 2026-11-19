@@ -67,7 +67,7 @@ function mindshows_preload_lasertag_hero() {
 add_action('wp_head', 'mindshows_preload_lasertag_hero', 2);
 
 function mindshows_dev_is_seo_context() {
-    return is_page_template('development.php') || is_singular(array('development', 'irl_gaming'));
+    return is_page_template(array('development.php', 'page-irl-gaming.php')) || is_singular(array('development', 'irl_gaming'));
 }
 
 function mindshows_dev_seo_is_placeholder($text) {
@@ -131,12 +131,12 @@ function mindshows_dev_seo_description($post_id = 0) {
     return $cache[$post_id] = mindshows_dev_seo_clean($tagline ? $title . ' – ' . $tagline : $title);
 }
 
-function mindshows_dev_hero_url($post_id = 0) {
+function mindshows_dev_hero_url($post_id = 0, $fallback = 'bg-development.webp') {
     $hero = null;
     if (function_exists('get_field')) {
         $hero = $post_id ? get_field('devpage_hero_bg_image', $post_id) : get_field('devpage_hero_bg_image');
     }
-    return mindshows_acf_image_url($hero, get_template_directory_uri() . '/assets/images/bg-development.webp');
+    return mindshows_acf_image_url($hero, get_template_directory_uri() . '/assets/images/' . $fallback);
 }
 
 function mindshows_dev_seo_image($post_id = 0) {
@@ -182,7 +182,7 @@ function mindshows_dev_seo_image_uncached($post_id) {
         return $fallback;
     }
 
-    return mindshows_dev_hero_url($post_id);
+    return mindshows_dev_hero_url($post_id, mindshows_listing_variant_texts(mindshows_listing_variant_for($post_id))['hero_image']);
 }
 
 function mindshows_dev_rm_description($description) {
@@ -340,8 +340,8 @@ function mindshows_dev_structured_data() {
 add_action('wp_head', 'mindshows_dev_structured_data', 5);
 
 function mindshows_dev_preload_hero() {
-    if (is_page_template('development.php')) {
-        $url = mindshows_dev_hero_url();
+    if (is_page_template(array('development.php', 'page-irl-gaming.php'))) {
+        $url = mindshows_dev_hero_url(0, mindshows_listing_variant_texts(mindshows_listing_variant_for())['hero_image']);
     } elseif (is_singular('irl_gaming')) {
         $url = mindshows_irl_hero_url();
     } else {

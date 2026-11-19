@@ -289,13 +289,61 @@ function mindshows_register_acf_fields() {
     ));
 
     acf_add_local_field_group(array(
+        'key' => 'group_listing_shared',
+        'title' => 'Hero, Directii & Book',
+        'fields' => array(
+            array('key' => 'field_devpage_hero_bg', 'label' => 'Hero Background Image', 'name' => 'devpage_hero_bg_image', 'type' => 'image', 'return_format' => 'array'),
+            array('key' => 'field_devpage_hero_title', 'label' => 'Hero Title', 'name' => 'devpage_hero_title', 'type' => 'text', 'placeholder' => 'DEVELOPMENT'),
+            array('key' => 'field_devpage_hero_desc', 'label' => 'Hero Description', 'name' => 'devpage_hero_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+            array('key' => 'field_devpage_hero_btn_t', 'label' => 'Hero Button Text', 'name' => 'devpage_hero_button_text', 'type' => 'text', 'default_value' => 'Start Now'),
+            array(
+                'key' => 'field_devpage_dir_cards',
+                'label' => 'Direction Cards',
+                'name' => 'devpage_dir_cards',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'instructions' => 'Exact 3 carduri. Un card lăsat gol afișează conținutul implicit.',
+                'min' => 3,
+                'max' => 3,
+                'sub_fields' => array(
+                    array('key' => 'field_devpage_dir_card_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text', 'placeholder' => 'Titlu directie'),
+                    array('key' => 'field_devpage_dir_card_subtitle', 'label' => 'Subtitle', 'name' => 'subtitle', 'type' => 'text', 'placeholder' => 'Subtitlu'),
+                    array('key' => 'field_devpage_dir_card_desc', 'label' => 'Description', 'name' => 'description', 'type' => 'textarea', 'rows' => 4, 'placeholder' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
+                ),
+            ),
+            array('key' => 'field_devpage_book_img', 'label' => 'Book Section Image', 'name' => 'devpage_book_image', 'type' => 'image', 'return_format' => 'array'),
+            array('key' => 'field_devpage_book_title', 'label' => 'Book Section Title', 'name' => 'devpage_book_title', 'type' => 'text', 'placeholder' => 'BOOK A FREE DEMO TODAY'),
+            array('key' => 'field_devpage_book_desc', 'label' => 'Book Section Description', 'name' => 'devpage_book_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+            array('key' => 'field_devpage_book_btn_t', 'label' => 'Book Section Button Text', 'name' => 'devpage_book_button_text', 'type' => 'text', 'placeholder' => 'Book Now'),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'development.php',
+                ),
+            ),
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-irl-gaming.php',
+                ),
+            ),
+        ),
+        'menu_order' => 1,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
+    ));
+
+    acf_add_local_field_group(array(
         'key' => 'group_devpage_fields',
         'title' => 'Development Page Fields',
         'fields' => array(
-            array('key' => 'field_devpage_hero_bg', 'label' => 'Hero Background Image', 'name' => 'devpage_hero_bg_image', 'type' => 'image', 'return_format' => 'array'),
-            array('key' => 'field_devpage_hero_title', 'label' => 'Hero Title', 'name' => 'devpage_hero_title', 'type' => 'text', 'default_value' => 'DEVELOPMENT'),
-            array('key' => 'field_devpage_hero_desc', 'label' => 'Hero Description', 'name' => 'devpage_hero_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
-            array('key' => 'field_devpage_hero_btn_t', 'label' => 'Hero Button Text', 'name' => 'devpage_hero_button_text', 'type' => 'text', 'default_value' => 'Start Now'),
             array('key' => 'field_devpage_learn_title', 'label' => 'Learn Section Title', 'name' => 'devpage_learn_title', 'type' => 'text', 'default_value' => 'CHANGING THE WAY WE LEARN'),
             array('key' => 'field_devpage_learn_desc', 'label' => 'Learn Section Description', 'name' => 'devpage_learn_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
             array('key' => 'field_devpage_learn_bg', 'label' => 'Learn Section Background Image', 'name' => 'devpage_learn_bg_image', 'type' => 'image', 'return_format' => 'array'),
@@ -311,27 +359,8 @@ function mindshows_register_acf_fields() {
                     array('key' => 'field_devpage_learn_card_desc', 'label' => 'Description', 'name' => 'description', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna'),
                 ),
             ),
-            array(
-                'key' => 'field_devpage_dir_cards',
-                'label' => 'Direction Cards',
-                'name' => 'devpage_dir_cards',
-                'type' => 'repeater',
-                'layout' => 'block',
-                'instructions' => 'Exact 3 carduri. Un card lăsat gol afișează conținutul implicit.',
-                'min' => 3,
-                'max' => 3,
-                'sub_fields' => array(
-                    array('key' => 'field_devpage_dir_card_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text', 'placeholder' => 'Directie 1'),
-                    array('key' => 'field_devpage_dir_card_subtitle', 'label' => 'Subtitle', 'name' => 'subtitle', 'type' => 'text', 'placeholder' => 'Changing the Way We Learn'),
-                    array('key' => 'field_devpage_dir_card_desc', 'label' => 'Description', 'name' => 'description', 'type' => 'textarea', 'rows' => 4, 'placeholder' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'),
-                ),
-            ),
             array('key' => 'field_devpage_tree_title', 'label' => 'Tree Section Title', 'name' => 'devpage_tree_title', 'type' => 'text', 'default_value' => 'SISTEMUL MIND SHOWS'),
             array('key' => 'field_devpage_tree_desc', 'label' => 'Tree Section Description', 'name' => 'devpage_tree_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
-            array('key' => 'field_devpage_book_img', 'label' => 'Book a Demo Image', 'name' => 'devpage_book_image', 'type' => 'image', 'return_format' => 'array'),
-            array('key' => 'field_devpage_book_title', 'label' => 'Book a Demo Title', 'name' => 'devpage_book_title', 'type' => 'text', 'default_value' => 'BOOK A FREE DEMO TODAY'),
-            array('key' => 'field_devpage_book_desc', 'label' => 'Book a Demo Description', 'name' => 'devpage_book_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
-            array('key' => 'field_devpage_book_btn_t', 'label' => 'Book a Demo Button Text', 'name' => 'devpage_book_button_text', 'type' => 'text', 'default_value' => 'Book Now'),
             array('key' => 'field_devpage_sq_title', 'label' => 'Side Quests Title', 'name' => 'devpage_sq_title', 'type' => 'text', 'default_value' => 'SIDE QUESTS'),
             array('key' => 'field_devpage_sq_desc', 'label' => 'Side Quests Description', 'name' => 'devpage_sq_description', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
             array('key' => 'field_devpage_sq_btn_t', 'label' => 'Side Quests Card Button Text', 'name' => 'devpage_sq_button_text', 'type' => 'text', 'default_value' => 'View More'),

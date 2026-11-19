@@ -4,6 +4,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+function mindshows_field($name, $post_id = false) {
+    return function_exists('get_field') ? get_field($name, $post_id) : null;
+}
+
 function mindshows_acf_image_url($image, $fallback = '') {
     $url = '';
     if (is_array($image)) {

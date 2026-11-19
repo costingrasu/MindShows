@@ -4,12 +4,7 @@ Template Name: Development Page
 */
 get_header();
 
-$hero_bg_img      = function_exists('get_field') ? get_field('devpage_hero_bg_image') : null;
-$hero_bg_img_url  = mindshows_dev_hero_url();
-$hero_bg_img_alt  = ($hero_bg_img && !empty($hero_bg_img['alt'])) ? $hero_bg_img['alt'] : '';
-$hero_title       = (function_exists('get_field') && get_field('devpage_hero_title')) ? get_field('devpage_hero_title') : 'DEVELOPMENT';
-$hero_description = (function_exists('get_field') && get_field('devpage_hero_description')) ? get_field('devpage_hero_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
-$hero_btn_text    = (function_exists('get_field') && get_field('devpage_hero_button_text')) ? get_field('devpage_hero_button_text') : 'Start Now';
+$sections = mindshows_listing_sections_data('development');
 
 $show_learn = function_exists('get_field') ? get_field('devpage_show_learn') : null;
 $show_dirs  = function_exists('get_field') ? get_field('devpage_show_dirs') : null;
@@ -51,37 +46,8 @@ if (empty($learn_cards)) {
 }
 $learn_card_count = count($learn_cards);
 
-$dir_cards_raw = function_exists('get_field') ? get_field('devpage_dir_cards') : null;
-$dir_cards_raw = is_array($dir_cards_raw) ? array_values($dir_cards_raw) : array();
-$dir_cards     = array();
-for ($i = 0; $i < 3; $i++) {
-    $card = (isset($dir_cards_raw[$i]) && is_array($dir_cards_raw[$i])) ? $dir_cards_raw[$i] : array();
-
-    if (empty($card['title']) && empty($card['subtitle']) && empty($card['description'])) {
-        $dir_cards[] = array(
-            'title'       => 'Directie ' . ($i + 1),
-            'subtitle'    => 'Changing the Way We Learn',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        );
-        continue;
-    }
-
-    $dir_cards[] = array(
-        'title'       => !empty($card['title']) ? $card['title'] : '',
-        'subtitle'    => !empty($card['subtitle']) ? $card['subtitle'] : '',
-        'description' => !empty($card['description']) ? $card['description'] : '',
-    );
-}
-
 $tree_title       = (function_exists('get_field') && get_field('devpage_tree_title')) ? get_field('devpage_tree_title') : 'SISTEMUL MIND SHOWS';
 $tree_description = (function_exists('get_field') && get_field('devpage_tree_description')) ? get_field('devpage_tree_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
-
-$book_img       = function_exists('get_field') ? get_field('devpage_book_image') : null;
-$book_img_url   = ($book_img && isset($book_img['url'])) ? $book_img['url'] : get_template_directory_uri() . '/assets/images/bg-development1.webp';
-$book_img_alt   = ($book_img && !empty($book_img['alt'])) ? $book_img['alt'] : '';
-$book_title     = (function_exists('get_field') && get_field('devpage_book_title')) ? get_field('devpage_book_title') : 'BOOK A FREE DEMO TODAY';
-$book_desc      = (function_exists('get_field') && get_field('devpage_book_description')) ? get_field('devpage_book_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
-$book_btn_text  = (function_exists('get_field') && get_field('devpage_book_button_text')) ? get_field('devpage_book_button_text') : 'Book Now';
 
 $sq_title       = (function_exists('get_field') && get_field('devpage_sq_title')) ? get_field('devpage_sq_title') : 'SIDE QUESTS';
 $sq_description = (function_exists('get_field') && get_field('devpage_sq_description')) ? get_field('devpage_sq_description') : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation';
@@ -164,19 +130,7 @@ $tree_branches   = $tree['branches'];
 ?>
 
 <main class="page-development">
-    <section class="devpage-hero">
-        <div class="devpage-hero-bg">
-            <img src="<?php echo esc_url($hero_bg_img_url); ?>" alt="<?php echo esc_attr($hero_bg_img_alt); ?>" class="devpage-hero-img" fetchpriority="high" decoding="async" />
-            <div class="devpage-hero-scrim" aria-hidden="true"></div>
-        </div>
-
-        <div class="devpage-hero-content">
-            <h1 class="devpage-hero-title"><?php echo esc_html($hero_title); ?></h1>
-            <div class="devpage-hero-desc"><?php echo wp_kses_post($hero_description); ?></div>
-
-            <a href="#devpage-inscriere" class="devpage-btn devpage-hero-btn"><?php echo esc_html($hero_btn_text); ?></a>
-        </div>
-    </section>
+    <?php get_template_part('template-parts/listing/hero', null, $sections['hero']); ?>
 
     <?php if ($show_learn) : ?>
     <div class="devpage-divider" data-reveal aria-hidden="true"></div>
@@ -220,40 +174,7 @@ $tree_branches   = $tree['branches'];
     <?php endif; ?>
 
     <?php if ($show_dirs) : ?>
-    <div class="devpage-divider" data-reveal aria-hidden="true"></div>
-    <section class="devpage-dirs">
-        <ul class="devpage-dirs-track">
-            <?php foreach ($dir_cards as $idx => $card) :
-                $dir_desc_id = 'devpage-dir-desc-' . ($idx + 1);
-            ?>
-                <li class="devpage-dirs-item" data-reveal>
-                    <article class="devpage-dir-card" data-expanded="false">
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/symbol-development.webp'); ?>" alt="" class="devpage-dir-card-bg" loading="lazy" decoding="async" />
-                        <div class="devpage-dir-card-overlay" aria-hidden="true"></div>
-                        <button type="button" class="devpage-dir-card-close" aria-label="Închide">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                        </button>
-                        <div class="devpage-dir-card-content">
-                            <?php if ($card['title'] !== '') : ?>
-                                <h3 class="devpage-dir-card-title"><?php echo esc_html($card['title']); ?></h3>
-                            <?php endif; ?>
-                            <?php if ($card['subtitle'] !== '') : ?>
-                                <p class="devpage-dir-card-subtitle"><?php echo esc_html($card['subtitle']); ?></p>
-                            <?php endif; ?>
-                            <?php if ($card['description'] !== '') : ?>
-                                <div class="devpage-dir-card-reveal">
-                                    <div class="devpage-dir-card-reveal-inner">
-                                        <div class="devpage-dir-card-desc" id="<?php echo esc_attr($dir_desc_id); ?>"><?php echo wp_kses_post($card['description']); ?></div>
-                                    </div>
-                                </div>
-                                <button type="button" class="devpage-dir-card-more" aria-expanded="false" aria-controls="<?php echo esc_attr($dir_desc_id); ?>">View More</button>
-                            <?php endif; ?>
-                        </div>
-                    </article>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </section>
+    <?php get_template_part('template-parts/listing/dirs', null, $sections['dirs']); ?>
     <?php endif; ?>
 
     <?php if ($show_tree) : ?>
@@ -314,23 +235,7 @@ $tree_branches   = $tree['branches'];
     <?php endif; ?>
 
     <?php if ($show_book) : ?>
-    <div class="devpage-divider" data-reveal aria-hidden="true"></div>
-    <section class="devpage-book">
-        <div class="devpage-book-inner">
-            <div class="devpage-book-media" data-reveal>
-                <img src="<?php echo esc_url($book_img_url); ?>" alt="<?php echo esc_attr($book_img_alt); ?>" class="devpage-book-image" loading="lazy" decoding="async" />
-            </div>
-
-            <div class="devpage-book-content" data-reveal>
-                <div class="devpage-book-text">
-                    <h2 class="devpage-book-title"><?php echo esc_html($book_title); ?></h2>
-                    <div class="devpage-book-desc"><?php echo wp_kses_post($book_desc); ?></div>
-                </div>
-
-                <a href="#devpage-inscriere" class="devpage-btn devpage-book-btn"><?php echo esc_html($book_btn_text); ?></a>
-            </div>
-        </div>
-    </section>
+    <?php get_template_part('template-parts/listing/book', null, $sections['book']); ?>
     <?php endif; ?>
 
     <?php if ($show_sq && !empty($sq_cards)) : ?>

@@ -58,6 +58,11 @@ function journey_theme_scripts() {
       wp_enqueue_style('theme-development-page', get_template_directory_uri() . '/assets/css/development.css', array('mindshows-style'), '2.9.3');
       wp_enqueue_script('development-js', get_template_directory_uri() . '/assets/js/development.js', array(), '2.9.6', true);
   }
+  elseif (is_page_template('page-irl-gaming.php')) {
+      wp_enqueue_style('theme-development-page', get_template_directory_uri() . '/assets/css/development.css', array('mindshows-style'), '2.9.3');
+      wp_enqueue_style('theme-irl-gaming-page', get_template_directory_uri() . '/assets/css/page-irl-gaming.css', array('theme-development-page'), '1.0.0');
+      wp_enqueue_script('development-js', get_template_directory_uri() . '/assets/js/development.js', array(), '2.9.6', true);
+  }
   elseif (is_singular('irl_gaming')) {
       wp_enqueue_style('theme-single-development', get_template_directory_uri() . '/assets/css/single-development.css', array('mindshows-style'), '2.9.1');
       wp_enqueue_style('theme-single-irl-gaming', get_template_directory_uri() . '/assets/css/single-irl-gaming.css', array('theme-single-development'), '1.2.0');
@@ -111,6 +116,7 @@ require_once get_template_directory() . '/inc/development-sessions.php';
 require_once get_template_directory() . '/inc/development-tree.php';
 require_once get_template_directory() . '/inc/development-schedule.php';
 require_once get_template_directory() . '/inc/single-sections.php';
+require_once get_template_directory() . '/inc/listing-sections.php';
 require_once get_template_directory() . '/inc/irl-gaming.php';
 require_once get_template_directory() . '/inc/seo.php';
 
@@ -749,7 +755,7 @@ function mindshows_seo_fallback() {
         $description = !empty($hero_sec['subtitle']) ? wp_strip_all_tags($hero_sec['subtitle']) : '';
     } elseif (is_page_template('journeys.php') || is_post_type_archive('journey')) {
         $description = get_field('journeys_hero_description') ?: '';
-    } elseif (is_page_template('development.php')) {
+    } elseif (is_page_template(array('development.php', 'page-irl-gaming.php'))) {
         $description = mindshows_dev_seo_description();
     } elseif (is_singular('journey')) {
         $description = get_field('hero_description') ?: get_the_excerpt();

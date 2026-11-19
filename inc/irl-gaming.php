@@ -121,6 +121,61 @@ function mindshows_register_irl_gaming_acf_fields() {
         'location' => $location,
         'menu_order' => 9,
     ));
+
+    acf_add_local_field_group(array(
+        'key' => 'group_irl_card',
+        'title' => 'Card in lista de jocuri',
+        'fields' => array(
+            array('key' => 'field_irl_card_location', 'label' => 'Locatie', 'name' => 'irl_card_location', 'type' => 'text', 'placeholder' => 'Sala Noar, Bucuresti'),
+            array('key' => 'field_irl_card_age', 'label' => 'Varsta', 'name' => 'irl_card_age', 'type' => 'text', 'placeholder' => '7 - 15 Ani', 'wrapper' => array('width' => '50')),
+            array('key' => 'field_irl_card_places', 'label' => 'Locuri', 'name' => 'irl_card_places', 'type' => 'text', 'placeholder' => '10 Locuri', 'wrapper' => array('width' => '50')),
+        ),
+        'location' => $location,
+        'menu_order' => 5,
+    ));
+
+    $page_location = array(
+        array(
+            array(
+                'param' => 'page_template',
+                'operator' => '==',
+                'value' => 'page-irl-gaming.php',
+            ),
+        ),
+    );
+
+    $page_toggles = array();
+    foreach (array('dirs' => 'Directii', 'games' => 'Jocuri valabile', 'book' => 'Book') as $slug => $label) {
+        $page_toggles[] = array(
+            'key' => "field_irlpage_show_{$slug}",
+            'label' => "Show {$label}?",
+            'name' => "irlpage_show_{$slug}",
+            'type' => 'true_false',
+            'default_value' => 1,
+            'ui' => 0,
+        );
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_irlpage_visibility',
+        'title' => 'IRL Gaming Page: 00 Section Visibility',
+        'fields' => $page_toggles,
+        'location' => $page_location,
+        'menu_order' => 0,
+    ));
+
+    acf_add_local_field_group(array(
+        'key' => 'group_irlpage_games',
+        'title' => 'IRL Gaming Page: Jocuri valabile',
+        'fields' => array(
+            array('key' => 'field_irlpage_games_title', 'label' => 'Section Title', 'name' => 'irlpage_games_title', 'type' => 'text', 'default_value' => 'JOCURI VALABILE'),
+            array('key' => 'field_irlpage_games_desc', 'label' => 'Section Description', 'name' => 'irlpage_games_description', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'),
+            array('key' => 'field_irlpage_games_btn_t', 'label' => 'Card Button Text', 'name' => 'irlpage_games_button_text', 'type' => 'text', 'default_value' => 'Descopera'),
+            array('key' => 'field_irlpage_games_empty', 'label' => 'Mesaj cand nu sunt jocuri publicate', 'name' => 'irlpage_games_empty_text', 'type' => 'text', 'default_value' => 'Momentan nu sunt jocuri disponibile.'),
+        ),
+        'location' => $page_location,
+        'menu_order' => 2,
+    ));
 }
 add_action('acf/init', 'mindshows_register_irl_gaming_acf_fields');
 
@@ -388,3 +443,36 @@ function mindshows_irl_booking_column_data($column, $post_id) {
     }
 }
 add_action('manage_irl_booking_posts_custom_column', 'mindshows_irl_booking_column_data', 10, 2);
+
+function mindshows_irl_game_cards() {
+    $cards = array();
+    $query = new WP_Query(array(
+        'post_type'      => 'irl_gaming',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'orderby'        => array('menu_order' => 'ASC', 'title' => 'ASC'),
+        'no_found_rows'  => true,
+    ));
+    foreach ($query->posts as $game) {
+        $id     = $game->ID;
+        $hero   = mindshows_field('irl_hero_bg_image', $id);
+        $img_id = is_array($hero) ? (int) ($hero['ID'] ?? 0) : (int) $hero;
+        if (!$hero) {
+            $img_id = (int) get_post_thumbnail_id($id);
+        }
+        $desc = metadata_exists('post', $id, 'dev_hero_description') ? mindshows_field('dev_hero_description', $id) : '';
+        $desc = trim(wp_strip_all_tags((string) ($desc ?: get_post_field('post_excerpt', $id))));
+        $cards[] = array(
+            'title'    => trim((string) (mindshows_field('dev_hero_title', $id) ?: get_the_title($id))),
+            'url'      => get_permalink($id),
+            'image_id' => $img_id,
+            'image'    => mindshows_irl_hero_url($id),
+            'desc'     => $desc,
+            'location' => trim((string) mindshows_field('irl_card_location', $id)),
+            'age'      => trim((string) mindshows_field('irl_card_age', $id)),
+            'places'   => trim((string) mindshows_field('irl_card_places', $id)),
+        );
+    }
+    wp_reset_postdata();
+    return $cards;
+}
